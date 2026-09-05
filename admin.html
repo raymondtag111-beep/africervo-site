@@ -4285,6 +4285,27 @@
         }
 
         // ========================================
+        // DÉCLENCHEMENT AUTOMATIQUE DE LA RECONSTRUCTION DU SITE
+        // ========================================
+        // Après chaque sauvegarde réussie, on prévient Netlify de reconstruire
+        // le site (script prerender-images.js) pour que les vraies images
+        // soient déjà dans le HTML au prochain chargement d'une page produit.
+        // Un simple signal, sans identifiant sensible : ça ne fait que
+        // déclencher une reconstruction avec le code déjà en place sur GitHub.
+        const NETLIFY_BUILD_HOOK_URL = 'https://api.netlify.com/build_hooks/6a9bf25a656a32a568ab82e2';
+
+        function triggerSiteRebuild() {
+            fetch(NETLIFY_BUILD_HOOK_URL, { method: 'POST' })
+                .then(() => {
+                    showToast('info', '🔄 Mise à jour du site', 'Les nouvelles images seront en ligne dans 1 à 2 minutes.');
+                })
+                .catch(() => {
+                    // Non bloquant : le site se remettra à jour au prochain déploiement de toute façon.
+                    console.warn('Impossible de déclencher la reconstruction automatique du site.');
+                });
+        }
+
+        // ========================================
         // SAVE PRODUCT
         // ========================================
         async function saveProduct() {
@@ -4371,6 +4392,7 @@
                     renderProducts();
                     updateProductBadge();
                     closeProductModal(true);
+                    triggerSiteRebuild();
                 } else {
                     // Fallback local
                     if (editingProductId) {
