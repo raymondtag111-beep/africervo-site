@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Politiques - AfriCervo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f5f5f5;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .top-bar {
+            background: #2e7d32;
+            color: white;
+            text-align: center;
+            padding: 8px 10px;
+            font-size: 13px;
+            font-weight: 500;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        .top-bar span {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .main-header {
+            background: #111;
+            color: white;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .logo img {
+            width: 100px;
+            height: auto;
+            cursor: pointer;
+        }
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: bold;
+            transition: 0.3s;
+            white-space: nowrap;
+        }
+        .nav-links a:hover {
+            color: #7ed56f;
+        }
+        .search-bar {
+            flex: 2;
+            max-width: 500px;
+            display: flex;
+        }
+        .search-bar input {
+            width: 100%;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 30px 0 0 30px;
+            outline: none;
+            font-size: 14px;
+        }
+        .search-bar button {
+            background: #2e7d32;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 0 30px 30px 0;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .search-bar button:hover {
+            background: #1b5e20;
+        }
+        .header-contact {
+            font-size: 13px;
+            white-space: nowrap;
+        }
+        .menu-icon-mobile {
+            display: none;
+            font-size: 22px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        .search-icon-mobile {
+            display: none;
+            font-size: 18px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: white;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -280px;
+            width: 280px;
+            height: 100%;
+            background: #111;
+            color: white;
+            transition: left 0.3s ease;
+            z-index: 1000;
+            padding: 70px 20px 20px;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.3);
+        }
+        .sidebar.open { left: 0; }
+        .sidebar a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            padding: 12px 0;
+            border-bottom: 1px solid #333;
+            transition: 0.2s;
+        }
+        .sidebar a:hover { color: #7ed56f; padding-left: 5px; }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            visibility: hidden;
+            opacity: 0;
+            transition: 0.3s;
+            z-index: 999;
+        }
+        .overlay.show { visibility: visible; opacity: 1; }
+
+        .policy-container {
+            max-width: 1100px;
+            margin: 40px auto;
+            background: white;
+            border-radius: 28px;
+            padding: 40px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.05);
+        }
+        .policy-section {
+            margin-bottom: 50px;
+            scroll-margin-top: 80px;
+        }
+        .policy-section h2 {
+            font-size: 28px;
+            font-weight: 800;
+            color: #1a3b2a;
+            border-left: 5px solid #2e7d32;
+            padding-left: 15px;
+            margin-bottom: 20px;
+        }
+        .policy-section h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin: 20px 0 10px;
+            color: #111;
+        }
+        .policy-section p, .policy-section li {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 12px;
+        }
+        .policy-section ul {
+            padding-left: 30px;
+            margin-bottom: 15px;
+        }
+        .back-to-top {
+            text-align: right;
+            margin-top: 30px;
+        }
+        .back-to-top a {
+            color: #2e7d32;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .back-to-top a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            background: linear-gradient(180deg, #111, #000);
+            color: white;
+            padding-top: 60px;
+            position: relative;
+            margin-top: 40px;
+        }
+        footer svg {
+            position: absolute;
+            top: -30px;
+            left: 0;
+            width: 100%;
+        }
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            gap: 30px;
+        }
+        .footer-col {
+            flex: 1;
+            min-width: 180px;
+        }
+        .footer-col h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #7ed56f;
+        }
+        .footer-col ul {
+            list-style: none;
+        }
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+        .footer-col ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: 0.3s;
+            font-size: 14px;
+        }
+        .footer-col ul li a:hover {
+            color: #7ed56f;
+            padding-left: 5px;
+        }
+        .footer-col p {
+            font-size: 14px;
+            margin: 8px 0;
+            color: #ccc;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .social-links a {
+            color: white;
+            font-size: 20px;
+            transition: 0.3s;
+        }
+        .social-links a:hover {
+            color: #7ed56f;
+        }
+        .copyright {
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid #222;
+            font-size: 12px;
+            color: #888;
+        }
+
+        @media (max-width: 768px) {
+            .top-bar { font-size: 10px; gap: 15px; flex-wrap: nowrap; padding: 8px 5px; }
+            .main-header { padding: 10px 15px; }
+            .menu-icon-mobile { display: block; order: 1; }
+            .logo { order: 2; flex: 1; text-align: center; }
+            .logo img { width: 80px; }
+            .search-icon-mobile { display: block; order: 3; }
+            .header-contact { order: 4; font-size: 12px; }
+            .search-bar { display: none; position: absolute; top: 60px; left: 0; right: 0; background: #111; padding: 10px; z-index: 100; width: 100%; border-radius: 0; }
+            .search-bar.active { display: flex; }
+            .search-bar input { border-radius: 30px; }
+            .search-bar button { border-radius: 30px; margin-left: 5px; }
+            .nav-links { display: none; }
+            .policy-container { padding: 20px; margin: 20px; }
+            .policy-section h2 { font-size: 24px; }
+            .policy-section h3 { font-size: 18px; }
+            .footer-container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; padding: 20px 15px; }
+            .footer-col { text-align: center; }
+            .footer-col p { justify-content: center; }
+            .social-links { justify-content: center; }
+        }
+        @media (min-width: 769px) {
+            .menu-icon-mobile, .search-icon-mobile { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="top-bar">
+    <span>🚚 Livraison gratuite</span>
+    <span>💰 Paiement à la livraison</span>
+    <span>✅ Satisfait ou remboursé</span>
+</div>
+
+<div class="main-header">
+    <div class="main-header">
+    <div class="menu-icon-mobile" id="menuBtnMobile">☰</div>
+    <div class="logo">
+        <img src="images/logo2.jpg" alt="Logo AfriCervo" onclick="window.location.href='index.html'">
+    </div>
+    <div class="nav-links">
+        <a href="index.html">🏠 Accueil</a>
+        <a href="index.html#produits-section">📦 Nos produits</a>
+        <a href="apropos.html">ℹ️ À propos</a>
+    </div>
+    <div class="search-bar" id="searchBar">
+        <input type="text" id="searchInput" placeholder="Rechercher un produit...">
+        <button onclick="searchProducts()">🔍</button>
+    </div>
+    <div class="header-contact">📞 +228 96 73 00 66</div>
+    <div class="search-icon-mobile" id="searchIconMobile">🔍</div>
+</div>
+</div>
+
+<div class="sidebar" id="sidebar">
+    <a href="#" id="lienAccueil">🏠 Accueil</a>
+    <a href="#" id="lienProduits">📦 Nos produits</a>
+    <a href="apropos.html" id="lienApropos">ℹ️ À propos</a>
+    <a href="contact.html" id="lienContact">📞 Contact</a>
+</div>
+<div class="overlay" id="overlay"></div>
+
+<div class="policy-container">
+    <!-- Politique de retour -->
+    <div id="retour" class="policy-section">
+        <h2>📦 Politique de retour</h2>
+        <p>Chez AfriCervo, votre satisfaction est notre priorité. Si pour une raison quelconque vous n'êtes pas entièrement satisfait de votre achat, vous bénéficiez de <strong>30 jours</strong> pour nous retourner le produit.</p>
+        <h3>Conditions de retour</h3>
+        <ul>
+            <li>Le produit doit être retourné dans son emballage d'origine, intact et non utilisé (sauf défaut visible).</li>
+            <li>Les frais de retour sont à la charge du client sauf si le produit est défectueux ou si l'erreur vient de notre part.</li>
+            <li>Les produits soldés ou en promotion spéciale ne sont pas remboursables mais peuvent être échangés sous 14 jours.</li>
+        </ul>
+        <h3>Procédure</h3>
+        <p>Contactez notre service client à <strong>+228 96 73 00 66</strong> ou par email à <strong>africervo@gmail.com</strong> pour obtenir un numéro d'autorisation de retour. Une fois le retour accepté, vous recevrez un remboursement sous 7 jours ouvrés (via Mobile Money ou carte selon votre mode de paiement).</p>
+        <div class="back-to-top"><a href="#">⬆ Retour en haut</a></div>
+    </div>
+
+    <!-- Politique de confidentialité -->
+    <div id="confidentialite" class="policy-section">
+        <h2>🔒 Politique de confidentialité</h2>
+        <p>AfriCervo s'engage à protéger vos données personnelles. Les informations que nous collectons (nom, téléphone, adresse) sont uniquement utilisées pour le traitement et la livraison de vos commandes.</p>
+        <h3>Collecte des informations</h3>
+        <p>Nous ne recueillons que les données nécessaires à l'exécution de nos services : nom, prénom, numéro de téléphone, ville/quartier. Aucune information bancaire n'est stockée car le paiement s'effectue à la livraison.</p>
+        <h3>Utilisation des données</h3>
+        <p>Vos coordonnées servent à vous contacter pour la confirmation de commande, le suivi de livraison et occasionnellement pour vous informer de nos offres (si vous avez accepté de recevoir nos communications).</p>
+        <h3>Partage avec des tiers</h3>
+        <p>Nous ne vendons ni ne louons vos informations personnelles. Seuls nos partenaires de livraison peuvent avoir accès à votre adresse pour acheminer vos colis.</p>
+        <h3>Vos droits</h3>
+        <p>Conformément à la législation, vous pouvez demander l'accès, la rectification ou la suppression de vos données en nous contactant à africervo@gmail.com.</p>
+        <div class="back-to-top"><a href="#">⬆ Retour en haut</a></div>
+    </div>
+
+    <!-- Conditions générales de vente -->
+    <div id="cgv" class="policy-section">
+        <h2>📜 Conditions générales de vente</h2>
+        <p>Les présentes conditions régissent les ventes conclues sur le site AfriCervo entre la société AfriCervo et tout client passant commande.</p>
+        <h3>Commandes</h3>
+        <p>Toute commande passée sur notre site implique l'acceptation pleine et entière des présentes conditions. Nous nous réservons le droit d'annuler ou de refuser une commande en cas de litige ou de suspicion de fraude.</p>
+        <h3>Prix et paiement</h3>
+        <p>Les prix sont indiqués en FCFA (francs CFA), toutes taxes comprises. Le paiement s'effectue à la livraison en espèces, par Mobile Money (Togo) ou par carte bancaire (à la livraison via terminal mobile).</p>
+        <h3>Livraison</h3>
+        <p>Nous livrons sur tout le Togo. Les délais sont de 1h à 48 heures pour Lomé et de 1 à 2 jours pour l'intérieur. Les frais de livraison sont gratuits à Lomé et à partir de 500 FCFA pour l'intérieur du pays, selon la localité.</p>
+        <h3>Réclamations</h3>
+        <p>Toute réclamation doit être adressée dans les 7 jours suivant la réception du colis. Nous nous engageons à trouver une solution équitable (remboursement, échange ou avoir).</p>
+        <div class="back-to-top"><a href="#">⬆ Retour en haut</a></div>
+    </div>
+
+    <!-- Politique de livraison -->
+    <div id="livraison" class="policy-section">
+        <h2>🚚 Politique de livraison</h2>
+        <p>AfriCervo assure la livraison de vos commandes sur l'ensemble du Togo via des transporteurs partenaires.</p>
+        <h3>Zones et délais</h3>
+        <ul>
+            <li><strong>Lomé et sa banlieue :</strong> livraison gratuite sous 1 à 48 heures ouvrées.</li>
+            <li><strong>Intérieur du pays (Kara, Sokodé, Atakpamé, Kpalimé, etc.) :</strong> livraison à partir de 500 FCFA (selon la localité) sous 1 à 2 jours ouvrés.</li>
+        </ul>
+        <h3>Suivi de commande</h3>
+        <p>Dès l'expédition, vous recevez un SMS avec un lien de suivi ou un numéro de colis. Notre service client reste à votre disposition pour tout problème.</p>
+        <h3>Absence ou retard</h3>
+        <p>Si vous n'êtes pas présent lors du passage du livreur, un deuxième passage sera effectué. Au-delà, la commande sera annulée et vous devrez la repasser.</p>
+        <div class="back-to-top"><a href="#">⬆ Retour en haut</a></div>
+    </div>
+
+    <!-- Paiement sécurisé -->
+    <div id="paiement" class="policy-section">
+        <h2>💳 Paiement sécurisé</h2>
+        <p>Nous mettons un point d'honneur à sécuriser vos transactions. Comme le paiement s'effectue à la livraison, aucun risque bancaire n'existe pour les commandes en ligne.</p>
+        <h3>Modes de paiement acceptés</h3>
+        <ul>
+            <li>Espèces (à la livraison)</li>
+            <li>Mobile Money (Togo : Tmoney, Moov Money) – paiement en espèces au livreur ou via un code USSD.</li>
+            <li>Carte bancaire (Mastercard, Visa) – via terminal mobile sécurisé du livreur.</li>
+        </ul>
+        <h3>Sécurité</h3>
+        <p>Les données bancaires ne sont jamais stockées sur nos serveurs. Les transactions par carte sont chiffrées via un protocole sécurisé. En cas de problème, contactez-nous immédiatement.</p>
+        <div class="back-to-top"><a href="#">⬆ Retour en haut</a></div>
+    </div>
+
+    <!-- Mentions légales -->
+    <div id="mentions" class="policy-section">
+        <h2>⚖️ Mentions légales</h2>
+        <p>Ce site est édité par : <strong>AfriCervo</strong><br>
+        📍 Adresse : Lomé, Togo<br>
+        📞 Téléphone : +228 96 73 00 66 / +228 91 80 21 70<br>
+        ✉ Email : africervo@gmail.com<br>
+        Directeur de publication : Monsieur Kossi</p>
+        <h3>Hébergement</h3>
+        <p>Le site est hébergé par Firebase (Google) – serveurs sécurisés.</p>
+        <h3>Propriété intellectuelle</h3>
+        <p>L'ensemble des contenus (textes, images, logos) est la propriété exclusive d'AfriCervo. Toute reproduction est interdite sans autorisation.</p>
+        <div class="back-to-top"><a href="#">⬆ Retour en haut</a></div>
+    </div>
+</div>
+
+<footer>
+    <svg viewBox="0 0 1440 150" preserveAspectRatio="none">
+        <path fill="#f5f5f5" d="M0,80 C300,150 600,0 900,80 C1200,160 1440,40 1440,40 L1440,0 L0,0 Z"></path>
+    </svg>
+    <div class="footer-container">
+        <div class="footer-col">
+            <h3>🌿 AfriCervo</h3>
+            <p>📍 Lomé, Togo</p>
+            <p>🕒 Lun – Sam : 6h – 23h</p>
+            <p>📞 +228 96 73 00 66</p>
+            <p>📞 +228 91 80 21 70</p>
+            <p>✉ africervo@gmail.com</p>
+        </div>
+        <div class="footer-col">
+            <h3>Liens rapides</h3>
+            <ul>
+                <li><a href="index.html">🏠 Accueil</a></li>
+                <li><a href="apropos.html">ℹ️ À propos</a></li>
+                <li><a href="contact.html">📞 Contact</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h3>Informations</h3>
+            <ul>
+                <li><a href="#retour">📦 Politique de retour</a></li>
+                <li><a href="#confidentialite">🔒 Confidentialité</a></li>
+                <li><a href="#cgv">📜 Conditions générales</a></li>
+                <li><a href="#paiement">💳 Paiement sécurisé</a></li>
+                <li><a href="#mentions">⚖️ Mentions légales</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h3>Suivez-nous</h3>
+            <div class="social-links">
+                <a href="https://www.facebook.com/profile.php?id=61573197557791" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="https://wa.me/22896730066" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            </div>
+            <p style="margin-top:15px;">💳 Paiement à la livraison</p>
+        </div>
+    </div>
+    <div class="copyright">
+        © 2025 AfriCervo - Tous droits réservés
+    </div>
+</footer>
+
+<script>
+    // Menu sidebar
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+    function openMenu() { sidebar.classList.add('open'); overlay.classList.add('show'); }
+    function closeMenu() { sidebar.classList.remove('open'); overlay.classList.remove('show'); }
+    overlay.addEventListener('click', closeMenu);
+    const menuBtnMobile = document.getElementById('menuBtnMobile');
+    if(menuBtnMobile) menuBtnMobile.addEventListener('click', openMenu);
+
+    document.getElementById('lienAccueil').addEventListener('click', function(e) { e.preventDefault(); window.location.href = 'index.html'; closeMenu(); });
+    document.getElementById('lienProduits').addEventListener('click', function(e) { e.preventDefault(); window.location.href = 'index.html#produits-section'; closeMenu(); });
+    document.getElementById('lienApropos').addEventListener('click', function(e) { e.preventDefault(); window.location.href = 'apropos.html'; closeMenu(); });
+    document.getElementById('lienContact').addEventListener('click', function(e) { e.preventDefault(); window.location.href = 'contact.html'; closeMenu(); });
+
+    // Recherche mobile
+    const searchIconMobile = document.getElementById('searchIconMobile');
+    const searchBar = document.getElementById('searchBar');
+    if(searchIconMobile && searchBar) {
+        searchIconMobile.addEventListener('click', function() {
+            if(searchBar.style.display === 'flex') { searchBar.style.display = 'none'; }
+            else { searchBar.style.display = 'flex'; document.getElementById('searchInput').focus(); }
+        });
+    }
+    function searchProducts() {
+        const query = document.getElementById('searchInput').value;
+        if(query.trim() !== "") { window.location.href = 'index.html?search=' + encodeURIComponent(query); }
+    }
+    document.getElementById('searchInput').addEventListener('keypress', function(e) { if(e.key === 'Enter') searchProducts(); });
+
+    // Gestion des ancres pour scroll fluide
+    document.querySelectorAll('.footer-col ul li a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

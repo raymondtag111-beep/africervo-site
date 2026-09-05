@@ -1,0 +1,1657 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Mixeur de jus portable - Commande</title>
+    <meta name="description" content="Mixeur de jus portable - Livraison rapide au Togo, paiement à la livraison. Commandez sur AfriCervo.">
+    <meta property="og:title" content="Mixeur de jus portable - AfriCervo">
+    <meta property="og:description" content="Découvrez Mixeur de jus portable avec livraison rapide et paiement à la livraison.">
+    <meta property="og:image" content="https://africervo1.netlify.app/images/jus1.webp">
+    <meta property="og:type" content="product">
+    <meta property="og:url" content="https://africervo1.netlify.app/mixeur-de-jus-portable">
+
+    <link rel="preconnect" href="https://www.gstatic.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://firestore.googleapis.com">
+    <link rel="preload" as="script" href="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js">
+    <link rel="preload" as="script" href="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js">
+    <link rel="dns-prefetch" href="https://connect.facebook.net">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '28104829105769495');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=28104829105769495&ev=PageView&noscript=1"
+    /></noscript>
+    
+    <style>
+        /* ===== STYLES ORIGINAUX ===== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #f5f5f5; font-family: 'Inter', sans-serif; }
+        .top-bar { background: #2e7d32; color: white; text-align: center; padding: 8px 10px; font-size: 13px; font-weight: 500; display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
+        .top-bar span { display: inline-flex; align-items: center; gap: 6px; }
+        .main-header { background: #111; color: white; padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px; position: relative; }
+        .logo img { width: 100px; height: auto; cursor: pointer; }
+        .nav-links { display: flex; gap: 25px; align-items: center; }
+        .nav-links a { color: white; text-decoration: none; font-size: 15px; font-weight: bold; transition: 0.3s; white-space: nowrap; }
+        .nav-links a:hover { color: #7ed56f; }
+        .search-bar { flex: 2; max-width: 500px; display: flex; position: relative; }
+        .search-bar input { width: 100%; padding: 10px 15px; border: none; border-radius: 30px 0 0 30px; outline: none; font-size: 14px; }
+        .search-bar button { background: #2e7d32; border: none; padding: 10px 18px; border-radius: 0 30px 30px 0; color: white; cursor: pointer; font-weight: bold; }
+        .search-bar button:hover { background: #1b5e20; }
+        .header-contact { font-size: 13px; white-space: nowrap; }
+        .menu-icon-mobile { display: none; font-size: 22px; cursor: pointer; z-index: 1001; }
+        .search-icon-mobile { display: none; font-size: 18px; cursor: pointer; background: none; border: none; color: white; }
+        .search-suggestions { display: none; position: absolute; top: 100%; left: 0; right: 0; background: #fff; border-radius: 0 0 12px 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.15); max-height: 400px; overflow-y: auto; z-index: 999; margin-top: 4px; border: 1px solid #e0e0e0; border-top: none; }
+        .search-suggestions.active { display: block; }
+        .search-suggestion-item { display: flex; align-items: center; gap: 12px; padding: 10px 14px; cursor: pointer; transition: background .15s; border-bottom: 1px solid #f0f0f0; text-decoration: none; color: #333; }
+        .search-suggestion-item:hover { background: #f5f5f5; }
+        .search-suggestion-item:active { background: #e8e8e8; }
+        .search-suggestion-item img { width: 40px; height: 40px; object-fit: cover; border-radius: 8px; flex-shrink: 0; background: #f0f0f0; }
+        .search-suggestion-item .suggestion-name { font-size: 14px; font-weight: 500; color: #222; flex: 1; }
+        .search-suggestion-item .suggestion-price { font-size: 12px; color: #2e7d32; font-weight: 600; flex-shrink: 0; }
+        .search-suggestion-item .suggestion-highlight { background: #ffeb3b; padding: 0 2px; border-radius: 2px; }
+        .search-suggestions .no-result { padding: 20px; text-align: center; color: #999; font-size: 14px; }
+        .search-suggestions .view-all { padding: 12px; text-align: center; background: #f8f8f8; border-top: 1px solid #eee; font-weight: 600; color: #2e7d32; cursor: pointer; text-decoration: none; display: block; }
+        .search-suggestions .view-all:hover { background: #eee; }
+        .sidebar { position: fixed; top: 0; left: -280px; width: 280px; height: 100%; background: #111; color: white; transition: left 0.3s ease; z-index: 1000; padding: 70px 20px 20px; box-shadow: 2px 0 10px rgba(0,0,0,0.3); }
+        .sidebar.open { left: 0; }
+        .sidebar a { display: block; color: white; text-decoration: none; font-size: 18px; padding: 12px 0; border-bottom: 1px solid #333; transition: 0.2s; }
+        .sidebar a:hover { color: #7ed56f; padding-left: 5px; }
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); visibility: hidden; opacity: 0; transition: 0.3s; z-index: 999; }
+        .overlay.show { visibility: visible; opacity: 1; }
+        .container, .testimonials, .faq-section, .centered-image, .full-banner { max-width: 1300px; margin-left: auto; margin-right: auto; padding-left: 3px; padding-right: 3px; }
+        .container { margin-bottom: 40px; margin-top: 25px; }
+        .full-banner { margin-top: 30px; margin-bottom: 30px; }
+        .centered-image { margin-top: 40px; margin-bottom: 40px; }
+        .testimonials { margin-top: 60px; margin-bottom: 60px; }
+        .faq-section { margin-top: 60px; margin-bottom: 80px; }
+        .flex-row { display: flex; gap: 30px; align-items: flex-start; flex-wrap: wrap; }
+        .video-box { flex: 1.5; min-width: 320px; position: relative; border-radius: 16px; overflow: hidden; background: #f5f5f5; }
+        .video-box video { width: 100%; border-radius: 16px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); aspect-ratio: 1/1; object-fit: cover; background: #f5f5f5; position: relative; z-index: 2; opacity: 1; }
+        #heroMainImage{width:100%;border-radius:16px;box-shadow:0 8px 20px rgba(0,0,0,0.1);aspect-ratio:1/1;object-fit:cover;background:#f5f5f5;display:block;}
+        .hero-thumbs{display:flex;gap:10px;margin-top:10px;padding:0 4px;}
+        .hero-thumb{width:calc((100% - 38px)/4);aspect-ratio:1/1;object-fit:cover;border-radius:8px;cursor:pointer;border:2px solid transparent;opacity:.75;transition:.2s;display:block;flex-shrink:0;}
+        .hero-thumb:hover{opacity:1;}
+        .hero-thumb.active{border-color:#2e7d32;opacity:1;}
+        .product-header-outside { margin-bottom: 20px; background: transparent; }
+        .title-row { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+        .vertical-bar { width: 5px; height: 55px; background: #2e7d32; border-radius: 10px; }
+        .product-title { font-size: 30px; font-weight: 800; color: #000; line-height: 1.2; }
+        .rating-row { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }
+        .promo-badge { background: #e63946; color: white; font-size: 12px; font-weight: 700; padding: 4px 14px; border-radius: 30px; letter-spacing: 0.5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .custom-stars { display: inline-flex; align-items: center; gap: 3px; }
+        .star-full { color: #ffb800; font-size: 18px; }
+        .star-half { position: relative; display: inline-block; font-size: 18px; color: #ddd; }
+        .star-half::before { content: "★"; position: absolute; left: 0; top: 0; width: 50%; overflow: hidden; color: #ffb800; }
+        .rating-text { color: #555; font-weight: 500; font-size: 14px; }
+        .form-box { flex: 1; background: white; border-radius: 20px; padding: 24px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 4px solid #000; }
+        .alert-message { background: #ffeeee; color: #d32f2f; padding: 12px; border-radius: 12px; font-size: 14px; font-weight: 600; text-align: center; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; gap: 8px; border: 1px solid #ffcdd2; }
+        .option { display: flex; justify-content: space-between; align-items: center; border: 2px solid #e2e8f0; padding: 12px 16px; margin-bottom: 12px; border-radius: 16px; cursor: pointer; background: #fff; }
+        .option.active { border-color: #2e7d32; background: #f1f9ef; }
+        .option-left { display: flex; align-items: center; gap: 12px; font-weight: 600; color: #1a1a1a; }
+        .option-left img { width: 48px; height: 48px; object-fit: cover; border-radius: 12px; }
+        .option-price { font-weight: 800; font-size: 1.2rem; color: #000; }
+        .small-save { font-size: 0.7rem; color: #e67e22; font-weight: 600; margin-left: 6px; }
+        .old-price { text-decoration: line-through; color: #999; font-weight: 400; font-size: 14px; }
+        .input-group { margin-bottom: 16px; }
+        .phone-wrap { display: flex; align-items: stretch; gap: 8px; }
+        .phone-prefix { display: flex; align-items: center; justify-content: center; padding: 0 10px; border: 1px solid #ccc; border-radius: 12px; font-size: 14px; font-weight: 700; color: #333; background: #f5f5f5; white-space: nowrap; }
+        .phone-wrap input { flex: 1; }
+        @keyframes imgShimmer { 0% { background-position: -300px 0; } 100% { background-position: 300px 0; } }
+        .img-shimmer { background-color: #eee; background-image: linear-gradient(90deg, #eee 0px, #f7f7f7 40px, #eee 80px); background-size: 600px 100%; animation: imgShimmer 1.3s ease-in-out infinite; }
+        #deliveryNote::placeholder { font-size: 12.5px; }
+        @media (max-width: 380px) { #deliveryNote::placeholder { font-size: 11.5px; } }
+        label { font-size: 0.8rem; font-weight: 600; color: #333; display: flex; align-items: center; gap: 5px; margin-bottom: 6px; }
+        input { width: 100%; padding: 12px 14px; border: 1px solid #ccc; border-radius: 12px; font-size: 14px; font-family: 'Inter', sans-serif; }
+        input:focus { outline: none; border-color: #2e7d32; box-shadow: 0 0 0 3px rgba(46,125,50,0.1); }
+        input.error { border-color: #d32f2f; background: #fff5f5; }
+        .error-message { color: #d32f2f; font-size: 0.7rem; margin-top: 4px; display: none; }
+        .error-message.show { display: block; }
+        .total-bar { background: #f6f8f6; border: 1px solid #ddd; color: #1b1b1b; padding: 14px 16px; text-align: center; border-radius: 14px; margin: 16px 0; cursor: default; font-size: 15px; font-weight: 700; }
+        .btn-order { width: 100%; background: #25D366; border: none; padding: 14px; font-size: 1rem; font-weight: 700; color: white; border-radius: 30px; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; animation: orderBtnPulse 3s ease-in-out infinite; }
+        @keyframes orderBtnPulse { 0%, 88%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37,211,102,0.5); } 92% { transform: scale(1.045); box-shadow: 0 0 0 8px rgba(37,211,102,0); } }
+        .btn-order:hover { background: #1da15b; transform: scale(0.98); }
+        .trust-images { display: flex; justify-content: center; align-items: center; gap: 18px; margin-top: 20px; flex-wrap: nowrap; }
+        .trust-images img { height: 34px; width: auto; object-fit: contain; }
+        .content-block { max-width: 1300px; margin-left: auto; margin-right: auto; padding-left: 3px; padding-right: 3px; }
+        .row-block { display: flex; align-items: center; gap: 60px; margin-bottom: 80px; background: #fff; border-radius: 28px; box-shadow: 0 12px 30px rgba(0,0,0,0.05); overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .row-block:hover { transform: translateY(-5px); box-shadow: 0 20px 35px rgba(0,0,0,0.1); }
+        .row-block:nth-child(even) { flex-direction: row-reverse; }
+        .image-side { flex: 1; max-width: 45%; }
+        .image-side img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; }
+        .row-block:hover .image-side img { transform: scale(1.02); }
+        /* === MINI-SLIDER pour les blocs image+texte : 1 image par défaut, effet "peek" si une 2e image est ajoutée === */
+        .image-side.mini-slider { position: relative; overflow: hidden; aspect-ratio: 1/1; }
+        .image-side.mini-slider .mini-track {
+            display: flex; height: 100%; gap: 0;
+            overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+            scrollbar-width: none; cursor: grab; padding: 0;
+        }
+        .image-side.mini-slider .mini-track::-webkit-scrollbar { display: none; }
+        .image-side.mini-slider .mini-track.dragging { cursor: grabbing; scroll-snap-type: none; }
+        .image-side.mini-slider .mini-track img {
+            flex: 0 0 100%; width: 100%; height: 100%; object-fit: cover; display: block;
+            scroll-snap-align: start; user-select: none; -webkit-user-drag: none;
+        }
+        .image-side.mini-slider.two-images .mini-track { gap: 10px; }
+        .image-side.mini-slider.two-images .mini-track img { flex: 0 0 90%; width: 90%; border-radius: 22px; }
+        .row-block:hover .image-side.mini-slider .mini-track img { transform: none; }
+        .text-side { flex: 1; padding: 40px; }
+        .text-side h3 { font-size: 34px; font-weight: 700; color: #111; margin-bottom: 15px; line-height: 1.3; text-align: center; letter-spacing: -0.3px; }
+        .text-side .central-paragraph { font-size: 19px; line-height: 1.6; color: #333; text-align: center; margin-bottom: 25px; }
+        .text-side .emoji-list { list-style: none; padding: 0; margin: 0; }
+        .text-side .emoji-list li { margin-bottom: 12px; font-size: 19px; display: flex; align-items: center; gap: 12px; text-align: left; color: #222; }
+        .text-side .emoji-list li .emoji { font-size: 20px; width: 32px; display: inline-block; }
+        .text-side p:not(.central-paragraph), .text-side ul:not(.emoji-list) { display: none; }
+        .carousel-side { position: relative; overflow: hidden; aspect-ratio: 1/1; background: #f0f0ee; }
+        .carousel-track {
+            display: flex; height: 100%; gap: 0;
+            overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+            scrollbar-width: none; cursor: grab; padding: 0;
+        }
+        .carousel-track::-webkit-scrollbar { display: none; }
+        .carousel-track.dragging { cursor: grabbing; scroll-snap-type: none; }
+        .carousel-track img { flex: 0 0 100%; width: 100%; height: 100%; object-fit: cover; display: block; scroll-snap-align: start; user-select: none; -webkit-user-drag: none; }
+        .carousel-row:not(.single-image) .carousel-track { gap: 10px; }
+        .carousel-row:not(.single-image) .carousel-track img { flex: 0 0 90%; width: 90%; border-radius: 22px; }
+        .carousel-dots { position: absolute; bottom: 14px; left: 0; right: 0; display: flex; justify-content: center; gap: 8px; z-index: 2; pointer-events: none; }
+        .carousel-dots .dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(0,0,0,0.2); transition: background 0.2s, transform 0.2s; }
+        .carousel-dots .dot.active { background: #2e7d32; transform: scale(1.3); }
+        .carousel-row.single-image .carousel-dots { display: none; }
+        .full-banner img { width: 100%; height: auto; display: block; border-radius: 16px; }
+        .centered-image { text-align: center; }
+        .centered-image img { width: 100%; border-radius: 28px; box-shadow: 0 15px 30px rgba(0,0,0,0.1); transition: transform 0.3s; }
+        .testimonials h2 { font-size: 36px; text-align: center; margin-bottom: 40px; color: #1a3b2a; font-weight: 800; }
+        .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; }
+        .testimonial-card { background: white; border-radius: 20px; padding: 22px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border: 1px solid #e0e0e0; }
+        .testimonial-card .stars { color: #ffb800; margin-bottom: 12px; }
+        .testimonial-card p { font-size: 14px; line-height: 1.5; color: #333; margin-bottom: 12px; font-style: italic; }
+        .testimonial-card .author { font-weight: 700; color: #2e7d32; font-size: 13px; }
+        .faq-section h2 { font-size: 36px; text-align: center; font-weight: 800; margin-bottom: 40px; color: #1a3b2a; }
+        .faq-item { background: white; border-radius: 16px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; }
+        .faq-question { display: flex; justify-content: space-between; align-items: center; padding: 18px 24px; cursor: pointer; font-weight: 700; font-size: 18px; color: #000; }
+        .faq-question span { font-size: 20px; transition: transform 0.3s; color: #2e7d32; }
+        .faq-item.active .faq-question span { transform: rotate(90deg); }
+        .faq-answer { padding: 0 24px; max-height: 0; overflow: hidden; transition: max-height 0.3s ease; font-size: 15px; color: #333; line-height: 1.5; }
+        .faq-item.active .faq-answer { padding: 0 24px 20px 24px; max-height: 300px; }
+        footer { background: linear-gradient(180deg, #111, #000); color: white; padding-top: 150px; position: relative; margin-top: 40px; overflow: visible; }
+        .footer-mountains { position: absolute; top: -130px; left: 0; width: 100%; height: 200px; overflow: hidden; line-height: 0; z-index: 0; pointer-events: none; }
+        .footer-mountains svg { position: absolute; bottom: 0; left: 0; width: 200%; height: 100%; display: block; }
+        .footer-mountains .mtn-back { animation: mtDriftR 54s linear infinite; }
+        .footer-mountains .mtn-far { animation: mtDriftL 42s linear infinite; }
+        .footer-mountains .mtn-mid { animation: mtDriftR 31s linear infinite; }
+        .footer-mountains .mtn-near { animation: mtDriftL 23s linear infinite; }
+        .footer-mountains .mtn-front { animation: mtDriftR 16s linear infinite; }
+        @keyframes mtDriftL { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+        @keyframes mtDriftR { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+        @media (prefers-reduced-motion: reduce) { .footer-mountains * { animation: none !important; } }
+        .footer-container { display: flex; justify-content: space-between; flex-wrap: wrap; max-width: 1200px; margin: 0 auto; padding: 30px 20px 5px 20px; gap: 30px; }
+        .footer-col { flex: 1; min-width: 180px; }
+        .footer-col h3 { font-size: 20px; margin-bottom: 20px; color: #7ed56f; }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 10px; }
+        .footer-col ul li a { color: #ccc; text-decoration: none; transition: 0.3s; font-size: 16px; }
+        .footer-col ul li a:hover { color: #7ed56f; padding-left: 5px; }
+        .footer-col p { font-size: 16px; margin: 8px 0; color: #ccc; display: flex; align-items: center; gap: 8px; }
+        .social-links { display: flex; gap: 15px; margin-top: 15px; flex-wrap: wrap; }
+        .social-links a { color: white; font-size: 22px; transition: 0.3s; }
+        .social-links a:hover { color: #7ed56f; }
+        .social-links a:last-child { margin-top: 3px; }
+        .copyright { text-align: center; padding: 10px 20px 15px 20px; border-top: 1px solid #222; font-size: 14px; color: #888; }
+        .footer-btn-commande { display: none; }
+        .custom-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: flex; align-items: center; justify-content: center; z-index: 2000; font-family: 'Inter', sans-serif; }
+        .custom-modal-content { background: white; max-width: 450px; width: 90%; border-radius: 28px; padding: 25px; text-align: center; box-shadow: 0 20px 30px rgba(0,0,0,0.3); animation: fadeInUp 0.3s ease; }
+        .custom-modal-content img { width: 100px; margin-bottom: 15px; }
+        .custom-modal-content h3 { font-size: 24px; color: #1e5631; margin-bottom: 15px; }
+        .custom-modal-content .recap { text-align: left; background: #f9fafb; padding: 15px; border-radius: 16px; margin: 15px 0; font-size: 14px; line-height: 1.6; }
+        .custom-modal-content .recap p { margin: 6px 0; }
+        .custom-modal-content button { background: #2e7d32; color: white; border: none; padding: 12px 25px; border-radius: 40px; font-weight: bold; cursor: pointer; font-size: 16px; margin-top: 10px; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .urgence-stock { text-align: center; margin: 20px auto 30px; font-size: 32px; font-weight: 800; color: #d32f2f; background: transparent; max-width: 1300px; padding-left: 3px; padding-right: 3px; }
+
+        /* ===== MODALE D'ERREUR ===== */
+        .error-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(4px);
+            z-index: 99999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .error-modal-overlay.show { display: flex; }
+        .error-modal-box {
+            background: white;
+            max-width: 440px;
+            width: 100%;
+            border-radius: 20px;
+            padding: 28px 24px 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+            animation: errorModalFadeIn 0.3s ease;
+        }
+        @keyframes errorModalFadeIn {
+            from { opacity:0; transform:scale(0.95) translateY(20px); }
+            to { opacity:1; transform:scale(1) translateY(0); }
+        }
+        .error-modal-box .error-logo { font-size:28px; font-weight:800; color:#2e7d32; margin-bottom:10px; }
+        .error-modal-box .error-icon { font-size:48px; color:#d32f2f; margin-bottom:12px; }
+        .error-modal-box .error-title { font-size:18px; font-weight:700; color:#1a1a1a; margin-bottom:8px; }
+        .error-modal-box .error-message { font-size:15px; color:#555; line-height:1.5; margin-bottom:20px; }
+        .error-modal-box .error-btn { background:#2e7d32; color:white; border:none; padding:10px 36px; border-radius:40px; font-size:16px; font-weight:700; cursor:pointer; transition:background 0.2s; }
+        .error-modal-box .error-btn:hover { background:#1b5e20; }
+
+        @media (max-width: 768px) {
+            .urgence-stock { font-size: 24px; margin: 15px auto 25px; }
+            .top-bar { display: flex; flex-direction: row; justify-content: center; gap: 15px; flex-wrap: nowrap; font-size: 10px; padding: 8px 5px; }
+            .top-bar span { white-space: nowrap; }
+            .main-header { display: flex; flex-direction: row; justify-content: space-between; align-items: center; gap: 10px; padding: 10px 15px; }
+            .menu-icon-mobile { display: block; order: 1; }
+            .logo { order: 2; flex: 1; text-align: center; }
+            .logo img { width: 80px; }
+            .search-icon-mobile { display: block; order: 3; }
+            .header-contact { order: 4; font-size: 12px; }
+            .search-bar { display: none; position: absolute; top: 60px; left: 0; right: 0; background: #111; padding: 10px; z-index: 100; width: 100%; border-radius: 0; }
+            .search-bar.active { display: flex; }
+            .search-bar input { border-radius: 30px; }
+            .search-bar button { border-radius: 30px; margin-left: 5px; }
+            .nav-links { display: none; }
+            .flex-row { flex-direction: column; gap: 20px; }
+            .option-price { display: flex; flex-direction: column; align-items: flex-end; text-align: right; gap: 2px; max-width: 52%; }
+            .option-price .old-price { font-size: 12px; }
+            .option-price .small-save { margin-left: 0; }
+            .video-box { width: 100%; min-width: auto; }
+            .video-box video { aspect-ratio: 1/1; width: 100%; }
+            .content-block { padding-left: 0; padding-right: 0; }
+            .row-block { flex-direction: column !important; gap: 0; margin-bottom: 30px; border-radius: 0; margin-left: -3px; margin-right: -3px; width: calc(100% + 6px); box-shadow: none; }
+            .image-side { max-width: 100%; width: 100%; }
+            /* === AJOUT MOBILE : arrondi des images des 3 blocs === */
+            .row-block .image-side img {
+                border-radius: 12px 12px 0 0;
+            }
+            .text-side { padding: 25px 18px 30px 18px; width: 100%; }
+            .carousel-side { aspect-ratio: 1/1; width: 100%; }
+            .text-side h3 { font-size: 24px; text-align: center; letter-spacing: -0.2px; }
+            .text-side .central-paragraph { font-size: 17px; text-align: center; margin-bottom: 20px; }
+            .text-side .emoji-list li { font-size: 17px; gap: 10px; margin-bottom: 10px; }
+            .text-side .emoji-list li .emoji { font-size: 18px; width: 28px; }
+            .testimonials-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+            .testimonial-card { padding: 15px; }
+            .testimonial-card p { font-size: 12px; }
+            .testimonial-card .author { font-size: 11px; }
+            .faq-question { font-size: 16px; padding: 14px 18px; }
+            .container, .testimonials, .faq-section, .centered-image, .full-banner { padding-left: 2px; padding-right: 2px; }
+            .footer-container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; padding: 20px 15px 5px 15px; }
+            .footer-col { min-width: auto; text-align: center; }
+            .footer-col h3 { font-size: 16px; margin-bottom: 10px; }
+            .footer-col p { font-size: 13px; justify-content: center; }
+            .footer-col ul li a { font-size: 13px; }
+            .social-links { justify-content: center; }
+            .social-links a { font-size: 18px; }
+            .copyright { font-size: 12px; padding: 8px 15px 12px 15px; }
+            footer { padding-top: 90px; }
+            .footer-mountains { top: -70px; height: 110px; }
+            .container { margin-top: 4px; }
+            .title-row { gap: 8px; }
+            .vertical-bar { height: 55px; }
+            .product-title { font-size: 28px; }
+            .rating-row { gap: 8px; }
+            .promo-badge { font-size: 10px; padding: 3px 10px; }
+            .star-full, .star-half { font-size: 16px; }
+            .rating-text { font-size: 11px; }
+            .footer-btn-commande { display: block; width: 100%; max-width: 400px; margin: 0 auto 6px auto; background: #25D366; border: none; padding: 12px 16px; font-size: 14px; font-weight: 700; color: white; border-radius: 50px; text-align: center; cursor: pointer; text-decoration: none; transition: background-color 0.2s; }
+            .footer-btn-commande:hover { background: #1da15b; }
+            .search-suggestions { max-height: 300px; border-radius: 0 0 12px 12px; margin-top: 0; position: fixed; top: 56px; left: 0; right: 0; width: 100%; box-shadow: 0 8px 20px rgba(0,0,0,.2); border: none; }
+            .search-suggestion-item { padding: 12px 16px; }
+            .search-suggestion-item img { width: 44px; height: 44px; }
+            .search-suggestion-item .suggestion-name { font-size: 15px; }
+            .error-modal-box { padding: 24px 18px 16px; max-width: 380px; }
+            .error-modal-box .error-logo { font-size: 24px; }
+            .error-modal-box .error-icon { font-size: 38px; }
+            .error-modal-box .error-title { font-size: 16px; }
+            .error-modal-box .error-message { font-size: 14px; }
+            .error-modal-box .error-btn { padding: 8px 28px; font-size: 14px; }
+        }
+        @media (max-width: 480px) { .testimonials-grid { gap: 10px; } .testimonial-card { padding: 12px; } .testimonial-card p { font-size: 11px; } .testimonials h2 { font-size: 28px; } .text-side h3 { font-size: 22px; } .text-side .central-paragraph { font-size: 16px; } .text-side .emoji-list li { font-size: 16px; } }
+        @media (min-width: 769px) { .menu-icon-mobile { display: none; } .search-icon-mobile { display: none; } }
+        .whatsapp { position: fixed; bottom: 20px; right: 20px; background: #25D366; color: white !important; padding: 15px 18px; border-radius: 50px; text-decoration: none !important; font-weight: bold; z-index: 9999; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        @media(max-width:768px){ .whatsapp { padding: 12px 14px; font-size: 14px; bottom: 70px; right: 15px; } }
+
+        .whatsapp-tooltip { position: fixed; bottom: 28px; right: 90px; background: #fff; color: #222; padding: 10px 16px; border-radius: 20px; font-size: 13px; font-weight: 600; box-shadow: 0 4px 14px rgba(0,0,0,0.18); z-index: 9998; opacity: 0; transform: translateY(8px); transition: opacity 0.4s ease, transform 0.4s ease; pointer-events: none; white-space: nowrap; cursor: pointer; }
+        .whatsapp-tooltip.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+        .whatsapp-tooltip::after { content: ''; position: absolute; top: 50%; right: -6px; transform: translateY(-50%); border-width: 6px 0 6px 6px; border-style: solid; border-color: transparent transparent transparent #fff; }
+        @media(max-width:768px){ .whatsapp-tooltip { bottom: 128px; right: 15px; } .whatsapp-tooltip::after { top: 100%; right: 18px; transform: none; border-width: 6px 6px 0 6px; border-color: #fff transparent transparent transparent; } }
+    
+        /* ===== GRILLE LIVRAISON (mobile uniquement) ===== */
+        .delivery-grid-section { display: none; text-align: center; margin: 20px 3px; padding: 18px 12px; background: #f5f9f6; border: 1px solid #e2e8f0; border-radius: 10px; }
+        .delivery-grid-title { font-size: 15px; font-weight: 800; color: #1a3b2a; margin: 0 0 14px; }
+        .delivery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 340px; margin: 0 auto; }
+        .delivery-grid-item { display: flex; flex-direction: column; align-items: center; }
+        .delivery-grid-item img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 8px; display: block; border: 1px solid #e2e8f0; }
+        .delivery-grid-item p { margin: 6px 0 0; font-size: 12px; font-weight: 700; color: #1a3b2a; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+        @media (max-width: 768px) {
+            .delivery-grid-section { display: block; }
+        }
+    </style>
+</head>
+<body>
+
+
+<!-- ===== TOP BAR ===== -->
+<div class="top-bar">
+    <span>🚚 Livraison gratuite</span>
+    <span>💰 Paiement à la livraison</span>
+    <span>✅ Satisfait ou remboursé</span>
+</div>
+
+<!-- ===== HEADER ===== -->
+<div class="main-header">
+    <div class="menu-icon-mobile" id="menuBtnMobile">☰</div>
+    <div class="logo">
+        <img src="images/logo2.webp" alt="Logo AfriCervo" onclick="window.location.href='index.html'">
+    </div>
+    <div class="nav-links">
+        <a href="/">🏠 Accueil</a>
+        <a href="index.html#produits-section">📦 Nos produits</a>
+        <a href="/apropos">ℹ️ À propos</a>
+    </div>
+    <div class="search-bar" id="searchBar">
+        <input type="text" id="searchInput" placeholder="Rechercher un produit..." autocomplete="off">
+        <button onclick="searchProducts()">🔍</button>
+        <div class="search-suggestions" id="searchSuggestions"></div>
+    </div>
+    <div class="header-contact">📞 +228 96 73 00 66</div>
+    <div class="search-icon-mobile" id="searchIconMobile">🔍</div>
+</div>
+
+<!-- ===== SIDEBAR ===== -->
+<div class="sidebar" id="sidebar">
+    <a href="#" id="lienAccueil">🏠 Accueil</a>
+    <a href="#" id="lienProduits">📦 Nos produits</a>
+    <a href="/apropos" id="lienApropos">ℹ️ À propos</a>
+    <a href="/contact" id="lienContact">📞 Contact</a>
+</div>
+<div class="overlay" id="overlay"></div>
+
+<!-- ===== CONTENEUR PRODUIT ===== -->
+<div class="container">
+    <div class="flex-row">
+        <div class="video-box" id="heroGallery">
+            <img id="heroMainImage" class="img-shimmer" alt="Mixeur de jus portable" loading="eager" onerror="this.src='https://placehold.co/700x700/2e7d32/white?text=Photo'">
+            <div class="hero-thumbs" id="heroThumbs"></div>
+        </div>
+        
+        <div style="flex:1; min-width: 280px;">
+            <div class="product-header-outside">
+                <div class="title-row">
+                    <div class="vertical-bar"></div>
+                    <div class="product-title" id="productTitle">Mixeur de jus portable <img src="https://flagcdn.com/tg.svg" alt="Togo" style="width:28px; height:auto; vertical-align:middle; margin-left:10px;"></div>
+                </div>
+                <div class="rating-row" id="ratingRow">
+                    <div class="custom-stars" id="starsDisplay">
+                        <span class="star-full">★</span>
+                        <span class="star-full">★</span>
+                        <span class="star-full">★</span>
+                        <span class="star-full">★</span>
+                        <span class="star-half">★</span>
+                    </div>
+                    <span class="rating-text" id="ratingText">(4,5) basé sur 750 avis</span>
+                    <span class="promo-badge" id="promoBadge">🔥 PROMOTION</span>
+                </div>
+            </div>
+            
+            <div class="form-box">
+                <div class="alert-message"><i class="fas fa-exclamation-triangle"></i> <span id="alertMessageText">Merci de ne remplir ce formulaire que si vous êtes prêt(e) à recevoir votre commande, pour une livraison sans souci 🙏</span></div>
+
+                <div class="option active" data-qty="1" data-price="9900" id="option1">
+                    <div class="option-left"><img src="images/jus1.webp" alt="1" loading="lazy" onerror="this.src='https://placehold.co/60x60/2e7d32/white?text=1'"><span>1 acheté</span></div>
+                    <div class="option-price" id="optionPrice1">9 900 FCFA</div>
+                </div>
+                <div class="option" data-qty="2" data-price="16800" id="option2">
+                    <div class="option-left"><img src="images/jus1.webp" alt="2" loading="lazy" onerror="this.src='https://placehold.co/60x60/2e7d32/white?text=2'"><span>2 achetés</span></div>
+                    <div class="option-price" id="optionPrice2">16 800 FCFA <span class="small-save">(Économie)</span></div>
+                </div>
+
+                <div class="input-group">
+                    <label><i class="fas fa-user"></i> Prénom *</label>
+                    <input type="text" id="fullname" placeholder="Votre prénom">
+                    <div class="error-message" id="error-name">Ce champ est obligatoire</div>
+                </div>
+                <div class="input-group">
+                    <label><i class="fas fa-phone-alt"></i> Téléphone *</label>
+                    <div class="phone-wrap">
+                        <span class="phone-prefix">+228</span>
+                        <input type="tel" id="phone" placeholder="96730066" maxlength="8" inputmode="numeric">
+                    </div>
+                    <div class="error-message" id="error-phone">Numéro à 8 chiffres</div>
+                </div>
+                <div class="input-group">
+                    <label><i class="fas fa-map-marker-alt"></i> Ville / Quartier *</label>
+                    <input type="text" id="city" placeholder="Ex: Lomé, Tokoin">
+                    <div class="error-message" id="error-city">Veuillez indiquer votre ville/quartier</div>
+                </div>
+                <div class="input-group">
+                    <label><i class="fas fa-comment-dots"></i> Note pour la livraison (facultatif)</label>
+                    <input type="text" id="deliveryNote" placeholder="Ex: aujourd'hui à 17h, ou demain matin">
+                </div>
+                <button class="btn-order" id="orderBtn"><i class="fas fa-shopping-cart"></i> Terminer ma commande</button>
+                <div class="trust-images"><img src="images/paiement-livraison.webp" alt="Paiement à la livraison" loading="lazy"><img src="images/moov-money-flooz.webp" alt="Moov Money Flooz" loading="lazy"><img src="images/mixx-by-yas.webp" alt="Mixx by Yas" loading="lazy"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== TROIS BLOCS ===== -->
+<div class="content-block" id="contentBlocks">
+    <!-- Bloc 1 -->
+    <div class="row-block" id="block1">
+        <div class="image-side mini-slider" id="block1Side">
+            <div class="mini-track" id="block1Track">
+                <img id="block1Img" class="img-shimmer" alt="Mixeur de jus portable" loading="lazy" onerror="this.src='https://placehold.co/700x500/2e7d32/white?text=Image+1'">
+                <img id="block1Img2" class="img-shimmer" alt="Mixeur de jus portable" loading="lazy" onerror="this.src='https://placehold.co/700x500/2e7d32/white?text=Image+1'" style="display:none">
+            </div>
+        </div>
+        <div class="text-side">
+            <h3 id="block1Title">🥤 Envie d'un jus frais sans sortir de chez toi ni du bureau ?</h3>
+            <div class="central-paragraph" id="block1Desc">Plus besoin d'attendre le vendeur de jus au coin de la rue ou de sortir le gros blender pour une seule portion. Ce mini mixeur portable prépare ton smoothie ou ton jus en quelques secondes, où que tu sois. La solution parfaite pour ta santé, prête en quelques secondes, où que tu sois.</div>
+            <ul class="emoji-list" id="block1List">
+                <li><span class="emoji">🍓</span> Jus frais en 30 secondes</li>
+                <li><span class="emoji">🔋</span> Rechargeable USB, sans fil</li>
+                <li><span class="emoji">🎒</span> Format compact et transportable</li>
+                <li><span class="emoji">🥤</span> Se boit directement dans la bouteille</li>
+            </ul>
+        </div>
+    </div>
+    <!-- Bloc 2 -->
+    <div class="row-block" id="block2">
+        <div class="image-side mini-slider" id="block2Side">
+            <div class="mini-track" id="block2Track">
+                <img id="block2Img" class="img-shimmer" alt="Mixeur de jus portable" loading="lazy" onerror="this.src='https://placehold.co/700x500/2e7d32/white?text=Image+2'">
+                <img id="block2Img2" class="img-shimmer" alt="Mixeur de jus portable" loading="lazy" onerror="this.src='https://placehold.co/700x500/2e7d32/white?text=Image+2'" style="display:none">
+            </div>
+        </div>
+        <div class="text-side">
+            <h3 id="block2Title">⚡ Pas besoin d'un blender géant pour un simple jus</h3>
+            <div class="central-paragraph" id="block2Desc">Tu n'as pas la place pour un blender géant dans ta cuisine, ou tu veux juste un jus rapide le matin avant de partir ? Ses lames puissantes en inox mixent fruits et glaçons sans effort. Enfin un appareil pensé pour ta vraie vie, simple, compact et efficace.</div>
+            <ul class="emoji-list" id="block2List">
+                <li><span class="emoji">⚡</span> Lames en inox puissantes</li>
+                <li><span class="emoji">🧊</span> Mixe fruits et glaçons</li>
+                <li><span class="emoji">🏠</span> Idéal petits espaces</li>
+                <li><span class="emoji">🍹</span> Parfait pour smoothies et jus</li>
+            </ul>
+        </div>
+    </div>
+    <!-- Bloc 3 -->
+    <div class="row-block" id="block3">
+        <div class="image-side" id="block3Side">
+            <video id="productVideo" muted loop playsinline preload="none" style="width:100%;height:100%;object-fit:cover;display:block;">
+                <source src="videos/jus.mp4" type="video/mp4">
+            </video>
+        </div>
+        <div class="text-side">
+            <h3 id="block3Title">🌿 Petit format, grandes performances au quotidien</h3>
+            <div class="central-paragraph" id="block3Desc">Léger, silencieux et facile à nettoyer (juste de l'eau et un peu de savon), il s'emporte partout — bureau, voiture, sport — pour boire sainement à tout moment de la journée. Le compagnon idéal pour une vie plus saine, sans jamais te compliquer la tâche.</div>
+            <ul class="emoji-list" id="block3List">
+                <li><span class="emoji">🌿</span> Nettoyage en 10 secondes</li>
+                <li><span class="emoji">🔋</span> Batterie rechargeable longue durée</li>
+                <li><span class="emoji">🎒</span> Idéal bureau, sport, voyage</li>
+                <li><span class="emoji">💧</span> Boisson toujours fraîche</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- ===== BANNIÈRES ===== -->
+<div class="full-banner"><img id="banner1" src="images/jus4.webp" alt="Commander maintenant" loading="lazy" onerror="this.src='https://placehold.co/1920x250/2e7d32/white?text=COMMANDER+MAINTENANT'"></div>
+<div class="full-banner"><img id="banner2" src="images/jus5.webp" alt="Livraison offerte" loading="lazy" onerror="this.src='https://placehold.co/1920x250/2e7d32/white?text=Livraison+Offerte'"></div>
+<div class="centered-image"><img id="centeredImg" src="images/jus5.webp" alt="Pack promotionnel" loading="lazy" onerror="this.src='https://placehold.co/900x400/2e7d32/white?text=Offre+Spéciale'"></div>
+
+<!-- ===== AVIS ===== -->
+<div class="testimonials" id="testimonialsSection">
+    <h2>⭐ Ce que nos clients disent</h2>
+    <div class="testimonials-grid" id="testimonialsGrid"></div>
+</div>
+
+<!-- ===== BLOC CARROUSEL (galerie + texte) ===== -->
+<div class="content-block">
+    <div class="row-block carousel-row" id="blockCarousel">
+        <div class="image-side carousel-side">
+            <div class="carousel-track" id="carouselTrack"></div>
+            <div class="carousel-dots" id="carouselDots"></div>
+        </div>
+        <div class="text-side">
+            <h3 id="carouselTitle">✅ Le compagnon santé que nos clients gardent sur eux</h3>
+            <div class="central-paragraph" id="carouselDesc"></div>
+            <ul class="emoji-list" id="carouselList"></ul>
+        </div>
+    </div>
+</div>
+
+<!-- ===== GRILLE LIVRAISON ===== -->
+<div class="delivery-grid-section">
+    <h3 class="delivery-grid-title">🚚 Nous livrons partout au Togo</h3>
+    <div class="delivery-grid">
+        <div class="delivery-grid-item">
+            <img src="images/grid-lk-transport.webp" alt="LK Transport" loading="lazy">
+            <p>LK Transport</p>
+        </div>
+        <div class="delivery-grid-item">
+            <img src="images/grid-nagode-transfert.webp" alt="Nagode Transfert" loading="lazy">
+            <p>Nagode Transfert</p>
+        </div>
+        <div class="delivery-grid-item">
+            <img src="images/grid-livraison-rapide.webp" alt="Livraison rapide" loading="lazy">
+            <p>Livraison rapide</p>
+        </div>
+        <div class="delivery-grid-item">
+            <img src="images/grid-livraison-domicile.webp" alt="Livraison à domicile" loading="lazy">
+            <p>Livraison à domicile</p>
+        </div>
+    </div>
+</div>
+
+<!-- ===== FAQ ===== -->
+<div class="faq-section" id="faqSection">
+    <h2>FAQs</h2>
+    <div id="faqContainer"></div>
+</div>
+
+
+<!-- ===== MESSAGE D'URGENCE ===== -->
+<div class="urgence-stock" id="urgenceMessage">🔥 Offre exclusive – stock limité, réservé aux premières commandes !</div>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+    <div class="footer-mountains">
+        <svg viewBox="0 0 2880 340" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="mtFrontFade" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#161616"/>
+                    <stop offset="100%" stop-color="#020202"/>
+                </linearGradient>
+            </defs>
+        <path class="mtn-back" fill="#8a8a8a" opacity="0.35" d="M0.0,217.9 C8.6,219.8 34.3,226.2 51.4,229.2 C68.6,232.3 85.7,234.8 102.9,236.4 C120.0,238.0 137.1,238.6 154.3,238.7 C171.4,238.8 188.6,237.9 205.7,237.0 C222.9,236.1 240.0,234.5 257.1,233.3 C274.3,232.1 291.4,230.7 308.6,229.7 C325.7,228.8 342.9,228.1 360.0,227.6 C377.1,227.2 394.3,227.2 411.4,227.0 C428.6,226.8 445.7,227.0 462.9,226.5 C480.0,226.0 497.1,225.5 514.3,224.1 C531.4,222.8 548.6,220.9 565.7,218.2 C582.9,215.6 600.0,212.1 617.1,208.3 C634.3,204.6 651.4,199.9 668.6,195.5 C685.7,191.1 702.9,186.2 720.0,182.1 C737.1,178.0 754.3,173.8 771.4,170.8 C788.6,167.7 805.7,165.2 822.9,163.6 C840.0,162.0 857.1,161.4 874.3,161.3 C891.4,161.2 908.6,162.1 925.7,163.0 C942.9,163.9 960.0,165.5 977.1,166.7 C994.3,167.9 1011.4,169.3 1028.6,170.3 C1045.7,171.2 1062.9,171.9 1080.0,172.4 C1097.1,172.8 1114.3,172.8 1131.4,173.0 C1148.6,173.2 1165.7,173.0 1182.9,173.5 C1200.0,174.0 1217.1,174.5 1234.3,175.9 C1251.4,177.2 1268.6,179.1 1285.7,181.8 C1302.9,184.4 1320.0,187.9 1337.1,191.7 C1354.3,195.4 1371.4,200.1 1388.6,204.5 C1405.7,208.9 1422.9,213.8 1440.0,217.9 C1457.1,222.0 1474.3,226.2 1491.4,229.2 C1508.6,232.3 1525.7,234.8 1542.9,236.4 C1560.0,238.0 1577.1,238.6 1594.3,238.7 C1611.4,238.8 1628.6,237.9 1645.7,237.0 C1662.9,236.1 1680.0,234.5 1697.1,233.3 C1714.3,232.1 1731.4,230.7 1748.6,229.7 C1765.7,228.8 1782.9,228.1 1800.0,227.6 C1817.1,227.2 1834.3,227.2 1851.4,227.0 C1868.6,226.8 1885.7,227.0 1902.9,226.5 C1920.0,226.0 1937.1,225.5 1954.3,224.1 C1971.4,222.8 1988.6,220.9 2005.7,218.2 C2022.9,215.6 2040.0,212.1 2057.1,208.3 C2074.3,204.6 2091.4,199.9 2108.6,195.5 C2125.7,191.1 2142.9,186.2 2160.0,182.1 C2177.1,178.0 2194.3,173.8 2211.4,170.8 C2228.6,167.7 2245.7,165.2 2262.9,163.6 C2280.0,162.0 2297.1,161.4 2314.3,161.3 C2331.4,161.2 2348.6,162.1 2365.7,163.0 C2382.9,163.9 2400.0,165.5 2417.1,166.7 C2434.3,167.9 2451.4,169.3 2468.6,170.3 C2485.7,171.2 2502.9,171.9 2520.0,172.4 C2537.1,172.8 2554.3,172.8 2571.4,173.0 C2588.6,173.2 2605.7,173.0 2622.9,173.5 C2640.0,174.0 2657.1,174.5 2674.3,175.9 C2691.4,177.2 2708.6,179.1 2725.7,181.8 C2742.9,184.4 2760.0,187.9 2777.1,191.7 C2794.3,195.4 2811.4,200.1 2828.6,204.5 C2845.7,208.9 2871.4,215.7 2880.0,217.9 L2880.0,340.0 L0,340.0 Z"></path>
+        <path class="mtn-far" fill="#6b6b6b" opacity="0.5" d="M0.0,260.6 C8.6,261.0 34.3,264.3 51.4,263.1 C68.6,261.8 85.7,257.7 102.9,252.9 C120.0,248.2 137.1,241.0 154.3,234.6 C171.4,228.2 188.6,220.6 205.7,214.4 C222.9,208.3 240.0,202.3 257.1,197.5 C274.3,192.8 291.4,188.9 308.6,185.8 C325.7,182.6 342.9,180.3 360.0,178.6 C377.1,176.8 394.3,175.6 411.4,175.3 C428.6,175.0 445.7,175.2 462.9,176.8 C480.0,178.5 497.1,181.1 514.3,185.2 C531.4,189.4 548.6,195.2 565.7,201.6 C582.9,208.0 600.0,216.4 617.1,223.7 C634.3,231.1 651.4,239.7 668.6,245.8 C685.7,252.0 702.9,257.7 720.0,260.6 C737.1,263.5 754.3,264.3 771.4,263.1 C788.6,261.8 805.7,257.7 822.9,252.9 C840.0,248.2 857.1,241.0 874.3,234.6 C891.4,228.2 908.6,220.6 925.7,214.4 C942.9,208.3 960.0,202.3 977.1,197.5 C994.3,192.8 1011.4,188.9 1028.6,185.8 C1045.7,182.6 1062.9,180.3 1080.0,178.6 C1097.1,176.8 1114.3,175.6 1131.4,175.3 C1148.6,175.0 1165.7,175.2 1182.9,176.8 C1200.0,178.5 1217.1,181.1 1234.3,185.2 C1251.4,189.4 1268.6,195.2 1285.7,201.6 C1302.9,208.0 1320.0,216.4 1337.1,223.7 C1354.3,231.1 1371.4,239.7 1388.6,245.8 C1405.7,252.0 1422.9,257.7 1440.0,260.6 C1457.1,263.5 1474.3,264.3 1491.4,263.1 C1508.6,261.8 1525.7,257.7 1542.9,252.9 C1560.0,248.2 1577.1,241.0 1594.3,234.6 C1611.4,228.2 1628.6,220.6 1645.7,214.4 C1662.9,208.3 1680.0,202.3 1697.1,197.5 C1714.3,192.8 1731.4,188.9 1748.6,185.8 C1765.7,182.6 1782.9,180.3 1800.0,178.6 C1817.1,176.8 1834.3,175.6 1851.4,175.3 C1868.6,175.0 1885.7,175.2 1902.9,176.8 C1920.0,178.5 1937.1,181.1 1954.3,185.2 C1971.4,189.4 1988.6,195.2 2005.7,201.6 C2022.9,208.0 2040.0,216.4 2057.1,223.7 C2074.3,231.1 2091.4,239.7 2108.6,245.8 C2125.7,252.0 2142.9,257.7 2160.0,260.6 C2177.1,263.5 2194.3,264.3 2211.4,263.1 C2228.6,261.8 2245.7,257.7 2262.9,252.9 C2280.0,248.2 2297.1,241.0 2314.3,234.6 C2331.4,228.2 2348.6,220.6 2365.7,214.4 C2382.9,208.3 2400.0,202.3 2417.1,197.5 C2434.3,192.8 2451.4,188.9 2468.6,185.8 C2485.7,182.6 2502.9,180.3 2520.0,178.6 C2537.1,176.8 2554.3,175.6 2571.4,175.3 C2588.6,175.0 2605.7,175.2 2622.9,176.8 C2640.0,178.5 2657.1,181.1 2674.3,185.2 C2691.4,189.4 2708.6,195.2 2725.7,201.6 C2742.9,208.0 2760.0,216.4 2777.1,223.7 C2794.3,231.1 2811.4,239.7 2828.6,245.8 C2845.7,252.0 2871.4,258.1 2880.0,260.6 L2880.0,340.0 L0,340.0 Z"></path>
+        <path class="mtn-mid" fill="#4a4a4a" opacity="0.68" d="M0.0,281.6 C8.6,280.0 34.3,275.7 51.4,271.8 C68.6,267.8 85.7,262.8 102.9,258.1 C120.0,253.4 137.1,248.2 154.3,243.6 C171.4,239.1 188.6,234.7 205.7,231.1 C222.9,227.4 240.0,224.4 257.1,221.8 C274.3,219.3 291.4,217.5 308.6,215.7 C325.7,213.8 342.9,212.6 360.0,210.9 C377.1,209.3 394.3,207.7 411.4,205.6 C428.6,203.5 445.7,201.1 462.9,198.3 C480.0,195.6 497.1,192.2 514.3,189.1 C531.4,186.0 548.6,182.4 565.7,179.7 C582.9,176.9 600.0,174.1 617.1,172.5 C634.3,171.0 651.4,170.0 668.6,170.3 C685.7,170.6 702.9,172.0 720.0,174.4 C737.1,176.7 754.3,180.3 771.4,184.2 C788.6,188.2 805.7,193.2 822.9,197.9 C840.0,202.6 857.1,207.8 874.3,212.4 C891.4,216.9 908.6,221.3 925.7,224.9 C942.9,228.6 960.0,231.6 977.1,234.2 C994.3,236.7 1011.4,238.5 1028.6,240.3 C1045.7,242.2 1062.9,243.4 1080.0,245.1 C1097.1,246.7 1114.3,248.3 1131.4,250.4 C1148.6,252.5 1165.7,254.9 1182.9,257.7 C1200.0,260.4 1217.1,263.8 1234.3,266.9 C1251.4,270.0 1268.6,273.6 1285.7,276.3 C1302.9,279.1 1320.0,281.9 1337.1,283.5 C1354.3,285.0 1371.4,286.0 1388.6,285.7 C1405.7,285.4 1422.9,284.0 1440.0,281.6 C1457.1,279.3 1474.3,275.7 1491.4,271.8 C1508.6,267.8 1525.7,262.8 1542.9,258.1 C1560.0,253.4 1577.1,248.2 1594.3,243.6 C1611.4,239.1 1628.6,234.7 1645.7,231.1 C1662.9,227.4 1680.0,224.4 1697.1,221.8 C1714.3,219.3 1731.4,217.5 1748.6,215.7 C1765.7,213.8 1782.9,212.6 1800.0,210.9 C1817.1,209.3 1834.3,207.7 1851.4,205.6 C1868.6,203.5 1885.7,201.1 1902.9,198.3 C1920.0,195.6 1937.1,192.2 1954.3,189.1 C1971.4,186.0 1988.6,182.4 2005.7,179.7 C2022.9,176.9 2040.0,174.1 2057.1,172.5 C2074.3,171.0 2091.4,170.0 2108.6,170.3 C2125.7,170.6 2142.9,172.0 2160.0,174.4 C2177.1,176.7 2194.3,180.3 2211.4,184.2 C2228.6,188.2 2245.7,193.2 2262.9,197.9 C2280.0,202.6 2297.1,207.8 2314.3,212.4 C2331.4,216.9 2348.6,221.3 2365.7,224.9 C2382.9,228.6 2400.0,231.6 2417.1,234.2 C2434.3,236.7 2451.4,238.5 2468.6,240.3 C2485.7,242.2 2502.9,243.4 2520.0,245.1 C2537.1,246.7 2554.3,248.3 2571.4,250.4 C2588.6,252.5 2605.7,254.9 2622.9,257.7 C2640.0,260.4 2657.1,263.8 2674.3,266.9 C2691.4,270.0 2708.6,273.6 2725.7,276.3 C2742.9,279.1 2760.0,281.9 2777.1,283.5 C2794.3,285.0 2811.4,286.0 2828.6,285.7 C2845.7,285.4 2871.4,282.3 2880.0,281.6 L2880.0,340.0 L0,340.0 Z"></path>
+        <path class="mtn-near" fill="#2a2a2a" opacity="0.86" d="M0.0,286.6 C8.6,289.5 34.3,300.8 51.4,304.1 C68.6,307.4 85.7,307.9 102.9,306.2 C120.0,304.5 137.1,299.5 154.3,294.0 C171.4,288.6 188.6,280.6 205.7,273.3 C222.9,266.1 240.0,257.9 257.1,250.8 C274.3,243.7 291.4,236.8 308.6,230.7 C325.7,224.6 342.9,219.2 360.0,214.4 C377.1,209.6 394.3,205.3 411.4,201.9 C428.6,198.5 445.7,195.5 462.9,194.2 C480.0,193.0 497.1,192.5 514.3,194.5 C531.4,196.4 548.6,200.2 565.7,205.9 C582.9,211.6 600.0,220.0 617.1,228.8 C634.3,237.6 651.4,248.9 668.6,258.5 C685.7,268.2 702.9,279.0 720.0,286.6 C737.1,294.2 754.3,300.8 771.4,304.1 C788.6,307.4 805.7,307.9 822.9,306.2 C840.0,304.5 857.1,299.5 874.3,294.0 C891.4,288.6 908.6,280.6 925.7,273.3 C942.9,266.1 960.0,257.9 977.1,250.8 C994.3,243.7 1011.4,236.8 1028.6,230.7 C1045.7,224.6 1062.9,219.2 1080.0,214.4 C1097.1,209.6 1114.3,205.3 1131.4,201.9 C1148.6,198.5 1165.7,195.5 1182.9,194.2 C1200.0,193.0 1217.1,192.5 1234.3,194.5 C1251.4,196.4 1268.6,200.2 1285.7,205.9 C1302.9,211.6 1320.0,220.0 1337.1,228.8 C1354.3,237.6 1371.4,248.9 1388.6,258.5 C1405.7,268.2 1422.9,279.0 1440.0,286.6 C1457.1,294.2 1474.3,300.8 1491.4,304.1 C1508.6,307.4 1525.7,307.9 1542.9,306.2 C1560.0,304.5 1577.1,299.5 1594.3,294.0 C1611.4,288.6 1628.6,280.6 1645.7,273.3 C1662.9,266.1 1680.0,257.9 1697.1,250.8 C1714.3,243.7 1731.4,236.8 1748.6,230.7 C1765.7,224.6 1782.9,219.2 1800.0,214.4 C1817.1,209.6 1834.3,205.3 1851.4,201.9 C1868.6,198.5 1885.7,195.5 1902.9,194.2 C1920.0,193.0 1937.1,192.5 1954.3,194.5 C1971.4,196.4 1988.6,200.2 2005.7,205.9 C2022.9,211.6 2040.0,220.0 2057.1,228.8 C2074.3,237.6 2091.4,248.9 2108.6,258.5 C2125.7,268.2 2142.9,279.0 2160.0,286.6 C2177.1,294.2 2194.3,300.8 2211.4,304.1 C2228.6,307.4 2245.7,307.9 2262.9,306.2 C2280.0,304.5 2297.1,299.5 2314.3,294.0 C2331.4,288.6 2348.6,280.6 2365.7,273.3 C2382.9,266.1 2400.0,257.9 2417.1,250.8 C2434.3,243.7 2451.4,236.8 2468.6,230.7 C2485.7,224.6 2502.9,219.2 2520.0,214.4 C2537.1,209.6 2554.3,205.3 2571.4,201.9 C2588.6,198.5 2605.7,195.5 2622.9,194.2 C2640.0,193.0 2657.1,192.5 2674.3,194.5 C2691.4,196.4 2708.6,200.2 2725.7,205.9 C2742.9,211.6 2760.0,220.0 2777.1,228.8 C2794.3,237.6 2811.4,248.9 2828.6,258.5 C2845.7,268.2 2871.4,281.9 2880.0,286.6 L2880.0,340.0 L0,340.0 Z"></path>
+        <path class="mtn-front" fill="url(#mtFrontFade)" opacity="1.0" d="M0.0,301.1 C8.6,298.0 34.3,289.1 51.4,282.8 C68.6,276.5 85.7,269.5 102.9,263.4 C120.0,257.3 137.1,251.2 154.3,246.2 C171.4,241.2 188.6,236.9 205.7,233.4 C222.9,229.9 240.0,227.5 257.1,225.3 C274.3,223.1 291.4,221.9 308.6,220.4 C325.7,218.9 342.9,217.8 360.0,216.3 C377.1,214.8 394.3,213.2 411.4,211.3 C428.6,209.4 445.7,207.0 462.9,204.8 C480.0,202.5 497.1,199.8 514.3,197.9 C531.4,196.1 548.6,194.1 565.7,193.4 C582.9,192.7 600.0,192.6 617.1,193.9 C634.3,195.2 651.4,197.6 668.6,201.1 C685.7,204.6 702.9,209.6 720.0,214.9 C737.1,220.3 754.3,226.9 771.4,233.2 C788.6,239.5 805.7,246.5 822.9,252.6 C840.0,258.7 857.1,264.8 874.3,269.8 C891.4,274.8 908.6,279.1 925.7,282.6 C942.9,286.1 960.0,288.5 977.1,290.7 C994.3,292.9 1011.4,294.1 1028.6,295.6 C1045.7,297.1 1062.9,298.2 1080.0,299.7 C1097.1,301.2 1114.3,302.8 1131.4,304.7 C1148.6,306.6 1165.7,309.0 1182.9,311.2 C1200.0,313.5 1217.1,316.6 1234.3,318.1 C1251.4,319.5 1268.6,319.7 1285.7,320.0 C1302.9,320.3 1320.0,320.8 1337.1,320.0 C1354.3,319.2 1371.4,318.1 1388.6,314.9 C1405.7,311.8 1422.9,306.4 1440.0,301.1 C1457.1,295.7 1474.3,289.1 1491.4,282.8 C1508.6,276.5 1525.7,269.5 1542.9,263.4 C1560.0,257.3 1577.1,251.2 1594.3,246.2 C1611.4,241.2 1628.6,236.9 1645.7,233.4 C1662.9,229.9 1680.0,227.5 1697.1,225.3 C1714.3,223.1 1731.4,221.9 1748.6,220.4 C1765.7,218.9 1782.9,217.8 1800.0,216.3 C1817.1,214.8 1834.3,213.2 1851.4,211.3 C1868.6,209.4 1885.7,207.0 1902.9,204.8 C1920.0,202.5 1937.1,199.8 1954.3,197.9 C1971.4,196.1 1988.6,194.1 2005.7,193.4 C2022.9,192.7 2040.0,192.6 2057.1,193.9 C2074.3,195.2 2091.4,197.6 2108.6,201.1 C2125.7,204.6 2142.9,209.6 2160.0,214.9 C2177.1,220.3 2194.3,226.9 2211.4,233.2 C2228.6,239.5 2245.7,246.5 2262.9,252.6 C2280.0,258.7 2297.1,264.8 2314.3,269.8 C2331.4,274.8 2348.6,279.1 2365.7,282.6 C2382.9,286.1 2400.0,288.5 2417.1,290.7 C2434.3,292.9 2451.4,294.1 2468.6,295.6 C2485.7,297.1 2502.9,298.2 2520.0,299.7 C2537.1,301.2 2554.3,302.8 2571.4,304.7 C2588.6,306.6 2605.7,309.0 2622.9,311.2 C2640.0,313.5 2657.1,316.6 2674.3,318.1 C2691.4,319.5 2708.6,319.7 2725.7,320.0 C2742.9,320.3 2760.0,320.8 2777.1,320.0 C2794.3,319.2 2811.4,318.1 2828.6,314.9 C2845.7,311.8 2871.4,303.4 2880.0,301.1 L2880.0,340.0 L0,340.0 Z"></path>
+        </svg>
+    </div>
+    <div class="footer-container">
+        <div class="footer-col"><h3>🌿 AfriCervo</h3><p>📍 Lomé, Togo</p><p>🕒 Lun – Sam : 6h – 23h</p><p>📞 +228 96 73 00 66</p><p>📞 +228 91 80 21 70</p><p>✉ africervo@gmail.com</p></div>
+        <div class="footer-col"><h3>Liens rapides</h3><ul><li><a href="/">🏠 Accueil</a></li><li><a href="#" onclick="document.getElementById('searchInput').focus(); return false;">🔍 Recherche</a></li><li><a href="/apropos">ℹ️ À propos</a></li><li><a href="/contact">📞 Contact</a></li></ul></div>
+        <div class="footer-col"><h3>Informations</h3><ul><li><a href="politiques.html#retour"> Politique de retour</a></li><li><a href="politiques.html#confidentialite"> Confidentialité</a></li><li><a href="politiques.html#cgv"> Conditions générales</a></li><li><a href="politiques.html#mentions"> Mentions légales</a></li></ul></div>
+        <div class="footer-col"><h3>Suivez-nous</h3><div class="social-links"><a href="https://www.facebook.com/profile.php?id=61573197557791" target="_blank"><i class="fab fa-facebook"></i></a><a href="#" target="_blank"><i class="fab fa-instagram"></i></a><a href="https://wa.me/22896730066" target="_blank"><i class="fab fa-whatsapp"></i></a></div><p style="margin-top:15px;">💳 Paiement à la livraison</p></div>
+    </div>
+    <div style="text-align: center; line-height: 0;"><a href="#" class="footer-btn-commande" id="footerOrderBtn"><i class="fas fa-shopping-cart"></i> Terminer ma commande</a></div>
+    <div class="copyright">© 2025 AfriCervo - Tous droits réservés</div>
+</footer>
+
+<!-- =========================================================
+     SCRIPTS
+========================================================= -->
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+<script src="visitor-tracker.js"></script>
+
+<script>
+// ============================================================
+// DIFFUSEUR.HTML – Script complet (HEADER + 10 AVIS + FIREBASE)
+// ============================================================
+
+console.log('🚀 mixeur-de-jus-portable.html chargé');
+
+// ============================================================
+// 1. HEADER : MENU MOBILE + RECHERCHE
+// ============================================================
+const sidebar = document.getElementById('sidebar');
+const overlay = document.getElementById('overlay');
+const menuBtn = document.getElementById('menuBtnMobile');
+
+function openMenu() {
+    sidebar.classList.add('open');
+    overlay.classList.add('show');
+}
+function closeMenu() {
+    sidebar.classList.remove('open');
+    overlay.classList.remove('show');
+}
+
+if (menuBtn) {
+    menuBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (sidebar.classList.contains('open')) {
+            closeMenu();
+        } else {
+            openMenu();
+        }
+    });
+}
+
+if (overlay) {
+    overlay.addEventListener('click', closeMenu);
+}
+
+// Liens du sidebar
+document.getElementById('lienAccueil')?.addEventListener('click', function(e) {
+    e.preventDefault();
+    window.location.href = 'index.html';
+    closeMenu();
+});
+document.getElementById('lienProduits')?.addEventListener('click', function(e) {
+    e.preventDefault();
+    window.location.href = 'index.html#produits-section';
+    closeMenu();
+});
+document.getElementById('lienApropos')?.addEventListener('click', function(e) {
+    e.preventDefault();
+    window.location.href = 'apropos.html';
+    closeMenu();
+});
+document.getElementById('lienContact')?.addEventListener('click', function(e) {
+    e.preventDefault();
+    window.location.href = 'contact.html';
+    closeMenu();
+});
+
+// Recherche mobile
+const searchIconMobile = document.getElementById('searchIconMobile');
+const searchBar = document.getElementById('searchBar');
+const searchInput = document.getElementById('searchInput');
+
+if (searchIconMobile && searchBar) {
+    searchIconMobile.addEventListener('click', function() {
+        if (searchBar.style.display === 'flex') {
+            searchBar.style.display = 'none';
+        } else {
+            searchBar.style.display = 'flex';
+            searchInput.focus();
+        }
+    });
+}
+
+function searchProducts() {
+    const query = searchInput.value.trim();
+    if (query !== '') {
+        window.location.href = 'index.html?search=' + encodeURIComponent(query);
+    }
+}
+
+if (searchInput) {
+    searchInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') searchProducts();
+    });
+}
+
+// ============================================================
+// SUGGESTIONS DE RECHERCHE (identique a la page d'accueil)
+// ============================================================
+const productSlugs = {
+    1: "huile-pour-barbe-et-cheveux",
+    2: "montre-connectee-sk40",
+    3: "montre-connectee-a58-plus",
+    4: "diffuseur",
+    5: "lime-electrique",
+    6: "montre-connectee-h92-ultra3",
+    7: "mixeur-de-jus-portable",
+    8: "coupe-legume-multifonction",
+    9: "anti-tache-et-acne",
+    10: "mandoline-multifonction",
+    11: "patch-detox-kinoki",
+    12: "ecouteur-intelligent-m6",
+    13: "ceinture-anti-douleurs-menstruelles",
+    14: "mini-fer-a-repasser-portable",
+    15: "moulinex-blender-8-en-1",
+    16: "creme-cindynal-reparation-intense",
+    17: "ecouteur-buds3-pro",
+    18: "mini-alarme-anti-intrusion",
+    19: "seche-chaussures",
+    20: "casque-p9-pro"
+};
+function getProductLink(productId) {
+    return productSlugs[productId] ? `${productSlugs[productId]}.html` : `https://wa.me/22896730066?text=${encodeURIComponent("Bonjour, je suis intéressé(e) par un produit de votre boutique.")}`;
+}
+
+function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/[&<>]/g, m => m === '&' ? '&amp;' : m === '<' ? '&lt;' : m === '>' ? '&gt;' : m);
+}
+
+const defaultProducts = [
+    { id: 1, name: "Huile pour barbe et cheveux", price: 7900, oldPrice: 12000, stock: 45, category: "Beaute", images: ["images/1.webp"], description: "Huile naturelle pour barbe et cheveux" },
+    { id: 2, name: "Montre connectee SK40", price: 21900, oldPrice: 40000, stock: 12, category: "Electronique", images: ["images/M1.webp"], description: "Montre connectee avec ecran AMOLED" },
+    { id: 3, name: "Montre connectee A58 plus", price: 11900, oldPrice: 22000, stock: 15, category: "Electronique", images: ["images/A58.webp"], description: "Montre connectee avec coffret complet" },
+    { id: 4, name: "Diffuseur", price: 9900, oldPrice: 18000, stock: 28, category: "Maison", images: ["images/diffuseur.webp"], description: "Diffuseur d'huiles essentielles" },
+    { id: 5, name: "Lime electrique", price: 10500, oldPrice: 19000, stock: 8, category: "Beaute", images: ["images/lim1.webp"], description: "Lime electrique pour ongles" },
+    { id: 6, name: "Montre connectee H92 Ultra3", price: 10900, oldPrice: 19000, stock: 10, category: "Electronique", images: ["images/H92.webp"], description: "Montre connectee avec bracelets interchangeables" },
+    { id: 7, name: "Mixeur de jus portable", price: 9900, oldPrice: 18000, stock: 20, category: "Maison", images: ["images/jus.webp"], description: "Mini blender portable pour smoothies" },
+    { id: 8, name: "Coupe legume multifonction", price: 12000, oldPrice: 22000, stock: 18, category: "Maison", images: ["images/coup1.webp"], description: "Coupe-legumes multifonction" },
+    { id: 9, name: "Anti-tache et Acne", price: 7100, oldPrice: 12000, stock: 30, category: "Beaute", images: ["images/visage.webp"], description: "Masque stick anti-tache et anti-acne" },
+    { id: 10, name: "Mandoline multifonction", price: 12000, oldPrice: 22000, stock: 15, category: "Maison", images: ["images/man1.webp"], description: "Mandoline multifonction pour decoupes" },
+    { id: 11, name: "Patch Detox Kinoki", price: 7900, oldPrice: 13000, stock: 25, category: "Sante", images: ["images/Detox.webp"], description: "Patchs detox pour pieds" },
+    { id: 12, name: "Ecouteur intelligent M6", price: 10000, oldPrice: 18500, stock: 18, category: "Electronique", images: ["images/m6.webp"], description: "Ecouteurs bluetooth avec reduction de bruit" },
+    { id: 13, name: "Ceinture anti-douleurs menstruelles", price: 10500, oldPrice: 18000, stock: 12, category: "Sante", images: ["images/ceint.webp"], description: "Ceinture chauffante pour soulager les douleurs" },
+    { id: 14, name: "Mini Fer a Repasser Portable", price: 9500, oldPrice: 17000, stock: 20, category: "Maison", images: ["images/fer-repasser-1.jpg"], description: "Mini fer a repasser portable et pliable" },
+    { id: 15, name: "Moulinex blender 8 en 1", price: 35000, oldPrice: 65000, stock: 5, category: "Maison", images: ["images/moulinex.webp"], description: "Blender multifonction 8 en 1" },
+    { id: 16, name: "Creme cindynal reparation intense", price: 10000, oldPrice: 18000, stock: 22, category: "Beaute", images: ["images/talon.webp"], description: "Creme reparatrice pour peaux seches" },
+    { id: 17, name: "Ecouteurs Buds3 Pro", price: 13500, oldPrice: 25000, stock: 20, category: "Electronique", images: ["images/buds3pro-1.jpg"], description: "Ecouteurs sans fil avec reduction de bruit" },
+    { id: 18, name: "Mini Alarme Anti-Intrusion", price: 8900, oldPrice: 15000, stock: 30, category: "Securite", images: ["images/alarme-1.jpg"], description: "Alarme portable pour porte et fenetre" },
+    { id: 19, name: "Seche-Chaussures Electrique", price: 9900, oldPrice: 17000, stock: 25, category: "Maison", images: ["images/seche-chaussures-1.jpg"], description: "Seche-chaussures electrique avec minuterie" },
+    { id: 20, name: "Casque P9 Pro", price: 12500, oldPrice: 22000, stock: 20, category: "Electronique", images: ["images/p9pro-1.jpg"], description: "Casque bluetooth pliable avec micro integre" }
+];
+
+let allProducts = [];
+
+function loadProductsFromCache() {
+    const cached = localStorage.getItem('ecom_products');
+    if (cached) {
+        try {
+            const parsed = JSON.parse(cached);
+            if (parsed && parsed.length > 0) {
+                allProducts = parsed;
+                return true;
+            }
+        } catch (e) {}
+    }
+    return false;
+}
+
+function saveProductsToCache(products) {
+    try {
+        localStorage.setItem('ecom_products', JSON.stringify(products));
+    } catch (e) {}
+}
+
+async function loadProductsFromFirebase() {
+    try {
+        const snapshot = await db.collection('produits').orderBy('id', 'asc').get();
+        if (!snapshot.empty && snapshot.size > 0) {
+            const firebaseProducts = [];
+            snapshot.forEach(doc => {
+                const data = doc.data();
+                firebaseProducts.push({
+                    id: data.id,
+                    name: data.name || 'Sans nom',
+                    price: data.price || data.price1 || 0,
+                    oldPrice: data.oldPrice || data.price2 || 0,
+                    stock: data.stock || 0,
+                    category: data.category || 'Non categorise',
+                    images: data.images || (data.optionImg ? [data.optionImg] : []),
+                    description: data.description || '',
+                    hidden: data.hidden || false,
+                    img1: data.img1 || ''
+                });
+            });
+            if (firebaseProducts.length > 0) {
+                allProducts = firebaseProducts;
+                saveProductsToCache(allProducts);
+                return true;
+            }
+        }
+        return false;
+    } catch (e) {
+        return false;
+    }
+}
+
+function listenToProductsChanges() {
+    try {
+        db.collection('produits').orderBy('id', 'asc').onSnapshot((snapshot) => {
+            if (snapshot.empty) return;
+            const firebaseProducts = [];
+            snapshot.forEach(doc => {
+                const data = doc.data();
+                firebaseProducts.push({
+                    id: data.id,
+                    name: data.name || 'Sans nom',
+                    price: data.price || data.price1 || 0,
+                    oldPrice: data.oldPrice || data.price2 || 0,
+                    stock: data.stock || 0,
+                    category: data.category || 'Non categorise',
+                    images: data.images || (data.optionImg ? [data.optionImg] : []),
+                    description: data.description || '',
+                    hidden: data.hidden || false,
+                    img1: data.img1 || ''
+                });
+            });
+            allProducts = firebaseProducts;
+            saveProductsToCache(allProducts);
+        }, () => {});
+    } catch (e) {}
+}
+
+const suggestionsContainer = document.getElementById('searchSuggestions');
+let searchTimeout = null;
+
+function getSuggestions(query) {
+    if (!query || query.trim().length === 0) {
+        suggestionsContainer.classList.remove('active');
+        suggestionsContainer.innerHTML = '';
+        return;
+    }
+    const searchTerm = query.toLowerCase().trim();
+    const visibleProducts = allProducts.filter(p => !p.hidden);
+    const results = visibleProducts.filter(p => p.name.toLowerCase().includes(searchTerm));
+
+    if (results.length === 0) {
+        suggestionsContainer.innerHTML = `<div class="no-result">Aucun produit trouve pour "<strong>${escapeHtml(searchTerm)}</strong>"</div>`;
+        suggestionsContainer.classList.add('active');
+        return;
+    }
+
+    let html = '';
+    results.slice(0, 8).forEach(product => {
+        const img = (product.images && product.images.length > 0) ? product.images[0] :
+                    (product.optionImg || product.img1 || 'images/default.jpg');
+        const price = (product.price || 0).toLocaleString('fr-FR');
+        const link = getProductLink(product.id);
+
+        const name = product.name;
+        const idx = name.toLowerCase().indexOf(searchTerm);
+        let displayName = name;
+        if (idx !== -1) {
+            displayName = name.substring(0, idx) +
+                         '<span class="suggestion-highlight">' +
+                         name.substring(idx, idx + searchTerm.length) +
+                         '</span>' +
+                         name.substring(idx + searchTerm.length);
+        }
+
+        html += `
+            <a href="${link}" class="search-suggestion-item">
+                <img src="${img}" alt="${escapeHtml(name)}" loading="lazy" decoding="async" width="40" height="40" onerror="this.src='images/default.jpg'">
+                <span class="suggestion-name">${displayName}</span>
+                <span class="suggestion-price">${price} FCFA</span>
+            </a>
+        `;
+    });
+
+    if (results.length > 8) {
+        html += `
+            <a href="#" class="view-all" onclick="searchProducts(); return false;">
+                Voir les ${results.length} resultats
+            </a>
+        `;
+    }
+
+    suggestionsContainer.innerHTML = html;
+    suggestionsContainer.classList.add('active');
+}
+
+searchInput.addEventListener('input', function() {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => {
+        getSuggestions(this.value);
+    }, 200);
+});
+
+document.addEventListener('click', function(e) {
+    const isSearch = e.target.closest('.search-bar') || e.target.closest('.search-suggestions') || e.target.closest('.search-icon-mobile');
+    if (!isSearch) {
+        suggestionsContainer.classList.remove('active');
+    }
+});
+
+searchInput.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        suggestionsContainer.classList.remove('active');
+        this.blur();
+    }
+});
+
+// ============================================================
+// 2. PRODUIT : DONNÉES (avec 10 avis originaux)
+// ============================================================
+const PRODUCT_ID = 7;
+
+const defaultProduct = {
+    id: 7,
+    name: "Mixeur de jus portable",
+    price: 9900,
+    oldPrice: 18000,
+    stock: 20,
+    category: "Maison",
+    images: ["images/jus.webp"],
+    img1: "images/jus1.webp",
+    img2: "images/jus2.webp",
+    img3: "images/jus3.webp",
+    img4: "images/jus4.webp",
+    img5: "images/jus5.webp",
+    img6: "images/default.jpg",
+    imgCentered: "images/jus5.webp",
+    video: "videos/jus.mp4",
+    heroImages: ["images/jus1.webp", "images/jus3.webp"],
+    title1: "🥤 Envie d'un jus frais sans sortir de chez toi ni du bureau ?",
+    desc1: "Plus besoin d'attendre le vendeur de jus au coin de la rue ou de sortir le gros blender pour une seule portion. Ce mini mixeur portable prépare ton smoothie ou ton jus en quelques secondes, où que tu sois. La solution parfaite pour ta santé, prête en quelques secondes, où que tu sois.",
+    list1: "🍓 Jus frais en 30 secondes\n🔋 Rechargeable USB, sans fil\n🎒 Format compact et transportable\n🥤 Se boit directement dans la bouteille",
+    title2: "⚡ Pas besoin d'un blender géant pour un simple jus",
+    desc2: "Tu n'as pas la place pour un blender géant dans ta cuisine, ou tu veux juste un jus rapide le matin avant de partir ? Ses lames puissantes en inox mixent fruits et glaçons sans effort. Enfin un appareil pensé pour ta vraie vie, simple, compact et efficace.",
+    list2: "⚡ Lames en inox puissantes\n🧊 Mixe fruits et glaçons\n🏠 Idéal petits espaces\n🍹 Parfait pour smoothies et jus",
+    title3: "🌿 Petit format, grandes performances au quotidien",
+    desc3: "Léger, silencieux et facile à nettoyer (juste de l'eau et un peu de savon), il s'emporte partout — bureau, voiture, sport — pour boire sainement à tout moment de la journée. Le compagnon idéal pour une vie plus saine, sans jamais te compliquer la tâche.",
+    list3: "🌿 Nettoyage en 10 secondes\n🔋 Batterie rechargeable longue durée\n🎒 Idéal bureau, sport, voyage\n💧 Boisson toujours fraîche",
+    titleCarousel: "✅ Le compagnon santé que nos clients gardent sur eux",
+    descCarousel: "Avec sa capacité de 380 ml, ses 4 lames en inox et une charge de 2h offrant environ 15 utilisations, ce mixeur accompagne déjà le quotidien de nombreux clients togolais actifs.",
+    listCarousel: "🥤 Réservoir 380 ml\n🔪 4 lames en inox\n⚡ ~15 utilisations par charge\n💯 Satisfait ou remboursé sous 30 jours",
+    carouselImages: ["images/1.webp"],
+    alertMessage: "Merci de ne remplir ce formulaire que si vous êtes prêt(e) à recevoir votre commande, pour une livraison sans souci 🙏",
+    reviews: [
+        { stars: 5, text: "Très pratique, je l'emporte partout. Jus délicieux et rapide. Nettoyage facile.", author: "Koffi A., Agodekè" },
+        { stars: 4.5, text: "Bonne autonomie, se nettoie facilement. Les lames en acier inoxydable sont efficaces.", author: "Nadia B., Adidogomé" },
+        { stars: 5, text: "Le format compact est parfait pour mon bureau. Je mixe smoothies et soupes.", author: "Esso S., Bè" },
+        { stars: 5, text: "Un excellent produit, je recommande. La batterie tient plusieurs jus.", author: "Jean-Marc D., Agoe" },
+        { stars: 4.5, text: "Rapide et efficace, aucun bruit gênant. Attention aux gros morceaux.", author: "Yves K., Atakpamé" },
+        { stars: 5, text: "Idéal pour les smoothies. Livraison rapide.", author: "Moussa T., Dapaong" },
+        { stars: 5, text: "Le plastique est solide, très content. Le bouchon étanche évite les fuites.", author: "David H., Tokoin-wuiti" },
+        { stars: 4.5, text: "Batterie tient bien, environ 15 pressages.", author: "Rachel M., Doumassessé" },
+        { stars: 5, text: "Rapport qualité/prix imbattable. Je l'utilise pour mes protéines.", author: "Adama C., Adidoadin" },
+        { stars: 5, text: "Satisfait, comme sur la description. Service client sérieux.", author: "Elom G., Aného" }
+    ],
+    faq: [
+        { q: "Livraison gratuite ?", a: "Oui, livraison 100% gratuite partout à Lomé. Vers l'intérieur du pays, les frais commencent à partir de 500 FCFA selon la localité. Pour le suivi, vous serez informé(e) de l'avancement de votre livraison directement sur WhatsApp." },
+        { q: "Paiement à la livraison ?", a: "Oui Paiement à la livraison (cash, Mobile Money, carte)." },
+        { q: "Garantie satisfait ou remboursé ?", a: "Oui, sous 30 jours." },
+        { q: "Quelle est la capacité du gobelet ?", a: "Environ 350 à 400 ml, idéal pour un smoothie ou un jus individuel." },
+        { q: "Combien de temps dure la batterie ?", a: "Une charge complète (environ 2 à 3h via USB) permet généralement 10 à 15 mixages avant de devoir recharger." },
+        { q: "Se recharge-t-il facilement ?", a: "Oui, il se recharge par câble USB et une charge complète permet plusieurs utilisations." },
+        { q: "Comment utiliser l'extracteur ?", a: "Coupez les fruits en petits morceaux, placez-les dans le gobelet, fermez le couvercle avec les lames, puis appuyez sur le bouton pour mixer. Vous pouvez boire directement dans le même récipient, sans verre supplémentaire." },
+        { q: "Puis-je suivre ma commande ?", a: "Oui, vous serez tenu(e) informé(e) de chaque étape (confirmation, expédition, livraison) directement sur WhatsApp." },
+        { q: "Le produit ne fonctionne pas ou ne correspond pas à la description ?", a: "Nous proposons un échange sous 24h. Contactez-nous immédiatement via WhatsApp avec une photo du produit reçu." }
+    ],
+    hidden: false,
+    urgence: "🔥 Offre exclusive – stock limité, réservé aux premières commandes !"
+};
+
+let productData = null;
+
+function loadProductFromCache() {
+    const cached = localStorage.getItem('ecom_product_' + PRODUCT_ID);
+    if (cached) {
+        try {
+            productData = JSON.parse(cached);
+            return true;
+        } catch(e) {}
+    }
+    return false;
+}
+
+function saveProductToCache(product) {
+    try {
+        localStorage.setItem('ecom_product_' + PRODUCT_ID, JSON.stringify(product));
+    } catch(e) {}
+}
+
+async function loadProductFromFirebase() {
+    try {
+        const doc = await db.collection('produits').doc(String(PRODUCT_ID)).get();
+        if (doc.exists) {
+            const data = doc.data();
+            productData = {
+                id: data.id,
+                name: data.name || defaultProduct.name,
+                price: data.price || data.price1 || defaultProduct.price,
+                oldPrice: data.oldPrice || data.price2 || defaultProduct.oldPrice,
+                stock: data.stock || defaultProduct.stock,
+                category: data.category || defaultProduct.category,
+                images: data.images || defaultProduct.images,
+                img1: data.img1 || defaultProduct.img1,
+                img1b: data.img1b || '',
+                img2: data.img2 || defaultProduct.img2,
+                img2b: data.img2b || '',
+                img3: data.img3 || defaultProduct.img3,
+                img3b: data.img3b || '',
+                img4: data.img4 || defaultProduct.img4,
+                img5: data.img5 || defaultProduct.img5,
+                img6: data.img6 || defaultProduct.img6,
+                imgCentered: data.imgCentered || defaultProduct.imgCentered,
+                video: data.video || defaultProduct.video,
+                title1: data.title1 || defaultProduct.title1,
+                desc1: data.desc1 || defaultProduct.desc1,
+                list1: data.list1 || defaultProduct.list1,
+                title2: data.title2 || defaultProduct.title2,
+                desc2: data.desc2 || defaultProduct.desc2,
+                list2: data.list2 || defaultProduct.list2,
+                title3: data.title3 || defaultProduct.title3,
+                desc3: data.desc3 || defaultProduct.desc3,
+                list3: data.list3 || defaultProduct.list3,
+                titleCarousel: data.titleCarousel || defaultProduct.titleCarousel,
+                descCarousel: data.descCarousel || defaultProduct.descCarousel,
+                listCarousel: data.listCarousel || defaultProduct.listCarousel,
+                carouselImages: data.carouselImages || defaultProduct.carouselImages,
+                heroImages: data.heroImages || defaultProduct.heroImages,
+                alertMessage: data.alertMessage || defaultProduct.alertMessage,
+                reviews: data.reviews || defaultProduct.reviews,
+                faq: data.faq || defaultProduct.faq,
+                hidden: data.hidden || false,
+                urgence: data.urgence || defaultProduct.urgence
+            };
+            saveProductToCache(productData);
+            return true;
+        }
+        return false;
+    } catch(e) {
+        return false;
+    }
+}
+
+function listenToProductChanges() {
+    try {
+        db.collection('produits').doc(String(PRODUCT_ID)).onSnapshot((doc) => {
+            if (doc.exists) {
+                const data = doc.data();
+                const newProduct = {
+                    id: data.id,
+                    name: data.name || defaultProduct.name,
+                    price: data.price || data.price1 || defaultProduct.price,
+                    oldPrice: data.oldPrice || data.price2 || defaultProduct.oldPrice,
+                    stock: data.stock || defaultProduct.stock,
+                    category: data.category || defaultProduct.category,
+                    images: data.images || defaultProduct.images,
+                    img1: data.img1 || defaultProduct.img1,
+                    img1b: data.img1b || '',
+                    img2: data.img2 || defaultProduct.img2,
+                    img2b: data.img2b || '',
+                    img3: data.img3 || defaultProduct.img3,
+                    img3b: data.img3b || '',
+                    img4: data.img4 || defaultProduct.img4,
+                    img5: data.img5 || defaultProduct.img5,
+                    img6: data.img6 || defaultProduct.img6,
+                    imgCentered: data.imgCentered || defaultProduct.imgCentered,
+                    video: data.video || defaultProduct.video,
+                    title1: data.title1 || defaultProduct.title1,
+                    desc1: data.desc1 || defaultProduct.desc1,
+                    list1: data.list1 || defaultProduct.list1,
+                    title2: data.title2 || defaultProduct.title2,
+                    desc2: data.desc2 || defaultProduct.desc2,
+                    list2: data.list2 || defaultProduct.list2,
+                    title3: data.title3 || defaultProduct.title3,
+                    desc3: data.desc3 || defaultProduct.desc3,
+                    list3: data.list3 || defaultProduct.list3,
+                titleCarousel: data.titleCarousel || defaultProduct.titleCarousel,
+                descCarousel: data.descCarousel || defaultProduct.descCarousel,
+                listCarousel: data.listCarousel || defaultProduct.listCarousel,
+                carouselImages: data.carouselImages || defaultProduct.carouselImages,
+                heroImages: data.heroImages || defaultProduct.heroImages,
+                alertMessage: data.alertMessage || defaultProduct.alertMessage,
+                    reviews: data.reviews || defaultProduct.reviews,
+                    faq: data.faq || defaultProduct.faq,
+                    hidden: data.hidden || false,
+                    urgence: data.urgence || defaultProduct.urgence
+                };
+                if (JSON.stringify(productData) !== JSON.stringify(newProduct)) {
+                    productData = newProduct;
+                    saveProductToCache(productData);
+                    renderProduct();
+                }
+            }
+        });
+    } catch(e) {}
+}
+
+function renderProduct() {
+    if (!productData) return;
+    const p = productData;
+
+    document.getElementById('productTitle').innerHTML = p.name + ' <img src="https://flagcdn.com/tg.svg" alt="Togo" style="width:28px; height:auto; vertical-align:middle; margin-left:10px;">';
+    document.title = p.name + ' - Commande';
+
+    const price1 = p.price || 0;
+    const oldPrice1 = p.oldPrice || 0;
+    const price2 = Math.round(price1 * 1.7);
+    const oldPrice2 = oldPrice1 > 0 ? Math.round(oldPrice1 * 1.7) : 0;
+
+    let price1Html = price1.toLocaleString('fr-FR') + ' FCFA';
+    if (oldPrice1 > 0 && oldPrice1 > price1) {
+        price1Html += ' <span class="old-price">' + oldPrice1.toLocaleString('fr-FR') + ' FCFA</span>';
+    }
+    document.getElementById('optionPrice1').innerHTML = price1Html;
+
+    let price2Html = price2.toLocaleString('fr-FR') + ' FCFA';
+    if (oldPrice2 > 0 && oldPrice2 > price2) {
+        price2Html += ' <span class="old-price">' + oldPrice2.toLocaleString('fr-FR') + ' FCFA</span>';
+    }
+    price2Html += ' <span class="small-save">(Économie)</span>';
+    document.getElementById('optionPrice2').innerHTML = price2Html;
+
+    document.querySelector('.option[data-qty="1"]').setAttribute('data-price', price1);
+    document.querySelector('.option[data-qty="2"]').setAttribute('data-price', price2);
+
+    const activeOption = document.querySelector('.option.active');
+    const activePrice = activeOption ? parseInt(activeOption.getAttribute('data-price')) : price1;
+
+    const promoBadge = document.getElementById('promoBadge');
+    if (oldPrice1 > 0 && oldPrice1 > price1) {
+        const discount = Math.round(((oldPrice1 - price1) / oldPrice1) * 100);
+        promoBadge.textContent = 'PROMO -' + discount + '%';
+        promoBadge.style.display = 'inline-block';
+    } else {
+        promoBadge.style.display = 'none';
+    }
+
+    if (p.reviews && p.reviews.length > 0) {
+        const avgStars = p.reviews.reduce((s, r) => s + r.stars, 0) / p.reviews.length;
+        const fullStars = Math.floor(avgStars);
+        const halfStar = avgStars - fullStars >= 0.5;
+        let starsHtml = '';
+        for (let i = 0; i < 5; i++) {
+            if (i < fullStars) starsHtml += '<span class="star-full">★</span>';
+            else if (i === fullStars && halfStar) starsHtml += '<span class="star-half">★</span>';
+            else starsHtml += '<span class="star-full" style="color:#ddd;">★</span>';
+        }
+        document.getElementById('starsDisplay').innerHTML = starsHtml;
+        document.getElementById('ratingText').textContent = '(' + avgStars.toFixed(1) + ') basé sur ' + p.reviews.length + ' avis';
+    }
+
+    const video = document.getElementById('productVideo');
+    if (p.video && video) {
+        const source = video.querySelector('source');
+        if (source.getAttribute('src') !== p.video) {
+            source.setAttribute('src', p.video);
+        }
+        if (!video.dataset.lazyBound) {
+            video.dataset.lazyBound = '1';
+            const io = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        video.load();
+                        video.play().catch(()=>{});
+                        io.unobserve(video);
+                    }
+                });
+            }, { rootMargin: '200px' });
+            io.observe(video);
+        }
+    }
+
+    // ========== GALERIE PRINCIPALE (haut de page) ==========
+    function renderHeroGallery(images) {
+        // Simplifié : une seule image principale, plus de petites vignettes.
+        const main = document.getElementById('heroMainImage');
+        const thumbsEl = document.getElementById('heroThumbs');
+        if (thumbsEl) { thumbsEl.style.display = 'none'; thumbsEl.innerHTML = ''; }
+        if (!main) return;
+        const list = (images || []).filter(Boolean);
+        main.src = list.length ? list[0] : img1;
+        main.classList.remove('img-shimmer');
+    }
+    renderHeroGallery(p.heroImages && p.heroImages.length ? p.heroImages : defaultProduct.heroImages);
+
+    function initMiniSlider(trackEl) {
+        if (!trackEl) return;
+        let isDown = false, startX = 0, scrollStart = 0;
+
+        trackEl.addEventListener('mousedown', e => {
+            isDown = true;
+            trackEl.classList.add('dragging');
+            startX = e.pageX;
+            scrollStart = trackEl.scrollLeft;
+        });
+        window.addEventListener('mouseup', () => {
+            if (isDown) { isDown = false; trackEl.classList.remove('dragging'); }
+        });
+        window.addEventListener('mousemove', e => {
+            if (!isDown) return;
+            e.preventDefault();
+            trackEl.scrollLeft = scrollStart - (e.pageX - startX);
+        });
+        // Le glissement tactile (doigt) fonctionne nativement grâce au scroll horizontal + scroll-snap
+    }
+
+    // Affiche 1 ou 2 images pour un bloc : bascule automatiquement en mode "peek" si une 2e image existe
+    function renderBlockImages(n, mainSrc, secondSrc) {
+        const side = document.getElementById(`block${n}Side`);
+        const img1 = document.getElementById(`block${n}Img`);
+        const img2 = document.getElementById(`block${n}Img2`);
+        img1.src = mainSrc;
+        img1.classList.remove('img-shimmer');
+        if (secondSrc) {
+            img2.src = secondSrc;
+            img2.classList.remove('img-shimmer');
+            img2.style.display = '';
+            side.classList.add('two-images');
+        } else {
+            img2.style.display = 'none';
+            side.classList.remove('two-images');
+        }
+    }
+
+    function initCarousel(images) {
+        const blockEl = document.getElementById('blockCarousel');
+        const track = document.getElementById('carouselTrack');
+        const dots = document.getElementById('carouselDots');
+        if (!images || images.length === 0) {
+            if (blockEl) blockEl.closest('.content-block').style.display = 'none';
+            return;
+        }
+        track.innerHTML = images.map((src, i) => `<img src="${src}" data-i="${i}" loading="lazy" alt="" onerror="this.style.display='none'">`).join('');
+        blockEl.classList.toggle('single-image', images.length === 1);
+
+        if (images.length > 1) {
+            dots.innerHTML = images.map((_, i) => `<span class="dot${i === 0 ? ' active' : ''}" data-i="${i}"></span>`).join('');
+            const dotEls = dots.querySelectorAll('.dot');
+            const imgEls = track.querySelectorAll('img');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && entry.intersectionRatio > 0.6) {
+                        const idx = parseInt(entry.target.dataset.i);
+                        dotEls.forEach((d, j) => d.classList.toggle('active', j === idx));
+                    }
+                });
+            }, { root: track, threshold: [0.6] });
+            imgEls.forEach(img => observer.observe(img));
+
+            dotEls.forEach((d, i) => d.style.pointerEvents = 'auto');
+            dotEls.forEach((d, i) => d.addEventListener('click', () => {
+                imgEls[i].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+            }));
+
+            let isDown = false, startX = 0, scrollStart = 0;
+            track.addEventListener('mousedown', e => {
+                isDown = true;
+                track.classList.add('dragging');
+                startX = e.pageX;
+                scrollStart = track.scrollLeft;
+            });
+            window.addEventListener('mouseup', () => { isDown = false; track.classList.remove('dragging'); });
+            window.addEventListener('mousemove', e => {
+                if (!isDown) return;
+                e.preventDefault();
+                track.scrollLeft = scrollStart - (e.pageX - startX);
+            });
+        } else {
+            dots.innerHTML = '';
+        }
+    }
+    const img1 = p.img1 || p.images?.[0] || 'images/jus1.webp';
+
+    document.querySelector('#option1 img').src = img1;
+    document.querySelector('#option2 img').src = img1;
+
+    // Bloc 1
+    document.getElementById('block1Title').textContent = p.title1 || defaultProduct.title1;
+    document.getElementById('block1Desc').textContent = p.desc1 || defaultProduct.desc1;
+    renderBlockImages(1, p.img1 || defaultProduct.img1, p.img1b || '');
+    initMiniSlider(document.getElementById('block1Track'));
+    if (p.list1) {
+        const items = p.list1.split('\n').filter(l => l.trim());
+        if (items.length > 0) {
+            document.getElementById('block1List').innerHTML = items.map(line => {
+                const emojiMatch = line.match(/^([\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}✔️✅⭐🔥💪🎁✨💡⚡🔋📞💬❤️🎵⌚🌿🦵💤👣🔬🧹🩸🧠🛡️😴🥤🍓🥩📦🥣⚔️👨‍🍳🚀👑💍👩‍🦱👩💖🎉🔇🏡🥗🦶💅👡🩸🏃‍♂️😴]+)\s*(.*)/u);
+                if (emojiMatch) {
+                    return `<li><span class="emoji">${emojiMatch[1]}</span> ${emojiMatch[2]}</li>`;
+                }
+                return `<li><span class="emoji">✨</span> ${line}</li>`;
+            }).join('');
+        }
+    }
+
+    // Bloc 2
+    document.getElementById('block2Title').textContent = p.title2 || defaultProduct.title2;
+    document.getElementById('block2Desc').textContent = p.desc2 || defaultProduct.desc2;
+    renderBlockImages(2, p.img2 || defaultProduct.img2, p.img2b || '');
+    initMiniSlider(document.getElementById('block2Track'));
+    if (p.list2) {
+        const items = p.list2.split('\n').filter(l => l.trim());
+        if (items.length > 0) {
+            document.getElementById('block2List').innerHTML = items.map(line => {
+                const emojiMatch = line.match(/^([\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}✔️✅⭐🔥💪🎁✨💡⚡🔋📞💬❤️🎵⌚🌿🦵💤👣🔬🧹🩸🧠🛡️😴🥤🍓🥩📦🥣⚔️👨‍🍳🚀👑💍👩‍🦱👩💖🎉🔇🏡🥗🦶💅👡🩸🏃‍♂️😴]+)\s*(.*)/u);
+                if (emojiMatch) {
+                    return `<li><span class="emoji">${emojiMatch[1]}</span> ${emojiMatch[2]}</li>`;
+                }
+                return `<li><span class="emoji">✨</span> ${line}</li>`;
+            }).join('');
+        }
+    }
+
+    // Bloc carrousel (texte + galerie d'images)
+    document.getElementById('carouselTitle').textContent = p.titleCarousel || defaultProduct.titleCarousel || 'Ils l\'ont essayé, ils confirment !';
+    document.getElementById('carouselDesc').textContent = p.descCarousel || defaultProduct.descCarousel || '';
+    const listCarouselSrc = p.listCarousel || defaultProduct.listCarousel;
+    if (listCarouselSrc) {
+        const items = listCarouselSrc.split('\n').filter(l => l.trim());
+        if (items.length > 0) {
+            document.getElementById('carouselList').innerHTML = items.map(line => {
+                const emojiMatch = line.match(/^([\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}✔️✅⭐🔥💪🎁✨💡⚡🔋📞💬❤️🎵⌚🌿🦵💤👣🔬🧹🩸🧠🛡️😴🥤🍓🥩📦🥣⚔️👨‍🍳🚀👑💍👩‍🦱👩💖🎉🔇🏡🥗🦶💅👡🩸🏃‍♂️😴]+)\s*(.*)/u);
+                if (emojiMatch) {
+                    return `<li><span class="emoji">${emojiMatch[1]}</span> ${emojiMatch[2]}</li>`;
+                }
+                return `<li><span class="emoji">✨</span> ${line}</li>`;
+            }).join('');
+        }
+    }
+    const carouselImages = (p.carouselImages && p.carouselImages.length ? p.carouselImages
+                          : (p.images && p.images.length ? p.images
+                          : (defaultProduct.carouselImages || defaultProduct.images || [])));
+    initCarousel(carouselImages);
+    const alertEl = document.getElementById('alertMessageText');
+    if (alertEl) alertEl.textContent = p.alertMessage || defaultProduct.alertMessage;
+
+    // Bloc 3
+    document.getElementById('block3Title').textContent = p.title3 || defaultProduct.title3;
+    document.getElementById('block3Desc').textContent = p.desc3 || defaultProduct.desc3;
+    if (p.list3) {
+        const items = p.list3.split('\n').filter(l => l.trim());
+        if (items.length > 0) {
+            document.getElementById('block3List').innerHTML = items.map(line => {
+                const emojiMatch = line.match(/^([\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}✔️✅⭐🔥💪🎁✨💡⚡🔋📞💬❤️🎵⌚🌿🦵💤👣🔬🧹🩸🧠🛡️😴🥤🍓🥩📦🥣⚔️👨‍🍳🚀👑💍👩‍🦱👩💖🎉🔇🏡🥗🦶💅👡🩸🏃‍♂️😴]+)\s*(.*)/u);
+                if (emojiMatch) {
+                    return `<li><span class="emoji">${emojiMatch[1]}</span> ${emojiMatch[2]}</li>`;
+                }
+                return `<li><span class="emoji">✨</span> ${line}</li>`;
+            }).join('');
+        }
+    }
+
+    if (p.img4) document.getElementById('banner1').src = p.img4;
+    if (p.img5) document.getElementById('banner2').src = p.img5;
+    if (p.imgCentered) document.getElementById('centeredImg').src = p.imgCentered;
+
+    const testimonialsGrid = document.getElementById('testimonialsGrid');
+    if (p.reviews && p.reviews.length > 0) {
+        testimonialsGrid.innerHTML = p.reviews.slice(0, 6).map(r => {
+            const stars = '★'.repeat(Math.floor(r.stars)) + (r.stars % 1 >= 0.5 ? '½' : '');
+            return '<div class="testimonial-card"><div class="stars">' + stars.padEnd(5, '☆') + '</div><p>' + r.text + '</p><div class="author">– ' + r.author + '</div></div>';
+        }).join('');
+    }
+
+    const faqContainer = document.getElementById('faqContainer');
+    if (p.faq && p.faq.length > 0) {
+        faqContainer.innerHTML = p.faq.map((f, i) => {
+            return '<div class="faq-item" id="faq-' + i + '"><div class="faq-question">' + f.q + ' <span>▶</span></div><div class="faq-answer">' + f.a + '</div></div>';
+        }).join('');
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.querySelector('.faq-question').addEventListener('click', function() {
+                item.classList.toggle('active');
+            });
+        });
+    }
+
+    if (p.urgence) {
+        document.getElementById('urgenceMessage').textContent = p.urgence;
+    }
+
+    updateSelection(document.querySelector('.option.active') || document.getElementById('option1'));
+}
+
+// ============================================================
+// 3. FORMULAIRE
+// ============================================================
+const options = document.querySelectorAll('.option');
+let selectedPrice = 9900, selectedQty = 1;
+
+function updateSelection(selected) {
+    options.forEach(o => o.classList.remove('active'));
+    if (selected) selected.classList.add('active');
+    const activeOpt = document.querySelector('.option.active') || document.getElementById('option1');
+    selectedPrice = parseInt(activeOpt.getAttribute('data-price')) || 9900;
+    selectedQty = parseInt(activeOpt.getAttribute('data-qty')) || 1;
+}
+options.forEach(opt => opt.addEventListener('click', () => updateSelection(opt)));
+
+function showErrorModal(message) {
+    const existing = document.querySelector('.error-modal-overlay');
+    if (existing) existing.remove();
+    const overlay = document.createElement('div');
+    overlay.className = 'error-modal-overlay show';
+    overlay.innerHTML = `
+        <div class="error-modal-box">
+            <div class="error-logo">🌿 AfriCervo</div>
+            <div class="error-icon">⚠️</div>
+            <div class="error-title">Formulaire incomplet</div>
+            <div class="error-message">${message}</div>
+            <button class="error-btn" id="errorModalBtn">OK</button>
+        </div>
+    `;
+    document.body.appendChild(overlay);
+    document.getElementById('errorModalBtn').addEventListener('click', () => overlay.remove());
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+}
+
+function validateForm() {
+    let ok = true;
+    let firstError = '';
+    if (fullname.value.trim().length < 2) {
+        fullname.classList.add('error');
+        errorName.classList.add('show');
+        ok = false;
+        if (!firstError) firstError = 'Nom & Prénom';
+    } else {
+        fullname.classList.remove('error');
+        errorName.classList.remove('show');
+    }
+    let phoneRaw = phone.value.trim().replace(/\D/g, '');
+    if (phoneRaw.length !== 8) {
+        phone.classList.add('error');
+        errorPhone.classList.add('show');
+        ok = false;
+        if (!firstError) firstError = 'Téléphone';
+    } else {
+        phone.classList.remove('error');
+        errorPhone.classList.remove('show');
+    }
+    if (city.value.trim().length < 2) {
+        city.classList.add('error');
+        errorCity.classList.add('show');
+        ok = false;
+        if (!firstError) firstError = 'Ville / Quartier';
+    } else {
+        city.classList.remove('error');
+        errorCity.classList.remove('show');
+    }
+    if (!ok) {
+        showErrorModal('Veuillez remplir correctement le champ <strong>« ' + firstError + ' »</strong> et tous les autres champs obligatoires.');
+    }
+    return ok;
+}
+
+const fullname = document.getElementById('fullname');
+const phone = document.getElementById('phone');
+const city = document.getElementById('city');
+const errorName = document.getElementById('error-name');
+const errorPhone = document.getElementById('error-phone');
+const errorCity = document.getElementById('error-city');
+
+[fullname, phone, city].forEach(f => f.addEventListener('input', function() {
+    this.classList.remove('error');
+    if (this.id === 'phone') errorPhone.classList.remove('show');
+    if (this.id === 'fullname') errorName.classList.remove('show');
+    if (this.id === 'city') errorCity.classList.remove('show');
+}));
+
+function showCustomNotification(nom, tel, ville, note, produit, quantite, total) {
+    const existing = document.querySelector('.custom-modal');
+    if (existing) existing.remove();
+    const modal = document.createElement('div');
+    modal.className = 'custom-modal';
+    modal.innerHTML = `
+        <div class="custom-modal-content">
+            <img src="images/logo2.webp" alt="AfriCervo" loading="lazy">
+            <h3>✨ Commande enregistrée ✨</h3>
+            <div class="recap">
+                <p><strong>👤 Client :</strong> ${nom}</p>
+                <p><strong>📞 Téléphone :</strong> ${tel}</p>
+                <p><strong>📍 Ville/Quartier :</strong> ${ville}</p>
+                ${note ? `<p><strong>📝 Note livraison :</strong> ${note}</p>` : ''}
+                <p><strong>📦 Produit :</strong> ${produit}</p>
+                <p><strong>🔢 Quantité :</strong> ${quantite}</p>
+                <p><strong>💰 Total :</strong> ${total.toLocaleString('fr-FR')} FCFA</p>
+            </div>
+            <p>✅ Un conseiller vous contactera sous 24h.</p>
+            <button id="closeModalBtn">Fermer</button>
+        </div>
+    `;
+    document.body.appendChild(modal);
+    document.getElementById('closeModalBtn').addEventListener('click', () => modal.remove());
+    modal.addEventListener('click', (e) => { if (e.target === modal) modal.remove(); });
+}
+
+function getCookie(name) {
+    const match = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+    return match ? match.pop() : '';
+}
+
+async function submitOrder() {
+    if (!validateForm()) { return false; }
+    const nom = fullname.value.trim(), tel = phone.value.trim(), ville = city.value.trim();
+    const note = document.getElementById('deliveryNote').value.trim();
+    const produit = document.getElementById('productTitle').innerText.replace(/<img[^>]*>/, '').trim();
+    try {
+        const orderRef = await db.collection("commandes").add({
+            nom, tel, ville, note, produit,
+            quantite: selectedQty,
+            total: selectedPrice,
+            date: new Date().toISOString(),
+            status: "non livre"
+        });
+
+        // Declenche la notification push vers l'admin (n'empeche pas la commande si ca echoue)
+        const productImagePath = (productData && productData.images && productData.images[0]) || (typeof defaultProduct !== 'undefined' ? defaultProduct.images[0] : '');
+        const productImageUrl = productImagePath ? new URL(productImagePath, window.location.href).href : '';
+        fetch('/.netlify/functions/send-notification', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                orderId: orderRef.id,
+                clientName: nom,
+                total: selectedPrice,
+                produit: produit,
+                imageUrl: productImageUrl
+            })
+        }).catch(function() {});
+        const capiEventId = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : ('evt_' + Date.now() + '_' + Math.random().toString(36).slice(2));
+        if (typeof fbq !== 'undefined') {
+            fbq('track', 'Purchase', {
+                content_ids: ['mixeur-de-jus-portable'],
+                content_name: produit,
+                content_type: 'product',
+                quantity: selectedQty,
+                value: selectedPrice,
+                currency: 'XAF'
+            }, { eventID: capiEventId });
+        }
+        // Envoi côté serveur (Conversions API) en complément du Pixel navigateur,
+        // avec le même eventID pour que Meta déduplique les deux automatiquement.
+        fetch('/.netlify/functions/send-conversion', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                eventName: 'Purchase',
+                eventId: capiEventId,
+                eventSourceUrl: window.location.href,
+                value: selectedPrice,
+                currency: 'XAF',
+                contentName: produit,
+                contentIds: ['mixeur-de-jus-portable'],
+                phone: tel,
+                firstName: nom,
+                city: ville,
+                orderId: orderRef.id,
+                fbp: getCookie('_fbp'),
+                fbc: getCookie('_fbc')
+            })
+        }).catch(function() {});
+        showCustomNotification(nom, tel, ville, note, produit, selectedQty, selectedPrice);
+        fullname.value = ''; phone.value = ''; city.value = ''; document.getElementById('deliveryNote').value = '';
+        return true;
+    } catch(e) {
+        alert("❌ Une erreur s'est produite. Vérifiez votre connexion Internet.");
+        return false;
+    }
+}
+
+document.getElementById('orderBtn').addEventListener('click', e => { e.preventDefault(); submitOrder(); });
+document.getElementById('footerOrderBtn').addEventListener('click', function(e) {
+    e.preventDefault();
+    if (validateForm()) {
+        submitOrder().then(() => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    } else {
+        document.querySelector('.form-box').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+});
+
+// ============================================================
+// 4. FIREBASE
+// ============================================================
+const firebaseConfig = {
+    apiKey: "AIzaSyDKzQenl8G2KjWicO5nypyj3rURi7u-qZM",
+    authDomain: "africevo-commandes.firebaseapp.com",
+    databaseURL: "https://africevo-commandes-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "africevo-commandes",
+    storageBucket: "africevo-commandes.firebasestorage.app",
+    messagingSenderId: "207539954871",
+    appId: "1:207539954871:web:a80316f58bc3a0df6d5932"
+};
+if (!firebase.apps || firebase.apps.length === 0) {
+    firebase.initializeApp(firebaseConfig);
+}
+const db = firebase.firestore();
+
+// ============================================================
+// 5. INITIALISATION
+// ============================================================
+// Toujours attendre les données réelles de Firebase avant d'afficher quoi que ce soit :
+// plus de cache local ni de données par défaut affichées avant la mise à jour.
+loadProductFromFirebase().then((ok) => {
+    if (!ok) { productData = defaultProduct; }
+    renderProduct();
+});
+listenToProductChanges();
+
+// Initialisation des suggestions de recherche (catalogue complet)
+loadProductsFromFirebase().then((ok) => {
+    if (!ok) { allProducts = defaultProducts; }
+});
+listenToProductsChanges();
+
+console.log('✅ mixeur-de-jus-portable.html prêt (10 avis)');
+</script>
+
+<a class="whatsapp" href="https://wa.me/22896730066?text=Bonjour%20!%20%F0%9F%91%8B%20Je%20viens%20de%20visiter%20votre%20boutique%20en%20ligne%20et%20j%E2%80%99aimerais%20passer%20une%20commande%20s%E2%80%99il%20vous%20pla%C3%AEt.%20%F0%9F%9B%8D%EF%B8%8F" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+<div class="whatsapp-tooltip" id="whatsappTooltip">💬 Une question ? Écrivez-nous</div>
+<script>
+(function() {
+    if (sessionStorage.getItem('wa_tooltip_done')) return;
+    var tip = document.getElementById('whatsappTooltip');
+    if (!tip) return;
+    tip.addEventListener('click', function() {
+        var btn = document.querySelector('.whatsapp');
+        if (btn) btn.click();
+    });
+    function showTip(visibleMs) {
+        tip.classList.add('show');
+        setTimeout(function() { tip.classList.remove('show'); }, visibleMs);
+    }
+    setTimeout(function() { showTip(6000); }, 5000);   // 1ère apparition
+    setTimeout(function() { showTip(6000); }, 26000);  // 2ème apparition (15s après la fin de la 1ère)
+    setTimeout(function() {
+        showTip(6000);                                  // 3ème apparition (~40s)
+        sessionStorage.setItem('wa_tooltip_done', '1');
+    }, 40000);
+})();
+</script>
+
+</body>
+</html>

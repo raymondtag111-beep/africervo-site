@@ -1,0 +1,472 @@
+{
+  "17": {
+    "id": 17,
+    "name": "Écouteurs Buds3 Pro",
+    "price": 13500,
+    "oldPrice": 25000,
+    "stock": 20,
+    "category": "Électronique",
+    "images": [
+      "images/buds3pro-1.jpg"
+    ],
+    "video": "videos/buds3pro.mp4",
+    "description": "",
+    "title1": "🎧 Marre des écouteurs qui coupent ou se déchargent trop vite ?",
+    "desc1": "Fini les appels qui grésillent et la musique qui coupe en pleine rue. Les écouteurs Buds3 Pro offrent une connexion Bluetooth stable, un son clair et une réduction de bruit qui isole des bruits ambiants pour une écoute nette, même dans le bruit de la ville.",
+    "list1": "📶 Connexion Bluetooth stable\n🔇 Réduction de bruit active\n🎵 Son clair et équilibré\n⚡ Appairage automatique rapide",
+    "title2": "🔋 Une autonomie qui tient toute la journée",
+    "desc2": "Le boîtier de charge te permet de recharger tes écouteurs partout, même sans prise à proximité. Plusieurs heures d'écoute continue par charge, et le boîtier ajoute plusieurs recharges complètes avant de devoir le brancher.",
+    "list2": "🔋 Autonomie prolongée avec boîtier\n⚡ Charge rapide par câble USB-C\n💧 Résistants à la sueur et aux éclaboussures\n👆 Contrôle tactile intégré",
+    "title3": "✨ Un design confortable pour un usage toute la journée",
+    "desc3": "Compatibles avec tous les smartphones Android et iPhone, ces écouteurs s'adaptent naturellement à la forme de l'oreille pour un maintien stable, que ce soit pour le sport, les appels ou le travail.",
+    "list3": "📱 Compatible Android & iPhone\n🏃🏾 Maintien stable pendant le sport\n🎙️ Micro intégré pour les appels\n🎁 Livrés avec boîtier de charge",
+    "img1": "images/buds3pro-1.jpg",
+    "img1b": "",
+    "img2": "images/buds3pro-2.jpg",
+    "img2b": "",
+    "img3": "images/buds3pro-3.jpg",
+    "img3b": "",
+    "img4": "images/buds3pro-4.jpg",
+    "img5": "images/buds3pro-5.jpg",
+    "img6": "images/buds3pro-6.jpg",
+    "imgCentered": "images/buds3pro-6.jpg",
+    "titleCarousel": "✅ Ils ont adopté leurs Buds3 Pro",
+    "descCarousel": "Découvre les retours de nos clients togolais qui utilisent déjà leurs écouteurs Buds3 Pro au quotidien.",
+    "listCarousel": "⭐ Son clair et net\n💯 Satisfait ou remboursé sous 30 jours\n🚚 Livraison rapide partout au Togo",
+    "carouselImages": [
+      "images/buds3pro-1.jpg"
+    ],
+    "alertMessage": "Merci de ne remplir ce formulaire que si vous êtes prêt(e) à recevoir votre commande, pour une livraison sans souci 🙏",
+    "reviews": [
+      {
+        "stars": 5,
+        "text": "Excellent son, l'appairage se fait en une seconde. Je les utilise pour le sport sans problème.",
+        "author": "Koffi A., Lomé"
+      },
+      {
+        "stars": 4.5,
+        "text": "Bonne autonomie, ils tiennent bien dans l'oreille. Livraison rapide.",
+        "author": "Nadia B., Adidogomé"
+      },
+      {
+        "stars": 5,
+        "text": "Le micro est clair pendant les appels, mes interlocuteurs m'entendent bien.",
+        "author": "Esso S., Kara"
+      },
+      {
+        "stars": 4.5,
+        "text": "Très confortables, je les oublie presque. Bon rapport qualité prix.",
+        "author": "Jean-Marc D., Agoè"
+      },
+      {
+        "stars": 5,
+        "text": "Boîtier de charge pratique, se glisse facilement dans la poche.",
+        "author": "Yves K., Sokodé"
+      }
+    ],
+    "faq": [
+      {
+        "q": "Livraison gratuite ?",
+        "a": "Oui, livraison 100% gratuite partout à Lomé. Vers l'intérieur du pays, les frais commencent à partir de 500 FCFA selon la localité."
+      },
+      {
+        "q": "Paiement à la livraison ?",
+        "a": "Oui, paiement à la livraison (cash, Mobile Money, carte)."
+      },
+      {
+        "q": "Garantie satisfait ou remboursé ?",
+        "a": "Oui, sous 30 jours si le produit n'a pas été entièrement utilisé."
+      },
+      {
+        "q": "Compatibles avec quels téléphones ?",
+        "a": "Oui, compatibles avec tous les smartphones Android et iPhone équipés du Bluetooth."
+      },
+      {
+        "q": "Quelle est l'autonomie de la batterie ?",
+        "a": "Plusieurs heures d'écoute en continu, et le boîtier de charge permet plusieurs recharges complètes avant de devoir le brancher."
+      },
+      {
+        "q": "Le produit ne fonctionne pas ou ne correspond pas à la description ?",
+        "a": "Nous proposons un échange sous 24h. Contactez-nous immédiatement via WhatsApp avec une photo du produit reçu."
+      }
+    ],
+    "urgence": "🔥 Offre spéciale – stock limité, réservé aux premières commandes !",
+    "hidden": false
+  },
+  "18": {
+    "id": 18,
+    "name": "Mini Alarme Anti-Intrusion",
+    "price": 8900,
+    "oldPrice": 15000,
+    "stock": 30,
+    "category": "Sécurité",
+    "images": [
+      "images/alarme-1.jpg"
+    ],
+    "video": "videos/alarme.mp4",
+    "description": "",
+    "title1": "🚨 Peur des cambriolages ou des intrusions surprises ?",
+    "desc1": "Que ce soit à la maison, au magasin ou en voyage, cette mini alarme anti-intrusion se fixe en quelques secondes sur une porte ou une fenêtre et déclenche une sirène puissante dès qu'un mouvement ou une ouverture est détecté.",
+    "list1": "🔊 Sirène puissante et dissuasive\n🪟 Idéale pour portes et fenêtres\n⚡ Installation en 30 secondes\n🎒 Compacte et portable",
+    "title2": "⚙️ Une protection simple, sans câblage ni technicien",
+    "desc2": "Pas besoin d'installateur ni de branchement électrique : l'alarme fonctionne sur pile, se colle avec l'adhésif fourni et s'active en un geste. Parfaite pour un domicile, une boutique, une chambre d'hôtel ou un bureau.",
+    "list2": "🔋 Fonctionne sur pile, sans câblage\n🧲 Fixation adhésive rapide\n🏠 Maison, boutique, hôtel, bureau\n🧳 Idéale aussi en voyage",
+    "title3": "🛡️ Dissuade avant même l'intrusion",
+    "desc3": "Le simple bruit strident suffit à faire fuir la plupart des intrus et à alerter immédiatement les personnes autour. Un moyen simple et économique de renforcer la sécurité de ton espace, jour et nuit.",
+    "list3": "🚨 Alerte instantanée et forte\n🌙 Protection jour et nuit\n💰 Solution économique\n👨‍👩‍👧 Tranquillité pour toute la famille",
+    "img1": "images/alarme-1.jpg",
+    "img1b": "",
+    "img2": "images/alarme-2.jpg",
+    "img2b": "",
+    "img3": "images/alarme-3.jpg",
+    "img3b": "",
+    "img4": "images/alarme-4.jpg",
+    "img5": "images/alarme-5.jpg",
+    "img6": "images/alarme-6.jpg",
+    "imgCentered": "images/alarme-6.jpg",
+    "titleCarousel": "✅ Ils protègent déjà leur maison",
+    "descCarousel": "Découvre les retours de nos clients togolais qui utilisent cette mini alarme pour sécuriser leur domicile ou leur commerce.",
+    "listCarousel": "⭐ Sirène puissante et efficace\n💯 Satisfait ou remboursé sous 30 jours\n🚚 Livraison rapide partout au Togo",
+    "carouselImages": [
+      "images/alarme-1.jpg"
+    ],
+    "alertMessage": "Merci de ne remplir ce formulaire que si vous êtes prêt(e) à recevoir votre commande, pour une livraison sans souci 🙏",
+    "reviews": [
+      {
+        "stars": 5,
+        "text": "Je l'ai installée sur ma porte de boutique, le son est vraiment fort. Rassurant la nuit.",
+        "author": "Koffi A., Lomé"
+      },
+      {
+        "stars": 4.5,
+        "text": "Facile à poser, pas besoin d'outils. Parfaite pour ma chambre.",
+        "author": "Nadia B., Bè"
+      },
+      {
+        "stars": 5,
+        "text": "Pratique en voyage, je la mets sur la porte de la chambre d'hôtel.",
+        "author": "Esso S., Kara"
+      },
+      {
+        "stars": 4.5,
+        "text": "Bon rapport qualité prix, le son surprend à chaque fois.",
+        "author": "Jean-Marc D., Agoè"
+      },
+      {
+        "stars": 5,
+        "text": "Simple à utiliser, elle se fixe en quelques secondes.",
+        "author": "Yves K., Sokodé"
+      }
+    ],
+    "faq": [
+      {
+        "q": "Livraison gratuite ?",
+        "a": "Oui, livraison 100% gratuite partout à Lomé. Vers l'intérieur du pays, les frais commencent à partir de 500 FCFA selon la localité."
+      },
+      {
+        "q": "Paiement à la livraison ?",
+        "a": "Oui, paiement à la livraison (cash, Mobile Money, carte)."
+      },
+      {
+        "q": "Garantie satisfait ou remboursé ?",
+        "a": "Oui, sous 30 jours si le produit n'a pas été entièrement utilisé."
+      },
+      {
+        "q": "Comment installer l'alarme ?",
+        "a": "Collez le boîtier et l'aimant de part et d'autre de la porte ou fenêtre avec l'adhésif fourni, puis activez l'interrupteur. Aucun outil ni branchement nécessaire."
+      },
+      {
+        "q": "Fonctionne-t-elle sur pile ?",
+        "a": "Oui, elle fonctionne sur pile avec une autonomie de plusieurs mois en veille."
+      },
+      {
+        "q": "Le produit ne fonctionne pas ou ne correspond pas à la description ?",
+        "a": "Nous proposons un échange sous 24h. Contactez-nous immédiatement via WhatsApp avec une photo du produit reçu."
+      }
+    ],
+    "urgence": "🔥 Sécurisez votre domicile dès aujourd'hui – stock limité !",
+    "hidden": false
+  },
+  "19": {
+    "id": 19,
+    "name": "Sèche-Chaussures Électrique",
+    "price": 9900,
+    "oldPrice": 17000,
+    "stock": 25,
+    "category": "Maison",
+    "images": [
+      "images/seche-chaussures-1.jpg"
+    ],
+    "video": "videos/seche-chaussures.mp4",
+    "description": "",
+    "title1": "🌧️ Marre des chaussures encore mouillées le lendemain ?",
+    "desc1": "Avec la saison des pluies à Lomé, difficile de sécher rapidement bottes, baskets ou chaussures de travail. Ce sèche-chaussures électrique diffuse une chaleur douce et homogène pour sécher l'intérieur de vos chaussures en quelques heures, sans les abîmer.",
+    "list1": "🔥 Chaleur douce et homogène\n👟 Sèche l'intérieur en profondeur\n🧦 Compatible chaussures, bottes, chaussons\n⚡ Faible consommation électrique",
+    "title2": "🕒 Un minuteur pour ne jamais laisser branché trop longtemps",
+    "desc2": "Réglez la durée de séchage selon vos besoins et laissez l'appareil s'arrêter automatiquement. Pratique le soir pour retrouver des chaussures sèches et prêtes le matin, sans risque de surchauffe.",
+    "list2": "⏱️ Minuterie réglable\n🛑 Arrêt automatique sécurisé\n🌙 Idéal à utiliser la nuit\n👨‍👩‍👧 Sûr pour toute la famille",
+    "title3": "😌 Fini les mauvaises odeurs et l'humidité",
+    "desc3": "La chaleur diffusée aide aussi à réduire les mauvaises odeurs liées à l'humidité, pour des chaussures plus fraîches à chaque utilisation. Léger et compact, il se range facilement entre deux utilisations.",
+    "list3": "🌬️ Réduit les mauvaises odeurs\n📦 Compact et facile à ranger\n🧺 Idéal aussi pour gants et chaussettes\n💧 Pratique en saison des pluies",
+    "img1": "images/seche-chaussures-1.jpg",
+    "img1b": "",
+    "img2": "images/seche-chaussures-2.jpg",
+    "img2b": "",
+    "img3": "images/seche-chaussures-3.jpg",
+    "img3b": "",
+    "img4": "images/seche-chaussures-4.jpg",
+    "img5": "images/seche-chaussures-5.jpg",
+    "img6": "images/seche-chaussures-6.jpg",
+    "imgCentered": "images/seche-chaussures-6.jpg",
+    "titleCarousel": "✅ Ils ne s'en passent plus en saison des pluies",
+    "descCarousel": "Découvre les retours de nos clients togolais qui utilisent déjà leur sèche-chaussures à la maison.",
+    "listCarousel": "⭐ Chaussures sèches en quelques heures\n💯 Satisfait ou remboursé sous 30 jours\n🚚 Livraison rapide partout au Togo",
+    "carouselImages": [
+      "images/seche-chaussures-1.jpg"
+    ],
+    "alertMessage": "Merci de ne remplir ce formulaire que si vous êtes prêt(e) à recevoir votre commande, pour une livraison sans souci 🙏",
+    "reviews": [
+      {
+        "stars": 5,
+        "text": "Très utile en saison des pluies, mes baskets sèchent en une nuit.",
+        "author": "Koffi A., Lomé"
+      },
+      {
+        "stars": 4.5,
+        "text": "Simple à utiliser, le minuteur est pratique.",
+        "author": "Nadia B., Adidogomé"
+      },
+      {
+        "stars": 5,
+        "text": "Mes bottes de travail ne sentent plus l'humidité depuis que je l'utilise.",
+        "author": "Esso S., Kara"
+      },
+      {
+        "stars": 4.5,
+        "text": "Compact, il se range facilement. Bon achat.",
+        "author": "Jean-Marc D., Agoè"
+      },
+      {
+        "stars": 5,
+        "text": "Fonctionne bien même sur des chaussures fermées.",
+        "author": "Yves K., Sokodé"
+      }
+    ],
+    "faq": [
+      {
+        "q": "Livraison gratuite ?",
+        "a": "Oui, livraison 100% gratuite partout à Lomé. Vers l'intérieur du pays, les frais commencent à partir de 500 FCFA selon la localité."
+      },
+      {
+        "q": "Paiement à la livraison ?",
+        "a": "Oui, paiement à la livraison (cash, Mobile Money, carte)."
+      },
+      {
+        "q": "Garantie satisfait ou remboursé ?",
+        "a": "Oui, sous 30 jours si le produit n'a pas été entièrement utilisé."
+      },
+      {
+        "q": "Convient-il à toutes les tailles de chaussures ?",
+        "a": "Oui, il s'adapte à la majorité des chaussures, baskets, bottes et chaussons grâce à son embout flexible."
+      },
+      {
+        "q": "Combien de temps pour sécher une paire ?",
+        "a": "Comptez généralement entre 2 et 4 heures selon l'humidité et le réglage du minuteur choisi."
+      },
+      {
+        "q": "Le produit ne fonctionne pas ou ne correspond pas à la description ?",
+        "a": "Nous proposons un échange sous 24h. Contactez-nous immédiatement via WhatsApp avec une photo du produit reçu."
+      }
+    ],
+    "urgence": "🔥 Préparez-vous pour la saison des pluies – stock limité !",
+    "hidden": false
+  },
+  "20": {
+    "id": 20,
+    "name": "Casque P9 Pro",
+    "price": 12500,
+    "oldPrice": 22000,
+    "stock": 20,
+    "category": "Électronique",
+    "images": [
+      "images/p9pro-1.jpg"
+    ],
+    "video": "videos/p9pro.mp4",
+    "description": "",
+    "title1": "🎧 Marre des écouteurs qui tombent ou qui font mal aux oreilles ?",
+    "desc1": "Contrairement aux petits écouteurs intra-auriculaires, le casque P9 Pro enveloppe confortablement l'oreille pour un son plus immersif et un maintien stable, que tu sois en appel, en musique ou en déplacement.",
+    "list1": "🎧 Maintien confortable autour de l'oreille\n📶 Connexion Bluetooth stable\n🎵 Son riche et immersif\n📱 Compatible tous smartphones",
+    "title2": "🔋 Une autonomie qui suit ta journée",
+    "desc2": "Pliable et léger, le P9 Pro se glisse facilement dans un sac. Sa batterie offre plusieurs heures d'écoute en continu, et une charge complète en quelques heures via câble USB.",
+    "list2": "🔋 Longue autonomie en musique et appels\n🪭 Design pliable et compact\n🎙️ Micro intégré pour les appels\n⚡ Charge rapide par câble USB",
+    "title3": "🎶 Multi-usage : musique, carte mémoire, radio",
+    "desc3": "Le P9 Pro fonctionne en Bluetooth avec ton téléphone, mais aussi en mode filaire ou avec une carte mémoire pour écouter directement ta musique sans passer par ton téléphone.",
+    "list3": "🔌 Mode filaire (jack 3.5mm) disponible\n💾 Lecture directe depuis carte mémoire\n📻 Radio FM intégrée\n🎁 Idéal pour offrir",
+    "img1": "images/p9pro-1.jpg",
+    "img1b": "",
+    "img2": "images/p9pro-2.jpg",
+    "img2b": "",
+    "img3": "images/p9pro-3.jpg",
+    "img3b": "",
+    "img4": "images/p9pro-4.jpg",
+    "img5": "images/p9pro-5.jpg",
+    "img6": "images/p9pro-6.jpg",
+    "imgCentered": "images/p9pro-6.jpg",
+    "titleCarousel": "✅ Ils apprécient déjà leur P9 Pro",
+    "descCarousel": "Découvre les retours de nos clients togolais qui utilisent déjà leur casque P9 Pro au quotidien.",
+    "listCarousel": "⭐ Son confortable et puissant\n💯 Satisfait ou remboursé sous 30 jours\n🚚 Livraison rapide partout au Togo",
+    "carouselImages": [
+      "images/p9pro-1.jpg"
+    ],
+    "alertMessage": "Merci de ne remplir ce formulaire que si vous êtes prêt(e) à recevoir votre commande, pour une livraison sans souci 🙏",
+    "reviews": [
+      {
+        "stars": 5,
+        "text": "Très confortable, je peux le porter des heures sans gêne.",
+        "author": "Koffi A., Lomé"
+      },
+      {
+        "stars": 4.5,
+        "text": "Bon son, il se plie facilement pour le sac. Pratique.",
+        "author": "Nadia B., Bè"
+      },
+      {
+        "stars": 5,
+        "text": "J'utilise la carte mémoire directement, pas besoin du téléphone.",
+        "author": "Esso S., Kara"
+      },
+      {
+        "stars": 4.5,
+        "text": "Bonne autonomie, il tient toute la journée de travail.",
+        "author": "Jean-Marc D., Agoè"
+      },
+      {
+        "stars": 5,
+        "text": "Le micro fonctionne bien pour mes appels vidéo.",
+        "author": "Yves K., Sokodé"
+      }
+    ],
+    "faq": [
+      {
+        "q": "Livraison gratuite ?",
+        "a": "Oui, livraison 100% gratuite partout à Lomé. Vers l'intérieur du pays, les frais commencent à partir de 500 FCFA selon la localité."
+      },
+      {
+        "q": "Paiement à la livraison ?",
+        "a": "Oui, paiement à la livraison (cash, Mobile Money, carte)."
+      },
+      {
+        "q": "Garantie satisfait ou remboursé ?",
+        "a": "Oui, sous 30 jours si le produit n'a pas été entièrement utilisé."
+      },
+      {
+        "q": "Compatible avec quels appareils ?",
+        "a": "Compatible en Bluetooth avec tous les smartphones Android, iPhone et ordinateurs, avec en plus un mode filaire (jack 3,5mm)."
+      },
+      {
+        "q": "Peut-on l'utiliser sans téléphone ?",
+        "a": "Oui, grâce à la carte mémoire ou au câble jack, vous pouvez écouter de la musique sans smartphone."
+      },
+      {
+        "q": "Le produit ne fonctionne pas ou ne correspond pas à la description ?",
+        "a": "Nous proposons un échange sous 24h. Contactez-nous immédiatement via WhatsApp avec une photo du produit reçu."
+      }
+    ],
+    "urgence": "🔥 Offre spéciale – stock limité, réservé aux premières commandes !",
+    "hidden": false
+  },
+  "14": {
+    "id": 14,
+    "name": "Mini Fer à Repasser Portable",
+    "price": 9500,
+    "oldPrice": 17000,
+    "stock": 20,
+    "category": "Maison",
+    "images": [
+      "images/fer-repasser-1.jpg"
+    ],
+    "video": "videos/fer-repasser.mp4",
+    "description": "",
+    "title1": "👔 Marre des vêtements froissés avant de sortir ?",
+    "desc1": "Chemise froissée à la dernière minute, pli tenace sur une robe avant un rendez-vous... Ce mini fer à repasser portable chauffe rapidement et lisse tes vêtements en quelques minutes, à la maison comme en déplacement.",
+    "list1": "🔥 Chauffe rapide\n👕 Lisse efficacement les plis\n🧳 Format compact pour le sac\n🏠 Idéal maison et voyage",
+    "title2": "🪭 Une poignée pliable pour un rangement facile",
+    "desc2": "Sa poignée pliable réduit son encombrement pour le glisser facilement dans une valise, un sac de voyage ou un tiroir. Léger et simple à manier, il permet un repassage rapide sans sortir la planche à repasser.",
+    "list2": "🪭 Poignée pliable et compacte\n🧺 Repassage rapide sans planche\n🎒 Léger, idéal pour le voyage\n🧑‍💼 Pratique pour les retouches de dernière minute",
+    "title3": "✨ Des vêtements nets, en toute simplicité",
+    "desc3": "Convient à la plupart des tissus courants (coton, polyester...) pour un résultat net rapidement. Pratique au quotidien pour les petites retouches, les chemises de bureau ou les vêtements des enfants.",
+    "list3": "🧵 Convient à la plupart des tissus courants\n👨‍👩‍👧 Pratique pour toute la famille\n⚡ Faible consommation électrique\n💼 Parfait pour le bureau et les voyages",
+    "img1": "images/fer-repasser-1.jpg",
+    "img1b": "",
+    "img2": "images/fer-repasser-2.jpg",
+    "img2b": "",
+    "img3": "images/fer-repasser-3.jpg",
+    "img3b": "",
+    "img4": "images/fer-repasser-4.jpg",
+    "img5": "images/fer-repasser-5.jpg",
+    "img6": "images/fer-repasser-6.jpg",
+    "imgCentered": "images/fer-repasser-6.jpg",
+    "titleCarousel": "✅ Ils l'utilisent déjà à la maison et en voyage",
+    "descCarousel": "Découvre les retours de nos clients togolais qui utilisent déjà leur mini fer à repasser portable.",
+    "listCarousel": "⭐ Vêtements nets en quelques minutes\n💯 Satisfait ou remboursé sous 30 jours\n🚚 Livraison rapide partout au Togo",
+    "carouselImages": [
+      "images/fer-repasser-1.jpg"
+    ],
+    "alertMessage": "Merci de ne remplir ce formulaire que si vous êtes prêt(e) à recevoir votre commande, pour une livraison sans souci 🙏",
+    "reviews": [
+      {
+        "stars": 5,
+        "text": "Très pratique, je l'utilise avant de partir au bureau.",
+        "author": "Koffi A., Lomé"
+      },
+      {
+        "stars": 4.5,
+        "text": "Compact et léger, je le prends en voyage.",
+        "author": "Nadia B., Adidogomé"
+      },
+      {
+        "stars": 5,
+        "text": "Chauffe vite, parfait pour une retouche rapide.",
+        "author": "Esso S., Kara"
+      },
+      {
+        "stars": 4.5,
+        "text": "Bon rapport qualité prix pour un usage occasionnel.",
+        "author": "Jean-Marc D., Agoè"
+      },
+      {
+        "stars": 5,
+        "text": "Simple à utiliser, il se range facilement.",
+        "author": "Yves K., Sokodé"
+      }
+    ],
+    "faq": [
+      {
+        "q": "Livraison gratuite ?",
+        "a": "Oui, livraison 100% gratuite partout à Lomé. Vers l'intérieur du pays, les frais commencent à partir de 500 FCFA selon la localité."
+      },
+      {
+        "q": "Paiement à la livraison ?",
+        "a": "Oui, paiement à la livraison (cash, Mobile Money, carte)."
+      },
+      {
+        "q": "Garantie satisfait ou remboursé ?",
+        "a": "Oui, sous 30 jours si le produit n'a pas été entièrement utilisé."
+      },
+      {
+        "q": "Convient-il à tous les tissus ?",
+        "a": "Il convient à la plupart des tissus courants comme le coton et le polyester. Pour les tissus délicats, testez d'abord sur une petite zone."
+      },
+      {
+        "q": "Est-il facile à utiliser ?",
+        "a": "Oui, il chauffe rapidement et se manie facilement grâce à sa poignée pliable, sans réglages compliqués."
+      },
+      {
+        "q": "Le produit ne fonctionne pas ou ne correspond pas à la description ?",
+        "a": "Nous proposons un échange sous 24h. Contactez-nous immédiatement via WhatsApp avec une photo du produit reçu."
+      }
+    ],
+    "urgence": "🔥 Idéal pour la rentrée et les voyages – stock limité !",
+    "hidden": false
+  }
+}

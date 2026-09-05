@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact - AfriCervo</title>
+
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '935423248865632');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=935423248865632&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#f5f5f5;
+color:#333;
+overflow-x:hidden;
+}
+
+/* ===== BANDE SUPERIEURE ===== */
+.top-bar {
+    background: #2e7d32;
+    color: white;
+    text-align: center;
+    padding: 8px 10px;
+    font-size: 13px;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+.top-bar span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* ===== HEADER ===== */
+.main-header {
+    background: #111;
+    color: white;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+.logo img {
+    width: 100px;
+    height: auto;
+    cursor: pointer;
+}
+.nav-links {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+}
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: bold;
+    transition: 0.3s;
+    white-space: nowrap;
+}
+.nav-links a.active {
+    color: #7ed56f;
+}
+.nav-links a:hover {
+    color: #7ed56f;
+}
+.search-bar {
+    flex: 2;
+    max-width: 500px;
+    display: flex;
+}
+.search-bar input {
+    width: 100%;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 30px 0 0 30px;
+    outline: none;
+    font-size: 14px;
+}
+.search-bar button {
+    background: #2e7d32;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 0 30px 30px 0;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+}
+.search-bar button:hover {
+    background: #1b5e20;
+}
+.header-contact {
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+/* MENU LATERAL */
+.sidebar{
+position:fixed;
+top:0;
+left:-280px;
+width:280px;
+height:100%;
+background:#111;
+color:white;
+transition:left 0.3s ease;
+z-index:1000;
+padding:70px 20px 20px;
+box-shadow:2px 0 10px rgba(0,0,0,0.3);
+}
+.sidebar.open{
+left:0;
+}
+.sidebar a{
+display:block;
+color:white;
+text-decoration:none;
+font-size:18px;
+padding:12px 0;
+border-bottom:1px solid #333;
+transition:0.2s;
+}
+.sidebar a:hover{
+color:#7ed56f;
+padding-left:5px;
+}
+.overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.5);
+visibility:hidden;
+opacity:0;
+transition:0.3s;
+z-index:999;
+}
+.overlay.show{
+visibility:visible;
+opacity:1;
+}
+
+/* ===== CONTENU PRINCIPAL (CONTACT) ===== */
+.contact-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+.contact-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+.contact-header h1 {
+    font-size: 42px;
+    color: #1a3b2a;
+    margin-bottom: 15px;
+    position: relative;
+    display: inline-block;
+}
+.contact-header h1:after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: #2e7d32;
+}
+.contact-header p {
+    font-size: 18px;
+    color: #666;
+    max-width: 700px;
+    margin: 20px auto 0;
+}
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+    margin-bottom: 60px;
+}
+.contact-info {
+    background: white;
+    border-radius: 20px;
+    padding: 35px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+.contact-info h3 {
+    font-size: 24px;
+    color: #1a3b2a;
+    margin-bottom: 25px;
+    position: relative;
+    padding-bottom: 10px;
+}
+.contact-info h3:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 2px;
+    background: #2e7d32;
+}
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+.info-item i {
+    font-size: 24px;
+    color: #2e7d32;
+    width: 40px;
+}
+.info-item .info-text h4 {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 5px;
+}
+.info-item .info-text p {
+    font-size: 14px;
+    color: #666;
+}
+.social-contact {
+    margin-top: 30px;
+}
+.social-contact h4 {
+    font-size: 18px;
+    color: #1a3b2a;
+    margin-bottom: 15px;
+}
+.social-icons {
+    display: flex;
+    gap: 15px;
+}
+.social-icons a {
+    width: 45px;
+    height: 45px;
+    background: #f0f0f0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #2e7d32;
+    font-size: 20px;
+    transition: 0.3s;
+}
+.social-icons a:hover {
+    background: #2e7d32;
+    color: white;
+    transform: translateY(-3px);
+}
+.contact-form {
+    background: white;
+    border-radius: 20px;
+    padding: 35px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+.contact-form h3 {
+    font-size: 24px;
+    color: #1a3b2a;
+    margin-bottom: 25px;
+    position: relative;
+    padding-bottom: 10px;
+}
+.contact-form h3:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 2px;
+    background: #2e7d32;
+}
+.form-group {
+    margin-bottom: 20px;
+}
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 14px;
+    transition: 0.3s;
+    font-family: Arial, sans-serif;
+}
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #2e7d32;
+    box-shadow: 0 0 0 3px rgba(46,125,50,0.1);
+}
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+.submit-btn {
+    background: #2e7d32;
+    color: white;
+    border: none;
+    padding: 14px 30px;
+    border-radius: 40px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    width: 100%;
+}
+.submit-btn:hover {
+    background: #1b5e20;
+    transform: translateY(-2px);
+}
+.map-section {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 60px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+.map-section iframe {
+    width: 100%;
+    height: 350px;
+    border: none;
+}
+.faq-contact {
+    background: white;
+    border-radius: 20px;
+    padding: 35px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+.faq-contact h3 {
+    font-size: 24px;
+    color: #1a3b2a;
+    margin-bottom: 15px;
+}
+.faq-contact p {
+    color: #666;
+    margin-bottom: 20px;
+}
+.faq-contact a {
+    color: #2e7d32;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* ===== FOOTER ===== */
+footer {
+    background: linear-gradient(180deg, #111, #000);
+    color: white;
+    padding-top: 80px;
+    position: relative;
+    margin-top: 40px;
+}
+footer svg {
+    position: absolute;
+    top: -30px;
+    left: 0;
+    width: 100%;
+}
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px 20px;
+    gap: 30px;
+}
+.footer-col {
+    flex: 1;
+    min-width: 180px;
+}
+.footer-col h3 {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #7ed56f;
+}
+.footer-col ul {
+    list-style: none;
+}
+.footer-col ul li {
+    margin-bottom: 10px;
+}
+.footer-col ul li a {
+    color: #ccc;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 14px;
+}
+.footer-col ul li a:hover {
+    color: #7ed56f;
+    padding-left: 5px;
+}
+.footer-col p {
+    font-size: 14px;
+    margin: 8px 0;
+    color: #ccc;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.social-links {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+}
+.social-links a {
+    color: white;
+    font-size: 20px;
+    transition: 0.3s;
+}
+.social-links a:hover {
+    color: #7ed56f;
+}
+.copyright {
+    text-align: center;
+    padding: 20px;
+    border-top: 1px solid #222;
+    font-size: 12px;
+    color: #888;
+}
+
+/* ===== VERSION MOBILE UNIQUEMENT ===== */
+@media (max-width: 768px) {
+    .top-bar {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 15px;
+        flex-wrap: nowrap;
+        font-size: 10px;
+        padding: 8px 5px;
+    }
+    .top-bar span {
+        white-space: nowrap;
+    }
+    .main-header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 15px;
+    }
+    .menu-icon-mobile {
+        display: block;
+        font-size: 22px;
+        cursor: pointer;
+        z-index: 1001;
+        order: 1;
+    }
+    .logo {
+        order: 2;
+        flex: 1;
+        text-align: center;
+    }
+    .logo img {
+        width: 80px;
+    }
+    .search-icon-mobile {
+        order: 3;
+        font-size: 18px;
+        cursor: pointer;
+        background: none;
+        border: none;
+        color: white;
+    }
+    .header-contact {
+        order: 4;
+        font-size: 12px;
+        white-space: nowrap;
+    }
+    .search-bar {
+        display: none;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        right: 0;
+        background: #111;
+        padding: 10px;
+        z-index: 100;
+        max-width: 100%;
+        width: 100%;
+        border-radius: 0;
+    }
+    .search-bar.active {
+        display: flex;
+    }
+    .search-bar input {
+        border-radius: 30px;
+    }
+    .search-bar button {
+        border-radius: 30px;
+        margin-left: 5px;
+    }
+    .nav-links {
+        display: none;
+    }
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    .contact-header h1 {
+        font-size: 28px;
+    }
+    /* Carte optimisée pour mobile */
+    .map-section iframe {
+        height: 250px;
+    }
+    .footer-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        padding: 20px 15px;
+    }
+    .footer-col {
+        min-width: auto;
+        text-align: center;
+    }
+    .footer-col h3 {
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+    .footer-col p {
+        font-size: 11px;
+        justify-content: center;
+    }
+    .footer-col ul li a {
+        font-size: 11px;
+    }
+    .social-links {
+        justify-content: center;
+    }
+    .footer-col:first-child {
+        grid-column: 1 / 2;
+    }
+    .footer-col:nth-child(2) {
+        grid-column: 2 / 3;
+    }
+    .footer-col:nth-child(3) {
+        grid-column: 1 / 2;
+    }
+    .footer-col:nth-child(4) {
+        grid-column: 2 / 3;
+    }
+    .copyright {
+        font-size: 10px;
+        padding: 12px;
+    }
+    footer {
+        padding-top: 50px;
+    }
+    footer svg {
+        top: -20px;
+        height: 40px;
+    }
+}
+
+@media (min-width: 769px) {
+    .menu-icon-mobile {
+        display: none;
+    }
+    .search-icon-mobile {
+        display: none;
+    }
+}
+
+/* WHATSAPP */
+.whatsapp{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#25D366;
+color:white !important;
+padding:15px 18px;
+border-radius:50px;
+text-decoration:none !important;
+font-weight:bold;
+z-index:9999;
+display:flex;
+align-items:center;
+justify-content:center;
+box-shadow:0 4px 10px rgba(0,0,0,0.2);
+}
+@media(max-width:768px){
+.whatsapp{
+padding:12px 14px;
+font-size:14px;
+bottom:15px;
+right:15px;
+}
+}
+</style>
+</head>
+<body>
+
+<!-- BANDE SUPERIEURE -->
+<div class="top-bar">
+    <span>🚚 Livraison gratuite</span>
+    <span>💰 Paiement à la livraison</span>
+    <span>✅ Satisfait ou remboursé</span>
+</div>
+
+<!-- HEADER -->
+<div class="main-header">
+    <div class="menu-icon-mobile" id="menuBtnMobile">☰</div>
+    <div class="logo">
+        <img src="images/logo2.jpg" alt="Logo AfriCervo" onclick="window.location.href='index.html'">
+    </div>
+    <div class="nav-links">
+        <a href="/">🏠 Accueil</a>
+        <a href="index.html#produits-section">📦 Nos produits</a>
+        <a href="/apropos">ℹ️ À propos</a>
+    </div>
+    <div class="search-bar" id="searchBar">
+        <input type="text" id="searchInput" placeholder="Rechercher un produit...">
+        <button onclick="searchProducts()">🔍</button>
+    </div>
+    <div class="header-contact">📞 +228 96 73 00 66</div>
+    <div class="search-icon-mobile" id="searchIconMobile">🔍</div>
+</div>
+</div>
+
+<!-- SIDEBAR MENU -->
+<div class="sidebar" id="sidebar">
+<a href="#" id="lienAccueil">🏠 Accueil</a>
+<a href="#" id="lienProduits">📦 Nos produits</a>
+<a href="/apropos" id="lienApropos">ℹ️ À propos</a>
+<a href="/contact" id="lienContact">📞 Contact</a>
+</div>
+<div class="overlay" id="overlay"></div>
+
+<!-- CONTENU PRINCIPAL (CONTACT) -->
+<div class="contact-container">
+    <div class="contact-header">
+        <h1>Contactez-nous</h1>
+        <p>Une question ? Une suggestion ? Nous sommes là pour vous répondre.</p>
+    </div>
+
+    <div class="contact-grid">
+        <!-- Coordonnées -->
+        <div class="contact-info">
+            <h3>Nos coordonnées</h3>
+            <div class="info-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <div class="info-text">
+                    <h4>Adresse</h4>
+                    <p>Lomé, Togo</p>
+                </div>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-phone-alt"></i>
+                <div class="info-text">
+                    <h4>Téléphone</h4>
+                    <p>+228 96 73 00 66 / +228 91 80 21 70</p>
+                </div>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-envelope"></i>
+                <div class="info-text">
+                    <h4>Email</h4>
+                    <p>africervo@gmail.com</p>
+                </div>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-clock"></i>
+                <div class="info-text">
+                    <h4>Horaires</h4>
+                    <p>Lundi - Samedi : 6h - 23h</p>
+                </div>
+            </div>
+            <div class="social-contact">
+                <h4>Suivez-nous</h4>
+                <div class="social-icons">
+                    <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://wa.me/22896730066" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Formulaire de contact -->
+        <div class="contact-form">
+            <h3>Envoyez-nous un message</h3>
+            <form id="contactForm">
+                <div class="form-group">
+                    <input type="text" id="name" placeholder="Nom complet *" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="email" placeholder="Email *" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" id="phoneContact" placeholder="Téléphone">
+                </div>
+                <div class="form-group">
+                    <textarea id="message" placeholder="Votre message *" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Envoyer le message</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Carte Google Maps optimisée pour mobile (chargement rapide) -->
+    <div class="map-section">
+        <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126942.07639870419!2d1.1565594280981504!3d6.178494150826497!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1023de0c2f6ef5b9%3A0xef6e0cbec044db40!2sLom%C3%A9%2C%20Togo!5e0!3m2!1sfr!2sfr!4v1700000000000!5m2!1sfr!2sfr" 
+            loading="lazy"
+            title="Carte de localisation - Lomé, Togo"
+            allowfullscreen="">
+        </iframe>
+    </div>
+
+    <div class="faq-contact">
+        <h3>💬 Vous préférez nous parler directement ?</h3>
+        <p>Appelez-nous ou envoyez-nous un message sur WhatsApp, nous vous répondrons dans les meilleurs délais.</p>
+        <a href="https://wa.me/22896730066?text=Bonjour%20AfriCervo" target="_blank">📱 Nous contacter sur WhatsApp</a>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <svg viewBox="0 0 1440 150" preserveAspectRatio="none">
+        <path fill="#f5f5f5" d="M0,80 C300,150 600,0 900,80 C1200,160 1440,40 1440,40 L1440,0 L0,0 Z"></path>
+    </svg>
+    <div class="footer-container">
+        <div class="footer-col">
+            <h3>🌿 AfriCervo</h3>
+            <p>📍 Lomé, Togo</p>
+            <p>🕒 Lun – Sam : 6h – 23h</p>
+            <p>📞 +228 96 73 00 66</p>
+            <p>📞 +228 91 80 21 70</p>
+            <p>✉ africervo@gmail.com</p>
+        </div>
+        <div class="footer-col">
+            <h3>Liens rapides</h3>
+            <ul>
+                <li><a href="/">🏠 Accueil</a></li>
+                <li><a href="#" onclick="document.getElementById('searchInput').focus(); return false;">🔍 Recherche</a></li>
+                <li><a href="/apropos">ℹ️ À propos</a></li>
+                <li><a href="/contact">📞 Contact</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h3>Informations</h3>
+            <ul>
+                <li><a href="politiques.html#retour"> Politique de retour</a></li>
+                <li><a href="politiques.html#confidentialite"> Confidentialité</a></li>
+                <li><a href="politiques.html#cgv"> Conditions générales</a></li>
+                <li><a href="politiques.html#mentions"> Mentions légales</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h3>Suivez-nous</h3>
+            <div class="social-links">
+                <a href="https://www.facebook.com/profile.php?id=61573197557791" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://wa.me/22896730066" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            </div>
+            <p style="margin-top:15px;">💳 Paiement à la livraison</p>
+        </div>
+    </div>
+    <div class="copyright">
+        © 2025 AfriCervo - Tous droits réservés
+    </div>
+</footer>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<a class="whatsapp" href="https://wa.me/22896730066?text=Bonjour%20AfriCervo" target="_blank">
+    <i class="fab fa-whatsapp"></i> WhatsApp
+</a>
+
+<script>
+// SIDEBAR
+const sidebar = document.getElementById('sidebar');
+const overlay = document.getElementById('overlay');
+function openMenu() { sidebar.classList.add('open'); overlay.classList.add('show'); }
+function closeMenu() { sidebar.classList.remove('open'); overlay.classList.remove('show'); }
+overlay.addEventListener('click', closeMenu);
+const menuBtnMobile = document.getElementById('menuBtnMobile');
+if(menuBtnMobile) menuBtnMobile.addEventListener('click', openMenu);
+
+// LIENS MENU LATERAL
+document.getElementById('lienAccueil').addEventListener('click', function(e) {
+    e.preventDefault();
+    window.location.href = 'index.html';
+    closeMenu();
+});
+document.getElementById('lienProduits').addEventListener('click', function(e) {
+    e.preventDefault();
+    window.location.href = 'index.html#produits-section';
+    closeMenu();
+});
+document.getElementById('lienApropos').addEventListener('click', function(e) {
+    e.preventDefault();
+    window.location.href = 'apropos.html';
+    closeMenu();
+});
+document.getElementById('lienContact').addEventListener('click', function(e) {
+    e.preventDefault();
+    window.location.href = 'contact.html';
+    closeMenu();
+});
+
+// RECHERCHE MOBILE
+const searchIconMobile = document.getElementById('searchIconMobile');
+const searchBar = document.getElementById('searchBar');
+if(searchIconMobile && searchBar) {
+    searchIconMobile.addEventListener('click', function() {
+        if(searchBar.style.display === 'flex') {
+            searchBar.style.display = 'none';
+        } else {
+            searchBar.style.display = 'flex';
+            document.getElementById('searchInput').focus();
+        }
+    });
+}
+function searchProducts() {
+    const query = document.getElementById('searchInput').value;
+    if(query.trim() !== "") {
+        window.location.href = 'index.html?search=' + encodeURIComponent(query);
+    }
+}
+document.getElementById('searchInput').addEventListener('keypress', function(e) {
+    if(e.key === 'Enter') searchProducts();
+});
+
+// FORMULAIRE DE CONTACT
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const message = document.getElementById('message').value;
+    
+    if(name && email && message) {
+        alert(`Merci ${name} ! Votre message a bien été envoyé. Nous vous répondrons dans les plus brefs délais.`);
+        document.getElementById('contactForm').reset();
+    } else {
+        alert("Veuillez remplir tous les champs obligatoires.");
+    }
+});
+</script>
+
+</body>
+</html>

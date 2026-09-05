@@ -1,0 +1,8 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "app.netlify.africervo228.twa",
+    "sha256_cert_fingerprints": ["F6:49:39:02:8A:3B:FC:74:F4:48:27:B2:33:0E:92:9F:85:B5:36:B6:90:5E:36:87:B0:A2:DC:CF:C7:30:44:D7"]
+  }
+}]

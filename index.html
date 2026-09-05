@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>AfriCervo</title>
+
+<link rel="preconnect" href="https://www.gstatic.com">
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+<link rel="preconnect" href="https://firestore.googleapis.com">
+<link rel="preload" as="script" href="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js">
+<link rel="preload" as="script" href="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js">
+<link rel="preload" as="script" href="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js">
+<!-- ⚡ PRÉCHARGEMENT DE LA BANNIÈRE -->
+<link rel="preload" as="image" href="images/accueil.webp" fetchpriority="high">
+<link rel="dns-prefetch" href="https://connect.facebook.net">
+
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '28104829105769495');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=28104829105769495&ev=PageView&noscript=1"
+/></noscript>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:#f5f5f5;color:#333;overflow-x:hidden}
+.top-bar{background:#2e7d32;color:#fff;text-align:center;padding:8px 10px;font-size:13px;font-weight:500;display:flex;justify-content:center;gap:30px;flex-wrap:wrap}
+.top-bar span{display:inline-flex;align-items:center;gap:6px}
+.main-header{background:#111;color:#fff;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:15px;position:relative}
+.logo img{width:100px;height:auto;cursor:pointer}
+.nav-links{display:flex;gap:25px;align-items:center}
+.nav-links a{color:#fff;text-decoration:none;font-size:15px;font-weight:700;transition:color .3s;white-space:nowrap}
+.nav-links a.active,.nav-links a:hover{color:#7ed56f}
+.search-bar{flex:2;max-width:500px;display:flex;position:relative}
+.search-bar input{width:100%;padding:10px 15px;border:none;border-radius:30px 0 0 30px;outline:none;font-size:14px}
+.search-bar button{background:#2e7d32;border:none;padding:10px 18px;border-radius:0 30px 30px 0;color:#fff;cursor:pointer;font-weight:700}
+.search-bar button:hover{background:#1b5e20}
+.header-contact{font-size:13px;white-space:nowrap}
+.menu-icon-mobile{display:none}
+.search-icon-mobile{display:none}
+
+/* ===== SUGGESTIONS DE RECHERCHE ===== */
+.search-suggestions{display:none;position:absolute;top:100%;left:0;right:0;background:#fff;border-radius:0 0 12px 12px;box-shadow:0 8px 20px rgba(0,0,0,0.15);max-height:400px;overflow-y:auto;z-index:999;margin-top:4px;border:1px solid #e0e0e0;border-top:none}
+.search-suggestions.active{display:block}
+.search-suggestion-item{display:flex;align-items:center;gap:12px;padding:10px 14px;cursor:pointer;transition:background .15s;border-bottom:1px solid #f0f0f0;text-decoration:none;color:#333}
+.search-suggestion-item:hover{background:#f5f5f5}
+.search-suggestion-item:active{background:#e8e8e8}
+.search-suggestion-item img{width:40px;height:40px;object-fit:cover;border-radius:8px;flex-shrink:0;background:#f0f0f0}
+.search-suggestion-item .suggestion-name{font-size:14px;font-weight:500;color:#222;flex:1}
+.search-suggestion-item .suggestion-price{font-size:12px;color:#2e7d32;font-weight:600;flex-shrink:0}
+.search-suggestion-item .suggestion-highlight{background:#ffeb3b;padding:0 2px;border-radius:2px}
+.search-suggestions .no-result{padding:20px;text-align:center;color:#999;font-size:14px}
+.search-suggestions .view-all{padding:12px;text-align:center;background:#f8f8f8;border-top:1px solid #eee;font-weight:600;color:#2e7d32;cursor:pointer;text-decoration:none;display:block}
+.search-suggestions .view-all:hover{background:#eee}
+
+/* ===== SIDEBAR ===== */
+.sidebar{position:fixed;top:0;left:-280px;width:280px;height:100%;background:#111;color:#fff;transition:left .3s;z-index:1000;padding:70px 20px 20px;box-shadow:2px 0 10px rgba(0,0,0,.3)}
+.sidebar.open{left:0}
+.sidebar a{display:block;color:#fff;text-decoration:none;font-size:18px;padding:12px 0;border-bottom:1px solid #333;transition:.2s}
+.sidebar a:hover{color:#7ed56f;padding-left:5px}
+.overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);visibility:hidden;opacity:0;transition:.3s;z-index:999}
+.overlay.show{visibility:visible;opacity:1}
+
+/* ===== BANNIÈRE AVEC IMAGE OPTIMISÉE ===== */
+.hero-banner{position:relative;width:100%;margin-top:0;background:#1a3b2a;min-height:200px}
+.hero-banner img{width:100%;height:auto;max-height:500px;object-fit:cover;display:block;background:#1a3b2a;aspect-ratio:1920/500}
+.banner-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;color:#fff;background:rgba(0,0,0,.5);padding:20px 40px;border-radius:15px;width:80%;max-width:700px}
+.banner-text h2{font-size:28px;margin-bottom:10px}
+.banner-text p{font-size:16px;margin-bottom:20px}
+.banner-buttons{display:flex;gap:15px;justify-content:center;flex-wrap:wrap}
+.banner-btn{background:#25D366;color:#fff;padding:10px 25px;border-radius:30px;text-decoration:none;font-weight:700;transition:.3s}
+.banner-btn:hover{background:#1da15b;transform:scale(1.02)}
+
+.section{padding:30px 10px}
+.section h2{text-align:center;margin-bottom:20px}
+.products{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+@media(min-width:900px){.products{grid-template-columns:repeat(4,1fr);gap:25px;padding:0 90px}}
+.product{background:#fff;padding:10px;border-radius:10px;box-shadow:0 3px 10px rgba(0,0,0,.1);text-align:center;transition:transform .2s}
+.product:hover{transform:translateY(-3px)}
+.product a{display:block;text-decoration:none;color:inherit}
+.product img{width:100%;height:150px;object-fit:cover;border-radius:8px;cursor:pointer;background:#eaeaea;aspect-ratio:1/1;display:block;transition:opacity .3s}
+@media(min-width:900px){.product img{height:250px}}
+.price{color:#2e7d32;font-weight:700;margin:10px 0}
+.btn{background:#25D366;color:#fff!important;padding:10px;border:none;width:100%;border-radius:6px;font-weight:700;cursor:pointer;display:block;text-align:center;text-decoration:none;transition:background .2s}
+.btn:hover{background:#1da15b}
+.pagination{display:flex;justify-content:center;margin-top:30px;margin-bottom:20px}
+.load-more-btn{background:#fff;color:#2e7d32;border:2px solid #2e7d32;font-size:16px;font-weight:700;padding:12px 40px;border-radius:30px;cursor:pointer;transition:.25s}
+.load-more-btn:hover{background:#2e7d32;color:#fff}
+footer{background:linear-gradient(180deg,#111,#000);color:#fff;padding-top:80px;position:relative;margin-top:40px}
+footer svg{position:absolute;top:-30px;left:0;width:100%}
+.footer-container{display:flex;justify-content:space-between;flex-wrap:wrap;max-width:1200px;margin:0 auto;padding:30px 20px;gap:30px}
+.footer-col{flex:1;min-width:180px}
+.footer-col h3{font-size:20px;margin-bottom:20px;color:#7ed56f}
+.footer-col ul{list-style:none}
+.footer-col ul li{margin-bottom:10px}
+.footer-col ul li a{color:#ccc;text-decoration:none;transition:.3s;font-size:16px}
+.footer-col ul li a:hover{color:#7ed56f;padding-left:5px}
+.footer-col p{font-size:16px;margin:8px 0;color:#ccc;display:flex;align-items:center;gap:8px}
+.social-links{display:flex;gap:15px;margin-top:15px}
+.social-links a{color:#fff;font-size:22px;transition:.3s}
+.social-links a:hover{color:#7ed56f}
+.copyright{text-align:center;padding:20px;border-top:1px solid #222;font-size:14px;color:#888}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:768px){
+.top-bar{flex-direction:row;justify-content:center;gap:15px;flex-wrap:nowrap;font-size:10px;padding:8px 5px}
+.top-bar span{white-space:nowrap}
+.main-header{flex-direction:row;justify-content:space-between;align-items:center;gap:10px;padding:10px 15px}
+.menu-icon-mobile{display:block;font-size:22px;cursor:pointer;z-index:1001;order:1}
+.logo{order:2;flex:1;text-align:center}
+.logo img{width:80px}
+.search-icon-mobile{display:block;order:3;font-size:18px;cursor:pointer;background:none;border:none;color:#fff}
+.header-contact{order:4;font-size:12px;white-space:nowrap}
+.search-bar{display:none;position:absolute;top:56px;left:0;right:0;background:#111;padding:10px;z-index:100;width:100%;border-radius:0}
+.search-bar.active{display:flex}
+.search-bar input{border-radius:30px;flex:1}
+.search-bar button{border-radius:30px;margin-left:5px;padding:10px 16px}
+.nav-links{display:none}
+.products{grid-template-columns:repeat(2,1fr);gap:12px;padding:0}
+.product{padding:8px}
+.product img{height:135px}
+.product h3{font-size:13px}
+.product .price{font-size:13px}
+.product .btn{font-size:12px;padding:7px}
+.hero-banner img{max-height:300px;aspect-ratio:auto}
+.banner-text{position:static;transform:none;background:#1a3b2a;width:100%;border-radius:0;padding:20px;margin-top:0}
+.banner-text h2{font-size:20px}
+.banner-text p{font-size:13px}
+.banner-buttons{flex-direction:column;gap:10px;align-items:center}
+.banner-btn{width:80%;text-align:center;padding:10px;font-size:14px}
+.footer-container{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;padding:20px 15px}
+.footer-col{min-width:auto;text-align:center}
+.footer-col h3{font-size:16px;margin-bottom:10px}
+.footer-col p{font-size:13px;justify-content:center}
+.footer-col ul li a{font-size:13px}
+.social-links{justify-content:center}
+.social-links a{font-size:18px}
+.footer-col:first-child{grid-column:1/2}
+.footer-col:nth-child(2){grid-column:2/3}
+.footer-col:nth-child(3){grid-column:1/2}
+.footer-col:nth-child(4){grid-column:2/3}
+.copyright{font-size:12px;padding:8px 15px 12px 15px}
+footer{padding-top:20px}
+footer svg{top:-15px;height:40px}
+
+/* Suggestions mobile */
+.search-suggestions{max-height:300px;border-radius:0 0 12px 12px;margin-top:0;position:fixed;top:56px;left:0;right:0;width:100%;box-shadow:0 8px 20px rgba(0,0,0,.2);border:none}
+.search-suggestion-item{padding:12px 16px}
+.search-suggestion-item img{width:44px;height:44px}
+.search-suggestion-item .suggestion-name{font-size:15px}
+}
+@media(min-width:769px){.menu-icon-mobile{display:none}.search-icon-mobile{display:none}}
+.whatsapp{position:fixed;bottom:20px;right:20px;background:#25D366;color:#fff!important;padding:15px 18px;border-radius:50px;text-decoration:none!important;font-weight:700;z-index:9999;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 10px rgba(0,0,0,.2)}
+@media(max-width:768px){.whatsapp{padding:12px 14px;font-size:14px;bottom:15px;right:15px}}
+@keyframes imgShimmer { 0% { background-position: -300px 0; } 100% { background-position: 300px 0; } }
+.img-shimmer { background-color: #eee; background-image: linear-gradient(90deg, #eee 0px, #f7f7f7 40px, #eee 80px); background-size: 600px 100%; animation: imgShimmer 1.3s ease-in-out infinite; display: block; }
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+    <span>🚚 Livraison gratuite</span>
+    <span>💰 Paiement à la livraison</span>
+    <span>✅ Satisfait ou remboursé</span>
+</div>
+
+<div class="main-header">
+    <div class="menu-icon-mobile" id="menuBtnMobile">☰</div>
+    <div class="logo">
+        <img src="images/logo2.webp" alt="Logo AfriCervo" onclick="window.location.href='index.html'" loading="lazy" width="100" height="auto">
+    </div>
+    <div class="nav-links">
+        <a href="/">🏠 Accueil</a>
+        <a href="index.html#produits-section">📦 Nos produits</a>
+        <a href="/apropos">ℹ️ À propos</a>
+    </div>
+    <div class="search-bar" id="searchBar">
+        <input type="text" id="searchInput" placeholder="Rechercher un produit..." autocomplete="off">
+        <button onclick="searchProducts()" aria-label="Rechercher">🔍</button>
+        <!-- SUGGESTIONS -->
+        <div class="search-suggestions" id="searchSuggestions"></div>
+    </div>
+    <div class="header-contact">📞 +228 96 73 00 66</div>
+    <div class="search-icon-mobile" id="searchIconMobile">🔍</div>
+</div>
+
+<div class="sidebar" id="sidebar">
+    <a href="#" id="lienAccueil">🏠 Accueil</a>
+    <a href="#" id="lienProduits">📦 Nos produits</a>
+    <a href="/apropos" id="lienApropos">ℹ️ À propos</a>
+    <a href="/contact" id="lienContact">📞 Contact</a>
+</div>
+<div class="overlay" id="overlay"></div>
+
+<!-- BANNIÈRE AVEC IMAGE OPTIMISÉE (préchargée) -->
+<div class="hero-banner">
+    <img src="images/accueil.webp" alt="Bannière AfriCervo" loading="eager" fetchpriority="high" decoding="async" width="1920" height="500">
+    <div class="banner-text">
+        <h2>Découvrez tout ce dont vous avez besoin</h2>
+        <p>Des produits de qualité au meilleurs prix. Shoppez maintenant et faites-vous plaisir !</p>
+        <div class="banner-buttons">
+            <a href="#" class="banner-btn" onclick="document.getElementById('produits-section').scrollIntoView({behavior:'smooth'}); return false;">DÉCOUVRIR LA BOUTIQUE</a>
+        </div>
+    </div>
+</div>
+
+<section class="section" id="produits-section">
+    <h2>Nos Produits</h2>
+    <div class="products" id="productsContainer">
+        <div class="product skeleton-card">
+            <div class="img-shimmer" style="width:100%;aspect-ratio:1/1;border-radius:8px;"></div>
+            <div class="img-shimmer" style="height:16px;margin-top:10px;border-radius:4px;width:80%;"></div>
+            <div class="img-shimmer" style="height:14px;margin-top:8px;border-radius:4px;width:50%;"></div>
+        </div>
+        <div class="product skeleton-card">
+            <div class="img-shimmer" style="width:100%;aspect-ratio:1/1;border-radius:8px;"></div>
+            <div class="img-shimmer" style="height:16px;margin-top:10px;border-radius:4px;width:80%;"></div>
+            <div class="img-shimmer" style="height:14px;margin-top:8px;border-radius:4px;width:50%;"></div>
+        </div>
+        <div class="product skeleton-card">
+            <div class="img-shimmer" style="width:100%;aspect-ratio:1/1;border-radius:8px;"></div>
+            <div class="img-shimmer" style="height:16px;margin-top:10px;border-radius:4px;width:80%;"></div>
+            <div class="img-shimmer" style="height:14px;margin-top:8px;border-radius:4px;width:50%;"></div>
+        </div>
+        <div class="product skeleton-card">
+            <div class="img-shimmer" style="width:100%;aspect-ratio:1/1;border-radius:8px;"></div>
+            <div class="img-shimmer" style="height:16px;margin-top:10px;border-radius:4px;width:80%;"></div>
+            <div class="img-shimmer" style="height:14px;margin-top:8px;border-radius:4px;width:50%;"></div>
+        </div>
+        <div class="product skeleton-card">
+            <div class="img-shimmer" style="width:100%;aspect-ratio:1/1;border-radius:8px;"></div>
+            <div class="img-shimmer" style="height:16px;margin-top:10px;border-radius:4px;width:80%;"></div>
+            <div class="img-shimmer" style="height:14px;margin-top:8px;border-radius:4px;width:50%;"></div>
+        </div>
+        <div class="product skeleton-card">
+            <div class="img-shimmer" style="width:100%;aspect-ratio:1/1;border-radius:8px;"></div>
+            <div class="img-shimmer" style="height:16px;margin-top:10px;border-radius:4px;width:80%;"></div>
+            <div class="img-shimmer" style="height:14px;margin-top:8px;border-radius:4px;width:50%;"></div>
+        </div>
+        <div class="product skeleton-card">
+            <div class="img-shimmer" style="width:100%;aspect-ratio:1/1;border-radius:8px;"></div>
+            <div class="img-shimmer" style="height:16px;margin-top:10px;border-radius:4px;width:80%;"></div>
+            <div class="img-shimmer" style="height:14px;margin-top:8px;border-radius:4px;width:50%;"></div>
+        </div>
+        <div class="product skeleton-card">
+            <div class="img-shimmer" style="width:100%;aspect-ratio:1/1;border-radius:8px;"></div>
+            <div class="img-shimmer" style="height:16px;margin-top:10px;border-radius:4px;width:80%;"></div>
+            <div class="img-shimmer" style="height:14px;margin-top:8px;border-radius:4px;width:50%;"></div>
+        </div>
+    </div>
+    <div class="pagination" id="paginationContainer"></div>
+</section>
+
+<footer>
+    <svg viewBox="0 0 1440 150" preserveAspectRatio="none">
+        <path fill="#f5f5f5" d="M0,80 C300,150 600,0 900,80 C1200,160 1440,40 1440,40 L1440,0 L0,0 Z"></path>
+    </svg>
+    <div class="footer-container">
+        <div class="footer-col"><h3>🌿 AfriCervo</h3><p>📍 Lomé, Togo</p><p>🕒 Lun – Sam : 6h – 23h</p><p>📞 +228 96 73 00 66</p><p>📞 +228 91 80 21 70</p><p>✉ africervo@gmail.com</p></div>
+        <div class="footer-col"><h3>Liens rapides</h3><ul><li><a href="/">🏠 Accueil</a></li><li><a href="#" onclick="document.getElementById('searchInput').focus(); return false;">🔍 Recherche</a></li><li><a href="/apropos">ℹ️ À propos</a></li><li><a href="/contact">📞 Contact</a></li></ul></div>
+        <div class="footer-col"><h3>Informations</h3><ul><li><a href="politiques.html#retour"> Politique de retour</a></li><li><a href="politiques.html#confidentialite"> Confidentialité</a></li><li><a href="politiques.html#cgv"> Conditions générales</a></li></ul></div>
+        <div class="footer-col"><h3>Suivez-nous</h3><div class="social-links"><a href="https://www.facebook.com/profile.php?id=61573197557791" target="_blank" rel="noopener"><i class="fab fa-facebook"></i></a><a href="#"><i class="fab fa-instagram"></i></a><a href="https://wa.me/22896730066" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i></a></div><p style="margin-top:15px;">💳 Paiement à la livraison</p></div>
+    </div>
+    <div class="copyright">© 2025 AfriCervo - Tous droits réservés</div>
+</footer>
+
+<link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"></noscript>
+
+<a class="whatsapp" href="https://wa.me/22896730066?text=Bonjour%20!%20%F0%9F%91%8B%20Je%20viens%20de%20visiter%20votre%20boutique%20en%20ligne%20et%20j%E2%80%99aimerais%20passer%20une%20commande%20s%E2%80%99il%20vous%20pla%C3%AEt.%20%F0%9F%9B%8D%EF%B8%8F" target="_blank" rel="noopener">
+    <i class="fab fa-whatsapp"></i> WhatsApp
+</a>
+
+<!-- ===== SCRIPTS FIREBASE ===== -->
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+<script src="visitor-tracker.js"></script>
+
+<script>
+// ========== CONFIGURATION FIREBASE ==========
+const firebaseConfig = {
+    apiKey: "AIzaSyDKzQenl8G2KjWicO5nypyj3rURi7u-qZM",
+    authDomain: "africevo-commandes.firebaseapp.com",
+    databaseURL: "https://africevo-commandes-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "africevo-commandes",
+    storageBucket: "africevo-commandes.firebasestorage.app",
+    messagingSenderId: "207539954871",
+    appId: "1:207539954871:web:a80316f58bc3a0df6d5932"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+const rtdb = firebase.database();
+
+// ========== PRODUITS PAR DÉFAUT (fallback si pas de cache) ==========
+const defaultProducts = [
+    { id: 1, name: "Huile pour barbe et cheveux", price: 7900, oldPrice: 12000, stock: 45, category: "Beaute", images: ["images/1.webp"], description: "Huile naturelle pour barbe et cheveux" },
+    { id: 2, name: "Montre connectee SK40", price: 21900, oldPrice: 40000, stock: 12, category: "Electronique", images: ["images/M1.webp"], description: "Montre connectee avec ecran AMOLED" },
+    { id: 3, name: "Montre connectee A58 plus", price: 11900, oldPrice: 22000, stock: 15, category: "Electronique", images: ["images/A58.webp"], description: "Montre connectee avec coffret complet" },
+    { id: 4, name: "Diffuseur", price: 9900, oldPrice: 18000, stock: 28, category: "Maison", images: ["images/diffuseur.webp"], description: "Diffuseur d'huiles essentielles" },
+    { id: 5, name: "Lime electrique", price: 10500, oldPrice: 19000, stock: 8, category: "Beaute", images: ["images/lim1.webp"], description: "Lime electrique pour ongles" },
+    { id: 6, name: "Montre connectee H92 Ultra3", price: 10900, oldPrice: 19000, stock: 10, category: "Electronique", images: ["images/H92.webp"], description: "Montre connectee avec bracelets interchangeables" },
+    { id: 7, name: "Mixeur de jus portable", price: 9900, oldPrice: 18000, stock: 20, category: "Maison", images: ["images/jus.webp"], description: "Mini blender portable pour smoothies" },
+    { id: 8, name: "Coupe legume multifonction", price: 12000, oldPrice: 22000, stock: 18, category: "Maison", images: ["images/coup1.webp"], description: "Coupe-legumes multifonction" },
+    { id: 9, name: "Anti-tache et Acne", price: 7100, oldPrice: 12000, stock: 30, category: "Beaute", images: ["images/visage.webp"], description: "Masque stick anti-tache et anti-acne" },
+    { id: 10, name: "Mandoline multifonction", price: 12000, oldPrice: 22000, stock: 15, category: "Maison", images: ["images/man1.webp"], description: "Mandoline multifonction pour decoupes" },
+    { id: 11, name: "Patch Detox Kinoki", price: 7900, oldPrice: 13000, stock: 25, category: "Sante", images: ["images/Detox.webp"], description: "Patchs detox pour pieds" },
+    { id: 12, name: "Ecouteur intelligent M6", price: 10000, oldPrice: 18500, stock: 18, category: "Electronique", images: ["images/m6.webp"], description: "Ecouteurs bluetooth avec reduction de bruit" },
+    { id: 13, name: "Ceinture anti-douleurs menstruelles", price: 10500, oldPrice: 18000, stock: 12, category: "Sante", images: ["images/ceint.webp"], description: "Ceinture chauffante pour soulager les douleurs" },
+    { id: 14, name: "Mini Fer a Repasser Portable", price: 9500, oldPrice: 17000, stock: 20, category: "Maison", images: ["images/fer-repasser-1.jpg"], description: "Mini fer a repasser portable et pliable" },
+    { id: 15, name: "Moulinex blender 8 en 1", price: 35000, oldPrice: 65000, stock: 5, category: "Maison", images: ["images/moulinex.webp"], description: "Blender multifonction 8 en 1" },
+    { id: 16, name: "Creme cindynal reparation intense", price: 10000, oldPrice: 18000, stock: 22, category: "Beaute", images: ["images/talon.webp"], description: "Creme reparatrice pour peaux seches" },
+    { id: 17, name: "Ecouteurs Buds3 Pro", price: 13500, oldPrice: 25000, stock: 20, category: "Electronique", images: ["images/buds3pro-1.jpg"], description: "Ecouteurs sans fil avec reduction de bruit" },
+    { id: 18, name: "Mini Alarme Anti-Intrusion", price: 8900, oldPrice: 15000, stock: 30, category: "Securite", images: ["images/alarme-1.jpg"], description: "Alarme portable pour porte et fenetre" },
+    { id: 19, name: "Seche-Chaussures Electrique", price: 9900, oldPrice: 17000, stock: 25, category: "Maison", images: ["images/seche-chaussures-1.jpg"], description: "Seche-chaussures electrique avec minuterie" },
+    { id: 20, name: "Casque P9 Pro", price: 12500, oldPrice: 22000, stock: 20, category: "Electronique", images: ["images/p9pro-1.jpg"], description: "Casque bluetooth pliable avec micro integre" }
+];
+
+let allProducts = [];
+const productsPerPage = 16;
+let productsShown = productsPerPage;
+
+// ========== GESTION DU CACHE LOCAL ==========
+function loadProductsFromCache() {
+    const cached = localStorage.getItem('ecom_products');
+    if (cached) {
+        try {
+            const parsed = JSON.parse(cached);
+            if (parsed && parsed.length > 0) {
+                allProducts = parsed;
+                console.log('📦 Produits chargés depuis le cache:', allProducts.length);
+                return true;
+            }
+        } catch (e) {
+            console.warn('Cache corrompu');
+        }
+    }
+    return false;
+}
+
+function saveProductsToCache(products) {
+    try {
+        localStorage.setItem('ecom_products', JSON.stringify(products));
+        console.log('💾 Produits sauvegardés dans le cache');
+    } catch (e) {
+        console.warn('Impossible de sauvegarder dans le cache');
+    }
+}
+
+// ========== CHARGEMENT DEPUIS FIREBASE ==========
+async function loadProductsFromFirebase() {
+    try {
+        const snapshot = await db.collection('produits').orderBy('id', 'asc').get();
+        if (!snapshot.empty && snapshot.size > 0) {
+            const firebaseProducts = [];
+            snapshot.forEach(doc => {
+                const data = doc.data();
+                firebaseProducts.push({
+                    id: data.id,
+                    name: data.name || 'Sans nom',
+                    price: data.price || data.price1 || 0,
+                    oldPrice: data.oldPrice || data.price2 || 0,
+                    stock: data.stock || 0,
+                    category: data.category || 'Non catégorisé',
+                    images: data.images || (data.optionImg ? [data.optionImg] : []),
+                    description: data.description || '',
+                    video: data.video || '',
+                    hidden: data.hidden || false,
+                    img1: data.img1 || '',
+                    img2: data.img2 || '',
+                    img3: data.img3 || '',
+                    img4: data.img4 || '',
+                    img5: data.img5 || '',
+                    imgCentered: data.imgCentered || '',
+                    title1: data.title1 || '',
+                    desc1: data.desc1 || '',
+                    title2: data.title2 || '',
+                    desc2: data.desc2 || '',
+                    title3: data.title3 || '',
+                    desc3: data.desc3 || '',
+                    reviews: data.reviews || [],
+                    faq: data.faq || []
+                });
+            });
+            if (firebaseProducts.length > 0) {
+                allProducts = firebaseProducts;
+                saveProductsToCache(allProducts);
+                productsShown = productsPerPage;
+                renderProducts();
+                console.log('✅ Produits synchronisés depuis Firebase:', allProducts.length);
+                return true;
+            }
+        }
+        return false;
+    } catch (e) {
+        console.warn('⚠️ Erreur de chargement Firebase:', e.message);
+        return false;
+    }
+}
+
+// ========== ÉCOUTE EN TEMPS RÉEL ==========
+function listenToProductsChanges() {
+    try {
+        db.collection('produits').orderBy('id', 'asc').onSnapshot((snapshot) => {
+            if (snapshot.empty) return;
+            
+            const firebaseProducts = [];
+            snapshot.forEach(doc => {
+                const data = doc.data();
+                firebaseProducts.push({
+                    id: data.id,
+                    name: data.name || 'Sans nom',
+                    price: data.price || data.price1 || 0,
+                    oldPrice: data.oldPrice || data.price2 || 0,
+                    stock: data.stock || 0,
+                    category: data.category || 'Non catégorisé',
+                    images: data.images || (data.optionImg ? [data.optionImg] : []),
+                    description: data.description || '',
+                    video: data.video || '',
+                    hidden: data.hidden || false,
+                    img1: data.img1 || '',
+                    img2: data.img2 || '',
+                    img3: data.img3 || '',
+                    img4: data.img4 || '',
+                    img5: data.img5 || '',
+                    imgCentered: data.imgCentered || '',
+                    title1: data.title1 || '',
+                    desc1: data.desc1 || '',
+                    title2: data.title2 || '',
+                    desc2: data.desc2 || '',
+                    title3: data.title3 || '',
+                    desc3: data.desc3 || '',
+                    reviews: data.reviews || [],
+                    faq: data.faq || []
+                });
+            });
+            
+            // Vérifier si les données ont changé
+            const currentIds = allProducts.map(p => p.id).sort();
+            const newIds = firebaseProducts.map(p => p.id).sort();
+            
+            if (JSON.stringify(currentIds) !== JSON.stringify(newIds) ||
+                JSON.stringify(allProducts) !== JSON.stringify(firebaseProducts)) {
+                allProducts = firebaseProducts;
+                saveProductsToCache(allProducts);
+                productsShown = productsPerPage;
+                renderProducts();
+                console.log('🔄 Mise à jour en temps réel:', allProducts.length, 'produits');
+            }
+        }, (error) => {
+            console.warn('⚠️ Erreur d\'écoute Firebase:', error);
+        });
+    } catch (e) {
+        console.warn('⚠️ Impossible de configurer l\'écoute Firebase:', e);
+    }
+}
+
+// ========== LIEN VERS PAGE PRODUIT ==========
+const productSlugs = {
+    1: "huile-pour-barbe-et-cheveux",
+    2: "montre-connectee-sk40",
+    3: "montre-connectee-a58-plus",
+    4: "diffuseur",
+    5: "lime-electrique",
+    6: "montre-connectee-h92-ultra3",
+    7: "mixeur-de-jus-portable",
+    8: "coupe-legume-multifonction",
+    9: "anti-tache-et-acne",
+    10: "mandoline-multifonction",
+    11: "patch-detox-kinoki",
+    12: "ecouteur-intelligent-m6",
+    13: "ceinture-anti-douleurs-menstruelles",
+    14: "mini-fer-a-repasser-portable",
+    15: "moulinex-blender-8-en-1",
+    16: "creme-cindynal-reparation-intense",
+    17: "ecouteur-buds3-pro",
+    18: "mini-alarme-anti-intrusion",
+    19: "seche-chaussures",
+    20: "casque-p9-pro"
+};
+function getProductLink(productId) {
+    // Pages dynamiques supprimées : chaque produit doit avoir sa propre page HTML statique
+    // référencée dans productSlugs. Tant qu'aucune page n'existe pour un nouveau produit,
+    // on redirige vers WhatsApp pour ne perdre aucune commande.
+    return productSlugs[productId] ? `/${productSlugs[productId]}` : `https://wa.me/22896730066?text=${encodeURIComponent("Bonjour, je suis intéressé(e) par un produit de votre boutique.")}`;
+}
+
+function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/[&<>]/g, m => m === '&' ? '&amp;' : m === '<' ? '&lt;' : m === '>' ? '&gt;' : m);
+}
+
+// ========== CRÉER UNE CARTE PRODUIT AVEC IMAGES OPTIMISÉES ==========
+function renderProductCard(product) {
+    const productDiv = document.createElement('div');
+    productDiv.className = 'product';
+    const productLink = getProductLink(product.id);
+    
+    // Récupérer la première image
+    const productImage = (product.images && product.images.length > 0) ? product.images[0] : 
+                         (product.optionImg || product.img1 || 'images/default.jpg');
+    
+    const productPrice = (product.price || 0).toLocaleString('fr-FR');
+    const oldPrice = product.oldPrice ? product.oldPrice.toLocaleString('fr-FR') : '';
+    
+    // Ne pas afficher les produits cachés
+    if (product.hidden) {
+        productDiv.style.display = 'none';
+        return productDiv;
+    }
+    
+    productDiv.innerHTML = `
+        <a href="${productLink}">
+            <img src="${productImage}" alt="${escapeHtml(product.name)}" onerror="this.src='images/default.jpg'" onload="this.classList.remove('img-shimmer')" loading="lazy" decoding="async" width="300" height="300" style="aspect-ratio:1/1;background:#eaeaea;">
+        </a>
+        <h3>${escapeHtml(product.name)}</h3>
+        <p class="price">${productPrice} FCFA${oldPrice ? ` <span style="text-decoration:line-through;color:#999;font-weight:400;font-size:12px;">${oldPrice} FCFA</span>` : ''}</p>
+        <a href="${productLink}" class="btn">Commander</a>
+    `;
+    return productDiv;
+}
+
+// ========== AFFICHAGE PRODUITS (défilement + "Voir plus") ==========
+function renderProducts() {
+    const container = document.getElementById('productsContainer');
+    if (!container) return;
+    
+    // Filtrer les produits cachés
+    const visibleProducts = allProducts.filter(p => !p.hidden);
+    
+    if (visibleProducts.length === 0) {
+        container.innerHTML = '<div style="text-align:center;padding:40px;grid-column:1/-1;">Aucun produit disponible</div>';
+        document.getElementById('paginationContainer').innerHTML = '';
+        return;
+    }
+    
+    // On affiche toujours à partir du premier produit, en cumulant les lots de 16
+    if (productsShown > visibleProducts.length) productsShown = Math.max(productsPerPage, visibleProducts.length);
+    const productsToShow = visibleProducts.slice(0, productsShown);
+    
+    container.innerHTML = '';
+    productsToShow.forEach(product => container.appendChild(renderProductCard(product)));
+    renderLoadMoreButton(visibleProducts.length);
+}
+
+// ========== BOUTON "VOIR PLUS" ==========
+// Reste sur la même page : au clic, on ajoute le lot suivant de produits (16 par 16)
+// à la suite des produits déjà affichés. Le bouton disparaît s'il n'y a plus rien à charger.
+function renderLoadMoreButton(totalProducts) {
+    const paginationContainer = document.getElementById('paginationContainer');
+    if (!paginationContainer) return;
+    paginationContainer.innerHTML = '';
+    
+    if (productsShown >= totalProducts) return; // tout est déjà affiché : pas de bouton
+    
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'load-more-btn';
+    btn.textContent = 'Voir plus';
+    btn.addEventListener('click', () => {
+        productsShown += productsPerPage;
+        renderProducts();
+    });
+    paginationContainer.appendChild(btn);
+}
+
+// ========== RECHERCHE AVEC SUGGESTIONS ==========
+const searchInput = document.getElementById('searchInput');
+const suggestionsContainer = document.getElementById('searchSuggestions');
+let searchTimeout = null;
+
+function getSuggestions(query) {
+    if (!query || query.trim().length === 0) {
+        suggestionsContainer.classList.remove('active');
+        suggestionsContainer.innerHTML = '';
+        return;
+    }
+    
+    const searchTerm = query.toLowerCase().trim();
+    const visibleProducts = allProducts.filter(p => !p.hidden);
+    const results = visibleProducts.filter(p => 
+        p.name.toLowerCase().includes(searchTerm)
+    );
+    
+    if (results.length === 0) {
+        suggestionsContainer.innerHTML = `<div class="no-result">Aucun produit trouvé pour "<strong>${escapeHtml(searchTerm)}</strong>"</div>`;
+        suggestionsContainer.classList.add('active');
+        return;
+    }
+    
+    let html = '';
+    results.slice(0, 8).forEach(product => {
+        const img = (product.images && product.images.length > 0) ? product.images[0] : 
+                    (product.optionImg || product.img1 || 'images/default.jpg');
+        const price = (product.price || 0).toLocaleString('fr-FR');
+        const link = getProductLink(product.id);
+        
+        const name = product.name;
+        const index = name.toLowerCase().indexOf(searchTerm);
+        let displayName = name;
+        if (index !== -1) {
+            displayName = name.substring(0, index) + 
+                         '<span class="suggestion-highlight">' + 
+                         name.substring(index, index + searchTerm.length) + 
+                         '</span>' + 
+                         name.substring(index + searchTerm.length);
+        }
+        
+        html += `
+            <a href="${link}" class="search-suggestion-item">
+                <img src="${img}" alt="${escapeHtml(name)}" loading="lazy" decoding="async" width="40" height="40" onerror="this.src='images/default.jpg'">
+                <span class="suggestion-name">${displayName}</span>
+                <span class="suggestion-price">${price} FCFA</span>
+            </a>
+        `;
+    });
+    
+    if (results.length > 8) {
+        html += `
+            <a href="#" class="view-all" onclick="searchProducts(); return false;">
+                Voir les ${results.length} résultats
+            </a>
+        `;
+    }
+    
+    suggestionsContainer.innerHTML = html;
+    suggestionsContainer.classList.add('active');
+}
+
+if (searchInput) {
+    searchInput.addEventListener('input', function() {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => {
+            getSuggestions(this.value);
+        }, 200);
+    });
+    
+    document.addEventListener('click', function(e) {
+        const isSearch = e.target.closest('.search-bar') || e.target.closest('.search-suggestions') || e.target.closest('.search-icon-mobile');
+        if (!isSearch) {
+            suggestionsContainer.classList.remove('active');
+        }
+    });
+    
+    searchInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            suggestionsContainer.classList.remove('active');
+            this.blur();
+        }
+    });
+}
+
+// ========== RECHERCHE (bouton + entrée) ==========
+window.searchProducts = function() {
+    const query = document.getElementById('searchInput').value.toLowerCase().trim();
+    suggestionsContainer.classList.remove('active');
+    if (query !== "") {
+        const visibleProducts = allProducts.filter(p => !p.hidden);
+        const filtered = visibleProducts.filter(p => p.name.toLowerCase().includes(query));
+        const container = document.getElementById('productsContainer');
+        if (filtered.length > 0) {
+            container.innerHTML = '';
+            filtered.forEach(product => container.appendChild(renderProductCard(product)));
+            document.getElementById('paginationContainer').innerHTML = '';
+        } else {
+            container.innerHTML = '<div style="text-align:center;padding:40px;grid-column:1/-1;">Aucun produit trouvé</div>';
+            document.getElementById('paginationContainer').innerHTML = '';
+        }
+    } else {
+        productsShown = productsPerPage;
+        renderProducts();
+    }
+}
+
+// ========== MENU MOBILE ==========
+const sidebar = document.getElementById('sidebar');
+const overlay = document.getElementById('overlay');
+function openMenu() { sidebar.classList.add('open'); overlay.classList.add('show'); }
+function closeMenu() { sidebar.classList.remove('open'); overlay.classList.remove('show'); }
+if(overlay) overlay.addEventListener('click', closeMenu);
+
+const menuBtnMobile = document.getElementById('menuBtnMobile');
+if(menuBtnMobile) {
+    menuBtnMobile.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (sidebar.classList.contains('open')) {
+            closeMenu();
+        } else {
+            openMenu();
+        }
+    });
+}
+
+const lienAccueil = document.getElementById('lienAccueil');
+const lienProduits = document.getElementById('lienProduits');
+const lienApropos = document.getElementById('lienApropos');
+const lienContact = document.getElementById('lienContact');
+
+if(lienAccueil) lienAccueil.addEventListener('click', e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); closeMenu(); });
+if(lienProduits) lienProduits.addEventListener('click', e => { e.preventDefault(); document.getElementById('produits-section').scrollIntoView({ behavior: 'smooth' }); closeMenu(); });
+if(lienApropos) lienApropos.addEventListener('click', e => { e.preventDefault(); window.location.href = 'apropos.html'; closeMenu(); });
+if(lienContact) lienContact.addEventListener('click', e => { e.preventDefault(); window.location.href = 'contact.html'; closeMenu(); });
+
+// ========== RECHERCHE MOBILE ==========
+const searchIconMobile = document.getElementById('searchIconMobile');
+const searchBar = document.getElementById('searchBar');
+if(searchIconMobile && searchBar) {
+    searchIconMobile.addEventListener('click', function() {
+        if(searchBar.style.display === 'flex') { 
+            searchBar.style.display = 'none'; 
+            suggestionsContainer.classList.remove('active');
+        } else { 
+            searchBar.style.display = 'flex'; 
+            document.getElementById('searchInput').focus(); 
+        }
+    });
+}
+
+// ========== INITIALISATION ==========
+// Toujours attendre les données réelles de Firebase avant d'afficher quoi que ce soit :
+// plus de cache local ni de produits par défaut affichés avant la mise à jour.
+(async () => {
+    const loaded = await loadProductsFromFirebase();
+    if (!loaded) {
+        // Filet de sécurité uniquement si Firebase est injoignable
+        allProducts = defaultProducts;
+        renderProducts();
+        console.log('⚠️ Firebase injoignable, produits par défaut affichés');
+    }
+    listenToProductsChanges();
+})();
+
+console.log('🚀 AfriCervo chargé avec succès');
+</script>
+</body>
+</html>
