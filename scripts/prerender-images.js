@@ -91,6 +91,53 @@ function injectVideo(html, videoUrl) {
     return { out: html, changed: 0 };
 }
 
+function formatFCFA(n) {
+    return n.toLocaleString('fr-FR') + ' FCFA';
+}
+
+// Titre : reproduit exactement ce que fait renderProduct() côté navigateur
+// (nom du produit + petit drapeau togolais).
+function injectTitle(html, name) {
+    if (!name) return { out: html, changed: 0 };
+    const flag = ' <img src="https://flagcdn.com/tg.svg" alt="Togo" style="width:28px; height:auto; vertical-align:middle; margin-left:10px;">';
+    const safeName = name.replace(/"/g, '&quot;');
+    const re = /(<div class="product-title" id="productTitle">)[\s\S]*?(<\/div>)/;
+    if (re.test(html)) {
+        return { out: html.replace(re, `$1${safeName}${flag}$2`), changed: 1 };
+    }
+    return { out: html, changed: 0 };
+}
+
+// Prix : reproduit exactement le calcul et le HTML généré par renderProduct()
+// (prix x1, prix x2 = x1.7, ancien prix barré si présent).
+function injectPrices(html, price, oldPrice) {
+    if (price === undefined || price === null) return { out: html, changed: 0 };
+    let out = html;
+    let changed = 0;
+
+    const price1 = price || 0;
+    const oldPrice1 = oldPrice || 0;
+    const price2 = Math.round(price1 * 1.7);
+    const oldPrice2 = oldPrice1 > 0 ? Math.round(oldPrice1 * 1.7) : 0;
+
+    let price1Html = formatFCFA(price1);
+    if (oldPrice1 > 0 && oldPrice1 > price1) {
+        price1Html += ` <span class="old-price">${formatFCFA(oldPrice1)}</span>`;
+    }
+    const re1 = /(<div class="option-price" id="optionPrice1">)[\s\S]*?(<\/div>)/;
+    if (re1.test(out)) { out = out.replace(re1, `$1${price1Html}$2`); changed++; }
+
+    let price2Html = formatFCFA(price2);
+    if (oldPrice2 > 0 && oldPrice2 > price2) {
+        price2Html += ` <span class="old-price">${formatFCFA(oldPrice2)}</span>`;
+    }
+    price2Html += ' <span class="small-save">(Économie)</span>';
+    const re2 = /(<div class="option-price" id="optionPrice2">)[\s\S]*?(<\/div>)/;
+    if (re2.test(out)) { out = out.replace(re2, `$1${price2Html}$2`); changed++; }
+
+    return { out, changed };
+}
+
 async function run() {
     console.log("🔧 Pré-rendu des images produit (build Netlify)...");
     initFirebase();
@@ -118,10 +165,17 @@ async function run() {
                 continue;
             }
             const urls = computeImageUrls(doc.data());
+            const data = doc.data();
             let { out, changed } = injectImages(html, urls);
-            const videoResult = injectVideo(out, doc.data().video || null);
+            const videoResult = injectVideo(out, data.video || null);
             out = videoResult.out;
             changed += videoResult.changed;
+            const titleResult = injectTitle(out, data.name || null);
+            out = titleResult.out;
+            changed += titleResult.changed;
+            const priceResult = injectPrices(out, data.price, data.oldPrice);
+            out = priceResult.out;
+            changed += priceResult.changed;
             if (changed > 0) {
                 fs.writeFileSync(filePath, out, 'utf-8');
                 totalChanged += changed;
