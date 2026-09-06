@@ -789,7 +789,7 @@ async function loadProductsFromFirebase() {
             snapshot.forEach(doc => {
                 const data = doc.data();
                 firebaseProducts.push({
-                    id: data.id,
+                    id: doc.id,
                     name: data.name || 'Sans nom',
                     price: data.price || data.price1 || 0,
                     oldPrice: data.oldPrice || data.price2 || 0,
@@ -821,7 +821,7 @@ function listenToProductsChanges() {
             snapshot.forEach(doc => {
                 const data = doc.data();
                 firebaseProducts.push({
-                    id: data.id,
+                    id: doc.id,
                     name: data.name || 'Sans nom',
                     price: data.price || data.price1 || 0,
                     oldPrice: data.oldPrice || data.price2 || 0,
@@ -1000,7 +1000,7 @@ async function loadProductFromFirebase() {
         if (doc.exists) {
             const data = doc.data();
             productData = {
-                id: data.id,
+                id: doc.id,
                 name: data.name || defaultProduct.name,
                 price: data.price || data.price1 || defaultProduct.price,
                 oldPrice: data.oldPrice || data.price2 || defaultProduct.oldPrice,
@@ -1053,7 +1053,7 @@ function listenToProductChanges() {
             if (doc.exists) {
                 const data = doc.data();
                 const newProduct = {
-                    id: data.id,
+                    id: doc.id,
                     name: data.name || defaultProduct.name,
                     price: data.price || data.price1 || defaultProduct.price,
                     oldPrice: data.oldPrice || data.price2 || defaultProduct.oldPrice,
