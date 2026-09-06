@@ -1,3 +1,4 @@
+
 // netlify/functions/send-notification.js
 // Envoie une vraie notification push (FCM) vers l'app AfriCervo Admin
 // à chaque fois qu'une commande est créée sur une page produit.
@@ -56,13 +57,15 @@ exports.handler = async function (event) {
         const message = {
             notification: {
                 title: title,
-                body: body
+                body: body,
+                image: finalIcon
             },
             webpush: {
                 notification: {
                     title: title,
                     body: body,
                     icon: finalIcon,
+                    image: finalIcon,
                     badge: 'icon-192.png',
                     tag: `commande-${orderId || Date.now()}`,
                     requireInteraction: true,
