@@ -33,7 +33,7 @@ exports.handler = async function (event) {
 
     try {
         const { orderId, clientName, produit, total, icon, imageUrl } = JSON.parse(event.body || '{}');
-        const productIcon = icon || imageUrl; // les pages produits envoient "imageUrl"
+        const finalIcon = icon || imageUrl || 'icon-192.png';
 
         const tokensSnap = await admin.firestore().collection('admin_tokens').get();
         const tokens = tokensSnap.docs.map((doc) => doc.id);
@@ -46,25 +46,35 @@ exports.handler = async function (event) {
         const title = '🆕 Nouvelle commande AfriCervo !';
         const body = `${produit || 'Produit'} — ${clientName || 'Client'} (${(total || 0).toLocaleString('fr-FR')} FCFA)`;
 
-        // IMPORTANT : message "data seulement" (pas de bloc "notification" à la
-        // racine ni dans "webpush"). C'est ce qui garantit que le code custom
-        // de firebase-messaging-sw.js (onBackgroundMessage) s'exécute TOUJOURS,
-        // même app fermée — icône produit, tag par commande (empilement), et
-        // futur son personnalisé — au lieu que Chrome affiche sa notification
-        // générique par défaut et ignore ce code.
+        // IMPORTANT : un message "data seulement" (sans bloc "notification") n'est
+        // PAS fiable sur toutes les versions de Chrome Android — bug connu du SDK
+        // Firebase (l'exécution de onBackgroundMessage n'est pas garantie dans ce
+        // cas). On inclut donc un vrai bloc "notification" + "webpush.notification" :
+        // le navigateur affiche alors la notification lui-même, de façon fiable,
+        // même app fermée, sans dépendre de notre JS personnalisé. "data" reste
+        // disponible pour la navigation au clic (voir notificationclick).
         const message = {
-            data: {
+            notification: {
                 title: title,
-                body: body,
-                orderId: orderId || '',
-                icon: productIcon || 'icon-192.png',
-                tag: `commande-${orderId || Date.now()}`,
-                url: `/admin.html?order=${orderId || ''}`
+                body: body
             },
-            tokens: tokens,
             webpush: {
-                fcmOptions: { link: '/admin.html' }
-            }
+                notification: {
+                    title: title,
+                    body: body,
+                    icon: finalIcon,
+                    badge: 'icon-192.png',
+                    tag: `commande-${orderId || Date.now()}`,
+                    requireInteraction: true,
+                    vibrate: [200, 100, 200]
+                },
+                fcmOptions: { link: `/admin.html${orderId ? `?order=${orderId}` : ''}` }
+            },
+            data: {
+                orderId: orderId || '',
+                url: `/admin.html${orderId ? `?order=${orderId}` : ''}`
+            },
+            tokens: tokens
         };
 
         const response = await admin.messaging().sendEachForMulticast(message);
