@@ -138,6 +138,80 @@ function injectPrices(html, price, oldPrice) {
     return { out, changed };
 }
 
+function escapeHtml(str) {
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+}
+
+// Reproduit exactement le HTML que renderProductCard() génère côté navigateur,
+// pour que la grille de la page d'accueil soit déjà là au premier affichage.
+function buildProductCardHtml(product, productSlugsMap) {
+    const slug = productSlugsMap[product.id];
+    const link = slug ? `/${slug}` : `produit.html?id=${product.id}`;
+    const heroImages = Array.isArray(product.heroImages) ? product.heroImages.filter(Boolean) : [];
+    const images = Array.isArray(product.images) ? product.images.filter(Boolean) : [];
+    const productImage = images[0] || heroImages[0] || product.img1 || 'images/default.jpg';
+    const price = (product.price || 0).toLocaleString('fr-FR');
+    const oldPrice = product.oldPrice ? product.oldPrice.toLocaleString('fr-FR') : '';
+    const name = escapeHtml(product.name || '');
+
+    return `        <div class="product">
+            <a href="${link}">
+                <img src="${productImage}" alt="${name}" onerror="this.src='images/default.jpg'" loading="lazy" decoding="async" width="300" height="300" style="aspect-ratio:1/1;background:#eaeaea;">
+            </a>
+            <h3>${name}</h3>
+            <p class="price">${price} FCFA${oldPrice ? ` <span style="text-decoration:line-through;color:#999;font-weight:400;font-size:12px;">${oldPrice} FCFA</span>` : ''}</p>
+            <a href="${link}" class="btn">Commander</a>
+        </div>`;
+}
+
+async function prerenderHomepage(db) {
+    const indexPath = path.join(__dirname, '..', 'index.html');
+    if (!fs.existsSync(indexPath)) {
+        console.warn('⚠️  index.html introuvable, page d\'accueil ignorée.');
+        return;
+    }
+    let html = fs.readFileSync(indexPath, 'utf-8');
+
+    // Table de correspondance id -> slug, extraite du fichier lui-même
+    // (le même objet productSlugs que le JS utilise déjà).
+    const slugMatch = html.match(/const productSlugs = \{([\s\S]*?)\};/);
+    const productSlugsMap = {};
+    if (slugMatch) {
+        const entries = slugMatch[1].matchAll(/(\d+):\s*"([a-z0-9-]+)"/g);
+        for (const [, id, slug] of entries) productSlugsMap[id] = slug;
+    }
+
+    try {
+        const snapshot = await db.collection('produits').orderBy('id', 'asc').get();
+        const products = snapshot.docs.map(d => d.data()).filter(p => !p.hidden);
+        if (products.length === 0) {
+            console.log('ℹ️  Page d\'accueil : aucun produit trouvé, ignorée.');
+            return;
+        }
+        const first16 = products.slice(0, 16);
+        const cardsHtml = first16.map(p => buildProductCardHtml(p, productSlugsMap)).join('\n');
+
+        const start = html.indexOf('<div class="products" id="productsContainer">');
+        const marker = '<div class="pagination" id="paginationContainer"></div>';
+        const end = html.indexOf(marker);
+        if (start === -1 || end === -1) {
+            console.warn('⚠️  Bloc productsContainer introuvable dans index.html, ignoré.');
+            return;
+        }
+        const newHtml = html.slice(0, start)
+            + `<div class="products" id="productsContainer">\n${cardsHtml}\n    </div>\n    `
+            + html.slice(end);
+        fs.writeFileSync(indexPath, newHtml, 'utf-8');
+        console.log(`✅ index.html : ${first16.length} carte(s) produit gravée(s) sur la page d'accueil.`);
+    } catch (e) {
+        console.error('❌ Erreur pré-rendu page d\'accueil (page publiée sans changement) :', e.message);
+    }
+}
+
 async function run() {
     console.log("🔧 Pré-rendu des images produit (build Netlify)...");
     initFirebase();
@@ -190,6 +264,9 @@ async function run() {
     }
 
     console.log(`🏁 Terminé — ${totalChanged} image(s) au total pré-rendues dans le HTML.`);
+
+    console.log("🔧 Pré-rendu de la grille produits (page d'accueil)...");
+    await prerenderHomepage(db);
 }
 
 run().catch((e) => {
