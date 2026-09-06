@@ -40,30 +40,14 @@ firebase.initializeApp({
 const messaging = firebase.messaging();
 
 // Notification reçue pendant que l'app est en arrière-plan ou fermée.
-// Le message envoyé par send-notification.js est "data seulement" (aucun
-// bloc "notification" au niveau racine) : ça garantit que ce code s'exécute
-// TOUJOURS, même app totalement fermée, plutôt que Chrome n'affiche sa
-// notification par défaut avec son icône.
+// Le message envoyé par send-notification.js contient désormais un vrai bloc
+// "notification"/"webpush.notification" : le navigateur affiche donc la
+// notification tout seul, de façon fiable sur tous les appareils (Android
+// inclus), sans dépendre de ce code. On ne fait plus d'appel manuel à
+// showNotification() ici : ça créerait un DOUBLON (bug connu et documenté
+// du SDK Firebase quand notification + showNotification manuel coexistent).
 messaging.onBackgroundMessage((payload) => {
-    const data = payload.data || {};
-    const title = data.title || '🆕 Nouvelle commande AfriCervo !';
-    const orderId = data.orderId || '';
-    const options = {
-        body: data.body || 'Une nouvelle commande vient d\'arriver.',
-        icon: data.icon || 'icon-192.png',   // image du produit concerné
-        badge: 'icon-192.png',               // petite pastille monochrome (Android) : reste le logo AfriCervo
-        vibrate: [200, 100, 200],
-        requireInteraction: true,
-        // tag unique par commande (ex: "commande-abc123") => chaque nouvelle
-        // commande crée SA PROPRE notification, empilée avec les autres,
-        // jamais remplacée/combinée.
-        tag: data.tag || `commande-${orderId || Date.now()}`,
-        data: {
-            orderId,
-            url: data.url || '/admin.html' + (orderId ? `?order=${orderId}` : '')
-        }
-    };
-    self.registration.showNotification(title, options);
+    console.log('[firebase-messaging-sw.js] Message reçu en arrière-plan (affiché automatiquement) :', payload);
 });
 
 self.addEventListener('notificationclick', (event) => {
