@@ -186,8 +186,15 @@ async function prerenderHomepage(db) {
     }
 
     try {
-        const snapshot = await db.collection('produits').orderBy('id', 'asc').get();
-        const products = snapshot.docs.map(d => d.data()).filter(p => !p.hidden);
+        // On ne trie plus via Firestore orderBy('id') : ce champ peut être absent
+        // ou périmé selon comment chaque produit a été créé. La seule source fiable
+        // de l'identifiant, c'est le nom du document Firestore lui-même (doc.id) —
+        // c'est exactement ce que product-sync.js utilise partout ailleurs sur le site.
+        const snapshot = await db.collection('produits').get();
+        const products = snapshot.docs
+            .map(d => ({ ...d.data(), id: parseInt(d.id, 10) }))
+            .filter(p => !p.hidden && !Number.isNaN(p.id))
+            .sort((a, b) => a.id - b.id);
         if (products.length === 0) {
             console.log('ℹ️  Page d\'accueil : aucun produit trouvé, ignorée.');
             return;
