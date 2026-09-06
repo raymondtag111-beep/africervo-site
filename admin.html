@@ -3629,17 +3629,18 @@
         // ========================================
         function loadProducts() {
             if (window.productSync) {
-                // On n'affiche plus le cache local en premier : il peut contenir des
-                // images déjà remplacées. On attend les vraies données Firebase avant
-                // de dessiner la grille (loadProductsFromFirebase se rabat sur le cache
-                // tout seul si Firebase est injoignable, donc rien n'est perdu hors-ligne).
+                window.productSync.loadProductsFromCache();
+                products = window.productSync.getAllProducts();
+                renderProducts();
+                updateProductBadge();
+                
                 window.productSync.loadProductsFromFirebase().then(() => {
                     products = window.productSync.getAllProducts();
                     renderProducts();
                     updateProductBadge();
                     updateStats();
                 });
-
+                
                 window.productSync.listenToProductsChanges(() => {
                     products = window.productSync.getAllProducts();
                     renderProducts();
@@ -3884,60 +3885,10 @@
             return `produits/${editingProductId || 'nouveau'}`;
         }
 
-        // ============================================================
-        // Suppression DÉFINITIVE de l'ancien fichier Cloudinary
-        // dès qu'il vient d'être remplacé par un nouveau.
-        // ============================================================
-        function getCloudinaryPublicId(url) {
-            try {
-                if (!url || typeof url !== 'string' || !url.includes('cloudinary.com')) return null;
-                const u = new URL(url);
-                const parts = u.pathname.split('/').filter(Boolean);
-                const uploadIndex = parts.indexOf('upload');
-                if (uploadIndex === -1) return null;
-                const resourceType = parts[uploadIndex - 1] === 'video' ? 'video' : 'image';
-                let rest = parts.slice(uploadIndex + 1);
-                // Les segments de transformation (ex: f_auto,q_auto) et le numéro
-                // de version (v1234567890) précèdent le vrai public_id : on les retire.
-                const vIndex = rest.findIndex(seg => /^v\d+$/.test(seg));
-                if (vIndex !== -1) {
-                    rest = rest.slice(vIndex + 1);
-                } else {
-                    rest = rest.filter(seg => !seg.includes(',') && !/^(f_|q_|w_|h_|c_|e_)/.test(seg));
-                }
-                const publicIdWithExt = rest.join('/');
-                if (!publicIdWithExt) return null;
-                const publicId = publicIdWithExt.replace(/\.[a-zA-Z0-9]+$/, '');
-                return { publicId, resourceType };
-            } catch (e) {
-                return null;
-            }
-        }
-
-        async function deleteOldCloudinaryFile(oldUrl) {
-            if (!oldUrl) return;
-            const parsed = getCloudinaryPublicId(oldUrl);
-            if (!parsed || !parsed.publicId) return; // pas une URL Cloudinary reconnue : on ne touche à rien
-            try {
-                await fetch('/.netlify/functions/delete-cloudinary-image', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(parsed)
-                });
-                console.log('🗑️ Ancien fichier supprimé définitivement de Cloudinary:', parsed.publicId);
-            } catch (e) {
-                // Un échec de suppression ne doit jamais bloquer l'admin : au pire l'ancien
-                // fichier reste orphelin chez Cloudinary, mais il n'est plus référencé
-                // nulle part sur le site (Firestore pointe déjà vers le nouveau).
-                console.warn('⚠️ Impossible de supprimer l\'ancien fichier Cloudinary:', e.message);
-            }
-        }
-
         async function handleFileUpload(file, fieldId) {
             const statusEl = document.getElementById('uploadStatus_' + fieldId);
             const targetInput = document.getElementById(fieldId);
             if (!file || !targetInput) return;
-            const oldUrl = targetInput.value ? targetInput.value.trim() : '';
             if (statusEl) statusEl.textContent = '⏳ Envoi en cours... 0%';
             try {
                 const path = `${storageFolder()}/${fieldId}_${Date.now()}_${safeFileName(file.name)}`;
@@ -3950,9 +3901,6 @@
                 if (statusEl) statusEl.textContent = '✅ Envoyé';
                 if (fieldId === 'pImage') previewProductImage(url);
                 productFormDirty = true;
-                // Le nouveau fichier est bien en ligne : l'ancien ne doit plus jamais
-                // pouvoir réapparaître ni rester stocké pour rien.
-                if (oldUrl && oldUrl !== url) deleteOldCloudinaryFile(oldUrl);
             } catch(e) {
                 if (statusEl) statusEl.textContent = '❌ Échec de l\'envoi';
                 showToast('error', 'Erreur upload', e && e.message ? e.message : 'Échec de l\'envoi du fichier');
@@ -4344,7 +4292,7 @@
         // soient déjà dans le HTML au prochain chargement d'une page produit.
         // Un simple signal, sans identifiant sensible : ça ne fait que
         // déclencher une reconstruction avec le code déjà en place sur GitHub.
-        const NETLIFY_BUILD_HOOK_URL = 'https://api.netlify.com/build_hooks/6a9bf25a656a32a568ab82e2';
+        const NETLIFY_BUILD_HOOK_URL = 'https://api.netlify.com/build_hooks/6a9d51dd2aaf03e4153c9d64';
 
         function triggerSiteRebuild() {
             fetch(NETLIFY_BUILD_HOOK_URL, { method: 'POST' })
