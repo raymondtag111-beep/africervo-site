@@ -1,7 +1,15 @@
-
 // netlify/functions/send-notification.js
 // Envoie une vraie notification push (FCM) vers l'app AfriCervo Admin
 // à chaque fois qu'une commande est créée sur une page produit.
+//
+// IMPORTANT : ce message doit rester "data seulement" (AUCUN bloc
+// "notification" ni "webpush.notification" au niveau du message envoyé
+// à Firebase). Dès qu'un de ces blocs est présent, le téléphone affiche
+// sa propre notification automatique et IGNORE complètement le code
+// personnalisé de firebase-messaging-sw.js (onBackgroundMessage) — qui
+// est pourtant celui qui insère l'image, le nom et le prix du produit.
+// Les deux styles ne peuvent pas être combinés : "data seulement" est
+// le seul moyen de garder la notification riche et personnalisée.
 //
 // ========== INSTALLATION (une seule fois) ==========
 // 1. Place ce fichier exactement ici dans ton projet :
@@ -47,34 +55,16 @@ exports.handler = async function (event) {
         const title = '🆕 Nouvelle commande AfriCervo !';
         const body = `${produit || 'Produit'} — ${clientName || 'Client'} (${(total || 0).toLocaleString('fr-FR')} FCFA)`;
 
-        // IMPORTANT : un message "data seulement" (sans bloc "notification") n'est
-        // PAS fiable sur toutes les versions de Chrome Android — bug connu du SDK
-        // Firebase (l'exécution de onBackgroundMessage n'est pas garantie dans ce
-        // cas). On inclut donc un vrai bloc "notification" + "webpush.notification" :
-        // le navigateur affiche alors la notification lui-même, de façon fiable,
-        // même app fermée, sans dépendre de notre JS personnalisé. "data" reste
-        // disponible pour la navigation au clic (voir notificationclick).
+        // Message "data seulement" : c'est firebase-messaging-sw.js (onBackgroundMessage)
+        // qui construit la notification complète (titre, texte, image du produit,
+        // vibration, tag par commande) à partir de ces champs.
         const message = {
-            notification: {
+            data: {
                 title: title,
                 body: body,
-                image: finalIcon
-            },
-            webpush: {
-                notification: {
-                    title: title,
-                    body: body,
-                    icon: finalIcon,
-                    image: finalIcon,
-                    badge: 'icon-192.png',
-                    tag: `commande-${orderId || Date.now()}`,
-                    requireInteraction: true,
-                    vibrate: [200, 100, 200]
-                },
-                fcmOptions: { link: `/admin.html${orderId ? `?order=${orderId}` : ''}` }
-            },
-            data: {
                 orderId: orderId || '',
+                icon: finalIcon,
+                tag: `commande-${orderId || Date.now()}`,
                 url: `/admin.html${orderId ? `?order=${orderId}` : ''}`
             },
             tokens: tokens
