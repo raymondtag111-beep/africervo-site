@@ -2,15 +2,6 @@
 // Envoie une vraie notification push (FCM) vers l'app AfriCervo Admin
 // à chaque fois qu'une commande est créée sur une page produit.
 //
-// IMPORTANT : ce message doit rester "data seulement" (AUCUN bloc
-// "notification" ni "webpush.notification" au niveau du message envoyé
-// à Firebase). Dès qu'un de ces blocs est présent, le téléphone affiche
-// sa propre notification automatique et IGNORE complètement le code
-// personnalisé de firebase-messaging-sw.js (onBackgroundMessage) — qui
-// est pourtant celui qui insère l'image, le nom et le prix du produit.
-// Les deux styles ne peuvent pas être combinés : "data seulement" est
-// le seul moyen de garder la notification riche et personnalisée.
-//
 // ========== INSTALLATION (une seule fois) ==========
 // 1. Place ce fichier exactement ici dans ton projet :
 //      netlify/functions/send-notification.js
@@ -45,54 +36,117 @@ exports.handler = async function (event) {
         const finalIcon = icon || imageUrl || 'icon-192.png';
 
         const tokensSnap = await admin.firestore().collection('admin_tokens').get();
-        const tokens = tokensSnap.docs.map((doc) => doc.id);
-
-        if (tokens.length === 0) {
+        if (tokensSnap.empty) {
             console.log('Aucun token enregistré, notification non envoyée.');
             return { statusCode: 200, body: JSON.stringify({ sent: 0, reason: 'no-tokens' }) };
         }
 
+        // On sépare les appareils web (navigateur/PWA) des appareils avec l'app
+        // Android native : ils ont besoin d'un format de message différent pour
+        // fonctionner de façon fiable (voir explications plus bas).
+        const webTokens = [];
+        const nativeTokens = [];
+        tokensSnap.docs.forEach((doc) => {
+            const platform = (doc.data() || {}).platform;
+            if (platform === 'android-native') {
+                nativeTokens.push(doc.id);
+            } else {
+                webTokens.push(doc.id);
+            }
+        });
+
         const title = '🆕 Nouvelle commande AfriCervo !';
         const body = `${produit || 'Produit'} — ${clientName || 'Client'} (${(total || 0).toLocaleString('fr-FR')} FCFA)`;
+        const clickUrl = `/admin.html${orderId ? `?order=${orderId}` : ''}`;
+        const tag = `commande-${orderId || Date.now()}`;
 
-        // Message "data seulement" : c'est firebase-messaging-sw.js (onBackgroundMessage)
-        // qui construit la notification complète (titre, texte, image du produit,
-        // vibration, tag par commande) à partir de ces champs.
-        const message = {
-            data: {
-                title: title,
-                body: body,
-                orderId: orderId || '',
-                icon: finalIcon,
-                tag: `commande-${orderId || Date.now()}`,
-                url: `/admin.html${orderId ? `?order=${orderId}` : ''}`
-            },
-            tokens: tokens
-        };
+        const sendPromises = [];
+        const allTokensInOrder = []; // pour retrouver l'index lors du nettoyage
 
-        const response = await admin.messaging().sendEachForMulticast(message);
-        console.log(`Notifications envoyées : ${response.successCount} succès, ${response.failureCount} échecs`);
+        if (webTokens.length > 0) {
+            // Web : un vrai bloc "notification" + "webpush.notification" est
+            // OBLIGATOIRE ici — un message "data seulement" n'est pas fiable sur
+            // toutes les versions de Chrome Android (bug connu du SDK Firebase :
+            // onBackgroundMessage pas toujours exécuté). Avec ce bloc, c'est le
+            // navigateur lui-même qui affiche la notification, de façon fiable,
+            // même app fermée.
+            sendPromises.push(
+                admin.messaging().sendEachForMulticast({
+                    notification: { title, body, image: finalIcon },
+                    webpush: {
+                        notification: {
+                            title, body,
+                            icon: finalIcon,
+                            image: finalIcon,
+                            badge: 'icon-192.png',
+                            tag,
+                            requireInteraction: true,
+                            vibrate: [200, 100, 200]
+                        },
+                        fcmOptions: { link: clickUrl }
+                    },
+                    data: { orderId: orderId || '', url: clickUrl },
+                    tokens: webTokens
+                })
+            );
+            allTokensInOrder.push(...webTokens);
+        }
 
-        // Nettoyage des tokens invalides/expirés
+        if (nativeTokens.length > 0) {
+            // App Android native : on envoie ICI un message "data seulement"
+            // (AUCUN champ "notification" ni "webpush"). C'est ce qui garantit
+            // que MyFirebaseMessagingService.onMessageReceived() s'exécute
+            // TOUJOURS — même app totalement fermée — pour jouer le son
+            // personnalisé. Si on ajoutait un bloc "notification" ici, Android
+            // afficherait sa notification par défaut (son du système) sans
+            // jamais exécuter notre code quand l'app est fermée.
+            sendPromises.push(
+                admin.messaging().sendEachForMulticast({
+                    data: {
+                        title, body,
+                        icon: finalIcon,
+                        orderId: orderId || '',
+                        url: clickUrl,
+                        tag
+                    },
+                    tokens: nativeTokens
+                })
+            );
+            allTokensInOrder.push(...nativeTokens);
+        }
+
+        const results = await Promise.all(sendPromises);
+
+        let successCount = 0;
+        let failureCount = 0;
         const cleanupPromises = [];
-        response.responses.forEach((res, idx) => {
-            if (!res.success) {
-                const errCode = res.error && res.error.code;
-                if (
-                    errCode === 'messaging/invalid-registration-token' ||
-                    errCode === 'messaging/registration-token-not-registered'
-                ) {
-                    cleanupPromises.push(
-                        admin.firestore().collection('admin_tokens').doc(tokens[idx]).delete().catch(() => {})
-                    );
+        let offset = 0;
+        results.forEach((response) => {
+            successCount += response.successCount;
+            failureCount += response.failureCount;
+            response.responses.forEach((res, idx) => {
+                if (!res.success) {
+                    const errCode = res.error && res.error.code;
+                    if (
+                        errCode === 'messaging/invalid-registration-token' ||
+                        errCode === 'messaging/registration-token-not-registered'
+                    ) {
+                        const badToken = allTokensInOrder[offset + idx];
+                        cleanupPromises.push(
+                            admin.firestore().collection('admin_tokens').doc(badToken).delete().catch(() => {})
+                        );
+                    }
                 }
-            }
+            });
+            offset += response.responses.length;
         });
         await Promise.all(cleanupPromises);
 
+        console.log(`Notifications envoyées : ${successCount} succès, ${failureCount} échecs (${webTokens.length} web, ${nativeTokens.length} natif)`);
+
         return {
             statusCode: 200,
-            body: JSON.stringify({ sent: response.successCount, failed: response.failureCount, orderId })
+            body: JSON.stringify({ sent: successCount, failed: failureCount, orderId })
         };
     } catch (e) {
         console.error('Erreur envoi notification:', e);
