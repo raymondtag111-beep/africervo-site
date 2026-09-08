@@ -33,7 +33,7 @@ exports.handler = async function (event) {
 
     try {
         const { orderId, clientName, produit, total, icon, imageUrl } = JSON.parse(event.body || '{}');
-        const finalIcon = icon || imageUrl || 'icon-192.png';
+        const finalIcon = icon || imageUrl || 'https://africervo228.netlify.app/icon-192.png';
 
         const tokensSnap = await admin.firestore().collection('admin_tokens').get();
         if (tokensSnap.empty) {
@@ -104,7 +104,7 @@ exports.handler = async function (event) {
                 admin.messaging().sendEachForMulticast({
                     data: {
                         title, body,
-                        icon: finalIcon,
+                        image: finalIcon,
                         orderId: orderId || '',
                         url: clickUrl,
                         tag
