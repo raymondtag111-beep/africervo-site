@@ -23,8 +23,8 @@ const PRODUCT_PAGES = [
     "patch-detox-kinoki.html", "seche-chaussures.html"
 ];
 
-// Les 5 emplacements image gérés par chaque page (voir renderProduct() dans le HTML)
-const IMAGE_SLOTS = ["heroMainImage", "block1Img", "block1Img2", "block2Img", "block2Img2"];
+// Les emplacements image gérés par chaque page (voir renderProduct() dans le HTML)
+const IMAGE_SLOTS = ["heroMainImage", "block1Img", "block1Img2", "block2Img", "block2Img2", "optionThumb1", "optionThumb2"];
 
 function initFirebase() {
     if (admin.apps.length) return;
@@ -58,6 +58,9 @@ function computeImageUrls(data) {
         block1Img2: data.img1b || null,
         block2Img: data.img2 || null,
         block2Img2: data.img2b || null,
+        // Les petites photos "1 acheté" / "2 achetés" reprennent la photo principale.
+        optionThumb1: hero,
+        optionThumb2: hero,
     };
 }
 
@@ -73,6 +76,34 @@ function injectImages(html, urls) {
         const re = new RegExp(`<img id="${slot}"(\\s+class="img-shimmer")?(\\s+src="[^"]*")?`);
         if (re.test(out)) {
             out = out.replace(re, `<img id="${slot}" src="${safeUrl}"`);
+            changed++;
+        }
+    }
+    return { out, changed };
+}
+
+// Corrige le vrai problème de délai sur les "deuxièmes images" des blocs :
+// même une fois leur src correctement gravé, elles restaient invisibles
+// (style="display:none") tant que le JavaScript n'avait pas fini de tourner
+// et ajouté la classe "two-images" au conteneur parent. On fait les deux
+// directement ici, pour qu'elles soient visibles dès le premier affichage.
+function fixSecondBlockImageVisibility(html, urls) {
+    let out = html;
+    let changed = 0;
+    for (const n of [1, 2, 3]) {
+        const slot = `block${n}Img2`;
+        const url = urls[slot];
+        if (!url) continue; // pas de deuxième image pour ce bloc : on laisse tel quel
+
+        const imgRe = new RegExp(`(<img id="${slot}"[^>]*?)\\s+style="display:none"`);
+        if (imgRe.test(out)) {
+            out = out.replace(imgRe, '$1');
+            changed++;
+        }
+
+        const sideRe = new RegExp(`(<div class="image-side mini-slider)(")(\\s+id="block${n}Side")`);
+        if (sideRe.test(out)) {
+            out = out.replace(sideRe, '$1 two-images$2$3');
             changed++;
         }
     }
@@ -248,6 +279,9 @@ async function run() {
             const urls = computeImageUrls(doc.data());
             const data = doc.data();
             let { out, changed } = injectImages(html, urls);
+            const visResult = fixSecondBlockImageVisibility(out, urls);
+            out = visResult.out;
+            changed += visResult.changed;
             const videoResult = injectVideo(out, data.video || null);
             out = videoResult.out;
             changed += videoResult.changed;
