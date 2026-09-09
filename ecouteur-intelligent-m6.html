@@ -425,11 +425,11 @@
                 <div class="alert-message"><i class="fas fa-exclamation-triangle"></i> <span id="alertMessageText">Merci de ne remplir ce formulaire que si vous êtes prêt(e) à recevoir votre commande, pour une livraison sans souci 🙏</span></div>
 
                 <div class="option active" data-qty="1" data-price="10000" id="option1">
-                    <div class="option-left"><img src="images/m61.webp" alt="1" loading="lazy" onerror="this.src='https://placehold.co/60x60/2e7d32/white?text=1'"><span>1 acheté</span></div>
+                    <div class="option-left"><img id="optionThumb1" src="images/m61.webp" alt="1" loading="lazy" onerror="this.src='https://placehold.co/60x60/2e7d32/white?text=1'"><span>1 acheté</span></div>
                     <div class="option-price" id="optionPrice1">9 900 FCFA</div>
                 </div>
                 <div class="option" data-qty="2" data-price="16800" id="option2">
-                    <div class="option-left"><img src="images/m61.webp" alt="2" loading="lazy" onerror="this.src='https://placehold.co/60x60/2e7d32/white?text=2'"><span>2 achetés</span></div>
+                    <div class="option-left"><img id="optionThumb2" src="images/m61.webp" alt="2" loading="lazy" onerror="this.src='https://placehold.co/60x60/2e7d32/white?text=2'"><span>2 achetés</span></div>
                     <div class="option-price" id="optionPrice2">16 800 FCFA <span class="small-save">(Économie)</span></div>
                 </div>
 
@@ -789,7 +789,7 @@ async function loadProductsFromFirebase() {
             snapshot.forEach(doc => {
                 const data = doc.data();
                 firebaseProducts.push({
-                    id: doc.id,
+                    id: data.id,
                     name: data.name || 'Sans nom',
                     price: data.price || data.price1 || 0,
                     oldPrice: data.oldPrice || data.price2 || 0,
@@ -821,7 +821,7 @@ function listenToProductsChanges() {
             snapshot.forEach(doc => {
                 const data = doc.data();
                 firebaseProducts.push({
-                    id: doc.id,
+                    id: data.id,
                     name: data.name || 'Sans nom',
                     price: data.price || data.price1 || 0,
                     oldPrice: data.oldPrice || data.price2 || 0,
@@ -1004,7 +1004,7 @@ async function loadProductFromFirebase() {
         if (doc.exists) {
             const data = doc.data();
             productData = {
-                id: doc.id,
+                id: data.id,
                 name: data.name || defaultProduct.name,
                 price: data.price || data.price1 || defaultProduct.price,
                 oldPrice: data.oldPrice || data.price2 || defaultProduct.oldPrice,
@@ -1057,7 +1057,7 @@ function listenToProductChanges() {
             if (doc.exists) {
                 const data = doc.data();
                 const newProduct = {
-                    id: doc.id,
+                    id: data.id,
                     name: data.name || defaultProduct.name,
                     price: data.price || data.price1 || defaultProduct.price,
                     oldPrice: data.oldPrice || data.price2 || defaultProduct.oldPrice,
@@ -1188,8 +1188,15 @@ function renderProduct() {
         if (thumbsEl) { thumbsEl.style.display = 'none'; thumbsEl.innerHTML = ''; }
         if (!main) return;
         const list = (images || []).filter(Boolean);
-        main.src = list.length ? list[0] : img1;
+        const mainImageSrc = list.length ? list[0] : img1;
+        main.src = mainImageSrc;
         main.classList.remove('img-shimmer');
+        // Les petites photos à côté de "1 acheté" / "2 achetés" montrent la même
+        // image que la photo principale, pour rester cohérentes automatiquement.
+        const optThumb1 = document.getElementById('optionThumb1');
+        const optThumb2 = document.getElementById('optionThumb2');
+        if (optThumb1) optThumb1.src = mainImageSrc;
+        if (optThumb2) optThumb2.src = mainImageSrc;
     }
     renderHeroGallery(p.heroImages && p.heroImages.length ? p.heroImages : defaultProduct.heroImages);
 
