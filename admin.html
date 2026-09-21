@@ -2078,14 +2078,16 @@
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Adresse IP</th>
+                                    <th>Visiteur</th>
+                                    <th>Appareil</th>
+                                    <th>Provenance</th>
                                     <th>Arrivée</th>
                                     <th>Dernière activité</th>
-                                    <th>Dernière page consultée</th>
+                                    <th>Pages</th>
                                 </tr>
                             </thead>
                             <tbody id="dailyVisitorsTableBody">
-                                <tr><td colspan="4" class="empty-state"><i class="fas fa-spinner fa-spin"></i><p>Chargement...</p></td></tr>
+                                <tr><td colspan="6" class="empty-state"><i class="fas fa-spinner fa-spin"></i><p>Chargement...</p></td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -2101,7 +2103,7 @@
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Adresse IP</th>
+                                    <th>Visiteur</th>
                                     <th>Page consultée</th>
                                     <th>Vu il y a</th>
                                 </tr>
@@ -2942,76 +2944,6 @@
             tbody.innerHTML = html;
         }
 
-        // ========================================
-        // VISITEURS EN TEMPS RÉEL — basé sur les adresses IP (Firebase Realtime Database)
-        // ========================================
-        function renderLiveVisitorsTable(entries, now) {
-            const tbody = document.getElementById('liveVisitorsTableBody');
-            if (!tbody) return;
-            if (entries.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="3" class="empty-state"><i class="fas fa-user-slash"></i><p>Aucun visiteur actif</p></td></tr>`;
-                return;
-            }
-            tbody.innerHTML = entries.map(v => {
-                const seconds = Math.max(0, Math.round((now - (v.lastSeen || now)) / 1000));
-                const timeLabel = seconds < 5 ? "à l'instant" : (seconds < 60 ? `${seconds}s` : `${Math.round(seconds / 60)} min`);
-                return `<tr>
-                    <td><strong>${v.ip || '—'}</strong></td>
-                    <td>${v.page || '—'}</td>
-                    <td style="font-size:12px;color:var(--ink-500);"><span class="live-dot"></span> ${timeLabel}</td>
-                </tr>`;
-            }).join('');
-        }
-
-        function listenToVisitors() {
-            if (typeof firebase === 'undefined' || !firebase.database) {
-                console.warn('⚠️ Firebase Realtime Database non disponible');
-                return;
-            }
-            const rtdb = firebase.database();
-            const todayKey = new Date().toISOString().split('T')[0];
-
-            // Total de visiteurs uniques aujourd'hui (temps réel) — 1 IP = 1 visiteur, jamais compté deux fois
-            rtdb.ref('visitors/daily/' + todayKey).on('value', (snapshot) => {
-                const data = snapshot.val();
-                window.realTodayVisitors = data ? Object.keys(data).length : 0;
-                if (currentPeriod === 'today') updateDashboard();
-            });
-
-            // Total de visiteurs uniques pour la période actuellement sélectionnée dans le dashboard
-            refreshPeriodVisitorCount();
-
-            // Visiteurs actuellement sur le site + page exacte qu'ils consultent
-            rtdb.ref('visitors/live').on('value', (snapshot) => {
-                const data = snapshot.val() || {};
-                const now = Date.now();
-                const entries = Object.values(data)
-                    .filter(v => v.lastSeen && (now - v.lastSeen) < 60000) // ignore les entrées mortes non nettoyées
-                    .sort((a, b) => (b.lastSeen || 0) - (a.lastSeen || 0));
-
-                window.realLiveVisitors = entries.length;
-                updateDashboard();
-                renderLiveVisitorsTable(entries, now);
-            });
-
-            // Rafraîchit l'affichage "vu il y a Xs" même sans nouvel événement Firebase
-            setInterval(() => {
-                rtdb.ref('visitors/live').once('value').then((snapshot) => {
-                    const data = snapshot.val() || {};
-                    const now = Date.now();
-                    const entries = Object.values(data)
-                        .filter(v => v.lastSeen && (now - v.lastSeen) < 60000)
-                        .sort((a, b) => (b.lastSeen || 0) - (a.lastSeen || 0));
-                    renderLiveVisitorsTable(entries, now);
-                });
-            }, 10000);
-        }
-
-        function formatTime(ts) {
-            if (!ts) return '—';
-            const d = new Date(ts);
-            return d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
-        }
 
         function toggleDailyVisitorsDetail() {
             try {
@@ -3026,128 +2958,6 @@
             } catch (err) {
                 console.error('❌ Erreur toggleDailyVisitorsDetail:', err);
             }
-        }
-
-        // Compte les visiteurs uniques (par IP) réellement enregistrés pour la période
-        // sélectionnée dans le sélecteur de dates du dashboard, puis rafraîchit l'affichage.
-        function refreshPeriodVisitorCount() {
-            if (typeof firebase === 'undefined' || !firebase.database) return;
-            const rtdb = firebase.database();
-            const dateKeys = getPeriodDateKeys();
-            Promise.all(dateKeys.map(key =>
-                rtdb.ref('visitors/daily/' + key).once('value').catch(err => {
-                    console.error('❌ Erreur lecture visitors/daily/' + key + ':', err);
-                    return null;
-                })
-            )).then((snapshots) => {
-                const uniqueIps = new Set();
-                snapshots.forEach(snapshot => {
-                    if (!snapshot) return;
-                    const data = snapshot.val() || {};
-                    Object.values(data).forEach(v => { if (v && v.ip) uniqueIps.add(v.ip); });
-                });
-                window.realPeriodVisitors = uniqueIps.size;
-                updateDashboard();
-            }).catch((err) => console.error('❌ Erreur comptage visiteurs période:', err));
-        }
-
-        // Renvoie la ou les clés de date (YYYY-MM-DD) correspondant à la période
-        // actuellement sélectionnée dans le sélecteur de dates du tableau de bord.
-        function getPeriodDateKeys() {
-            const today = new Date();
-            today.setHours(0, 0, 0, 0);
-            const toKey = (d) => {
-                const y = d.getFullYear();
-                const m = String(d.getMonth() + 1).padStart(2, '0');
-                const day = String(d.getDate()).padStart(2, '0');
-                return `${y}-${m}-${day}`;
-            };
-            const keys = [];
-            if (currentPeriod === 'yesterday') {
-                const y = new Date(today); y.setDate(y.getDate() - 1);
-                keys.push(toKey(y));
-            } else if (currentPeriod === 'last7') {
-                for (let i = 6; i >= 0; i--) {
-                    const d = new Date(today); d.setDate(d.getDate() - i);
-                    keys.push(toKey(d));
-                }
-            } else if (currentPeriod === 'last30') {
-                for (let i = 29; i >= 0; i--) {
-                    const d = new Date(today); d.setDate(d.getDate() - i);
-                    keys.push(toKey(d));
-                }
-            } else if (currentPeriod === 'thisMonth') {
-                const start = new Date(today.getFullYear(), today.getMonth(), 1);
-                for (let d = new Date(start); d <= today; d.setDate(d.getDate() + 1)) {
-                    keys.push(toKey(d));
-                }
-            } else if (currentPeriod === 'custom') {
-                const fromVal = document.getElementById('dateFrom')?.value;
-                const toVal = document.getElementById('dateTo')?.value;
-                if (fromVal && toVal) {
-                    const from = new Date(fromVal + 'T00:00:00');
-                    const to = new Date(toVal + 'T00:00:00');
-                    for (let d = new Date(from); d <= to; d.setDate(d.getDate() + 1)) {
-                        keys.push(toKey(d));
-                    }
-                }
-            } else {
-                // 'today' ou toute valeur inattendue -> repli sur aujourd'hui
-                keys.push(toKey(today));
-            }
-            if (keys.length === 0) keys.push(toKey(today));
-            return keys;
-        }
-
-        function loadDailyVisitorsDetail() {
-            const tbody = document.getElementById('dailyVisitorsTableBody');
-            if (!tbody) { console.error('❌ #dailyVisitorsTableBody introuvable dans le DOM'); return; }
-
-            if (typeof firebase === 'undefined' || !firebase.database) {
-                console.error('❌ Firebase Realtime Database indisponible (firebase.database non défini)');
-                tbody.innerHTML = `<tr><td colspan="4" class="empty-state"><p>Firebase indisponible — voir la console</p></td></tr>`;
-                return;
-            }
-
-            const titleEl = document.querySelector('#dailyVisitorsDetailCard h3');
-            if (titleEl) {
-                const label = document.getElementById('dateDisplay')?.textContent?.trim() || "aujourd'hui";
-                titleEl.innerHTML = `<i class="fas fa-list" style="color:var(--purple, #7c3aed);"></i> Détail des visiteurs — ${label}`;
-            }
-
-            const rtdb = firebase.database();
-            const dateKeys = getPeriodDateKeys();
-            tbody.innerHTML = `<tr><td colspan="4" class="empty-state"><i class="fas fa-spinner fa-spin"></i><p>Chargement...</p></td></tr>`;
-
-            Promise.all(dateKeys.map(key =>
-                rtdb.ref('visitors/daily/' + key).once('value').catch(err => {
-                    console.error('❌ Erreur lecture visitors/daily/' + key + ':', err);
-                    return null;
-                })
-            )).then((snapshots) => {
-                let entries = [];
-                snapshots.forEach(snapshot => {
-                    if (!snapshot) return;
-                    const data = snapshot.val() || {};
-                    entries = entries.concat(Object.values(data).filter(v => v && typeof v === 'object'));
-                });
-                if (entries.length === 0) {
-                    tbody.innerHTML = `<tr><td colspan="4" class="empty-state"><i class="fas fa-user-slash"></i><p>Aucun visiteur sur cette période</p></td></tr>`;
-                    return;
-                }
-                entries.sort((a, b) => (b.firstSeen || 0) - (a.firstSeen || 0));
-                tbody.innerHTML = entries.map(v => `
-                    <tr>
-                        <td><strong>${v.ip || '—'}</strong></td>
-                        <td>${formatTime(v.firstSeen)}</td>
-                        <td>${formatTime(v.lastSeen)}</td>
-                        <td>${v.lastPage || '—'}</td>
-                    </tr>
-                `).join('');
-            }).catch((err) => {
-                console.error('❌ Erreur chargement détail visiteurs:', err);
-                tbody.innerHTML = `<tr><td colspan="4" class="empty-state"><p>Erreur : ${err.message || err}</p></td></tr>`;
-            });
         }
 
         function updateOrderStatus(orderId, status) {
@@ -5400,5 +5210,345 @@
             }
         });
     </script>
+<!-- ==========================================================================
+     SUIVI DES VISITEURS (version sans IP) — À COLLER DANS admin.html
+     Emplacement : juste AVANT la balise </body> (après le gros bloc de script existant).
+     Ce bloc remplace automatiquement les anciennes fonctions basées sur l'IP :
+     listenToVisitors, refreshPeriodVisitorCount, getPeriodDateKeys,
+     loadDailyVisitorsDetail, formatTime. Rien à supprimer dans le reste du fichier.
+     ========================================================================== -->
+<script>
+(function () {
+    'use strict';
+
+    var NODE = 'stats';
+    var LIVE_MS = 90000;      // "actif" = signe de vie il y a moins de 90 s
+    var TZ = 'Africa/Lome';   // heures affichées à l'heure de Lomé (UTC+0)
+    var MAX_ROWS = 200;
+
+    var st = { today: {}, todayKey: null, live: {}, offset: 0, expanded: {}, multi: null, loading: false, error: false };
+    var todayRef = null, started = false, periodReq = 0, detailReq = 0, renderTimer = null;
+
+    // ---------- Utilitaires ----------
+    function $(id) { return document.getElementById(id); }
+    function esc(s) {
+        return String(s == null ? '' : s).replace(/[&<>"']/g, function (m) {
+            return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[m];
+        });
+    }
+    function curPeriod() { try { return currentPeriod; } catch (e) { return 'today'; } }
+    function isToday() { return curPeriod() === 'today'; }
+    function utcKey(d) { return d.toISOString().slice(0, 10); }
+    function addDays(key, n) {
+        var d = new Date(key + 'T00:00:00Z');
+        d.setUTCDate(d.getUTCDate() + n);
+        return utcKey(d);
+    }
+    function serverNow() { return Date.now() + st.offset; }
+    function clock(ts, withSec) {
+        var o = { hour: '2-digit', minute: '2-digit', timeZone: TZ };
+        if (withSec) o.second = '2-digit';
+        try { return new Date(ts).toLocaleTimeString('fr-FR', o); }
+        catch (e) { return new Date(ts).toLocaleTimeString('fr-FR'); }
+    }
+    function ago(ts) {
+        var s = Math.max(0, Math.round((serverNow() - ts) / 1000));
+        if (s < 5) return "à l'instant";
+        if (s < 60) return 'il y a ' + s + ' s';
+        var m = Math.floor(s / 60);
+        if (m < 60) return 'il y a ' + m + ' min';
+        var h = Math.floor(m / 60);
+        return 'il y a ' + h + ' h' + (m % 60 ? ' ' + (m % 60) + ' min' : '');
+    }
+    function agoSpan(ts) { return '<span class="acv-ago" data-ts="' + (+ts || 0) + '">' + esc(ago(ts)) + '</span>'; }
+    function shortId(vid) { return '#' + String(vid).slice(0, 5).toUpperCase(); }
+
+    // ---------- Périodes (dates en UTC = heure de Lomé, comme le tracker) ----------
+    window.getPeriodDateKeys = function () {
+        var today = utcKey(new Date()), keys = [];
+        function range(a, b) { var k = a, g = 0; while (k <= b && g++ < 400) { keys.push(k); k = addDays(k, 1); } }
+        switch (curPeriod()) {
+            case 'yesterday': keys.push(addDays(today, -1)); break;
+            case 'last7': range(addDays(today, -6), today); break;
+            case 'last30': range(addDays(today, -29), today); break;
+            case 'thisMonth': range(today.slice(0, 8) + '01', today); break;
+            case 'custom':
+                var f = $('dateFrom') && $('dateFrom').value, t = $('dateTo') && $('dateTo').value;
+                if (f && t && f <= t) range(f, t);
+                break;
+            default: keys.push(today);
+        }
+        if (!keys.length) keys.push(today);
+        if (keys.length > 92) keys = keys.slice(-92);
+        return keys;
+    };
+
+    window.formatTime = function (ts) { return ts ? clock(ts, false) : '—'; };
+
+    // ---------- Visiteurs actifs (dédoublonnés par visiteur) ----------
+    function liveByVisitor() {
+        var out = {}, now = serverNow();
+        Object.keys(st.live || {}).forEach(function (sid) {
+            var l = st.live[sid];
+            if (!l || !l.vid || !l.lastSeen || now - l.lastSeen > LIVE_MS) return;
+            if (!out[l.vid] || l.lastSeen > out[l.vid].lastSeen) out[l.vid] = { lastSeen: l.lastSeen, page: l.page || '', device: l.device || '' };
+        });
+        return out;
+    }
+
+    // ---------- Compteurs du tableau de bord ----------
+    function renderCounters() {
+        var active = Object.keys(liveByVisitor()).length;
+        window.realLiveVisitors = active;
+        var v = (isToday() && typeof window.realTodayVisitors === 'number') ? window.realTodayVisitors
+              : (!isToday() && typeof window.realPeriodVisitors === 'number' ? window.realPeriodVisitors : null);
+        var el = $('dashVisitors');
+        if (el && v !== null) el.textContent = v;
+        var a = $('dashActive');
+        if (a) a.innerHTML = active > 0
+            ? '<span class="live-dot"></span>' + active
+            : '<span class="live-dot" style="background:var(--ink-500);animation:none;"></span>0';
+    }
+
+    // ---------- Tableau "Visiteurs en temps réel" ----------
+    function renderLiveTable() {
+        var tb = $('liveVisitorsTableBody');
+        if (!tb) return;
+        if (st.error) {
+            tb.innerHTML = '<tr><td colspan="3" class="empty-state"><p>🔒 Accès refusé : ajoute le bloc « stats » dans les règles Firebase.</p></td></tr>';
+            return;
+        }
+        var live = liveByVisitor();
+        var vids = Object.keys(live).sort(function (a, b) { return live[b].lastSeen - live[a].lastSeen; });
+        if (!vids.length) {
+            tb.innerHTML = '<tr><td colspan="3" class="empty-state"><i class="fas fa-user-slash"></i><p>Aucun visiteur actif</p></td></tr>';
+            return;
+        }
+        tb.innerHTML = vids.map(function (v) {
+            var l = live[v], d = st.today[v] || {};
+            return '<tr><td><strong>' + esc(shortId(v)) + '</strong> <span style="font-size:12px;color:var(--ink-500);">' + esc(d.device || l.device || '') + '</span></td>' +
+                '<td>' + esc(l.page || '—') + '</td>' +
+                '<td style="font-size:12px;color:var(--ink-500);"><span class="live-dot"></span> ' + agoSpan(l.lastSeen) + '</td></tr>';
+        }).join('');
+    }
+
+    // ---------- Détail des visiteurs (clic sur "Total visiteurs") ----------
+    function fixHeaders() {
+        var h = document.querySelector('#dailyVisitorsDetailCard thead tr');
+        if (h) h.innerHTML = '<th>Visiteur</th><th>Appareil</th><th>Provenance</th><th>Arrivée</th><th>Dernière activité</th><th>Pages</th>';
+        var h2 = document.querySelector('#liveVisitorsTableBody');
+        if (h2 && h2.parentNode) {
+            var tr = h2.parentNode.querySelector('thead tr');
+            if (tr) tr.innerHTML = '<th>Visiteur</th><th>Page consultée</th><th>Vu il y a</th>';
+        }
+    }
+
+    function viewsOf(d) {
+        var arr = d && d.views ? Object.keys(d.views).map(function (k) { return d.views[k]; }) : [];
+        arr.sort(function (a, b) { return (b.t || 0) - (a.t || 0); });
+        return arr;
+    }
+
+    function buildRows() {
+        var rows = [], live = liveByVisitor();
+        if (isToday()) {
+            Object.keys(st.today || {}).forEach(function (v) { rows.push({ date: st.todayKey, vid: v, d: st.today[v] || {}, live: live[v] }); });
+        } else if (st.multi) {
+            rows = st.multi.slice();
+        }
+        rows.forEach(function (r) {
+            r.views = viewsOf(r.d);
+            r.last = Math.max(r.d.lastSeen || 0, r.live ? r.live.lastSeen : 0);
+            r.first = r.d.firstSeen || (r.views.length ? r.views[r.views.length - 1].t : 0);
+        });
+        rows.sort(function (a, b) { return b.last - a.last; });
+        return rows;
+    }
+
+    function renderDetail() {
+        var card = $('dailyVisitorsDetailCard');
+        if (!card || card.style.display !== 'block') return;
+        var tb = $('dailyVisitorsTableBody');
+        if (!tb) return;
+        if (st.error) {
+            tb.innerHTML = '<tr><td colspan="6" class="empty-state"><p>🔒 Accès refusé : ajoute le bloc « stats » dans les règles Firebase.</p></td></tr>';
+            return;
+        }
+        if (st.loading) {
+            tb.innerHTML = '<tr><td colspan="6" class="empty-state"><i class="fas fa-spinner fa-spin"></i><p>Chargement...</p></td></tr>';
+            return;
+        }
+        var rows = buildRows(), total = rows.length;
+        if (!total) {
+            tb.innerHTML = '<tr><td colspan="6" class="empty-state"><i class="fas fa-user-slash"></i><p>Aucun visiteur sur cette période</p></td></tr>';
+            return;
+        }
+        rows = rows.slice(0, MAX_ROWS);
+        var multiDay = !isToday();
+        var html = rows.map(function (r) {
+            var d = r.d, key = r.date + '|' + r.vid, open = !!st.expanded[key];
+            var arrival = r.first ? (multiDay ? r.date.slice(8, 10) + '/' + r.date.slice(5, 7) + ' ' : '') + clock(r.first, false) : '—';
+            var activity = r.live
+                ? '<span style="color:var(--success);font-weight:600;">🟢 En ligne</span>' + (r.live.page ? ' · ' + esc(r.live.page) : '')
+                : (r.last ? agoSpan(r.last) + (d.lastPage ? '<div style="font-size:12px;color:var(--ink-500);">' + esc(d.lastPage) + '</div>' : '') : '—');
+            var src = d.source ? (d.source === 'Direct' ? 'Accès direct' : d.source) : '—';
+            var main = '<tr class="acv-row" data-k="' + esc(key) + '" style="cursor:pointer;">' +
+                '<td><strong>' + esc(shortId(r.vid)) + '</strong>' + (d.ordered ? ' <span title="A commandé">🛒</span>' : '') + '</td>' +
+                '<td>' + esc(d.device || '—') + '<div style="font-size:12px;color:var(--ink-500);">' + esc(d.browser || '') + '</div></td>' +
+                '<td>' + esc(src) + '</td>' +
+                '<td>' + esc(arrival) + '</td>' +
+                '<td>' + activity + '</td>' +
+                '<td><span class="status-badge info">' + r.views.length + '</span> ' + (open ? '▲' : '▼') + '</td></tr>';
+            if (!open) return main;
+            var pages = r.views.length ? r.views.map(function (v) {
+                return '<div style="display:flex;gap:12px;padding:3px 0;font-size:13px;">' +
+                    '<span style="min-width:72px;color:var(--ink-500);font-variant-numeric:tabular-nums;">' + esc(clock(v.t || 0, true)) + '</span>' +
+                    '<span style="flex:1;">' + esc(v.page || v.path || '?') + '</span>' +
+                    '<span style="font-size:12px;color:var(--ink-500);white-space:nowrap;">' + agoSpan(v.t || 0) + '</span></div>';
+            }).join('') : '<div style="font-size:13px;color:var(--ink-500);">Aucune page enregistrée.</div>';
+            return main + '<tr><td colspan="6" style="background:var(--bg);padding:8px 16px;">' + (d.ordered ? '<div style="font-size:13px;color:var(--warning);font-weight:600;margin-bottom:4px;">🛒 A passé commande</div>' : '') + pages + '</td></tr>';
+        }).join('');
+        if (total > MAX_ROWS) html += '<tr><td colspan="6" style="text-align:center;font-size:12px;color:var(--ink-500);">' + MAX_ROWS + ' visiteurs les plus récents affichés sur ' + total + '</td></tr>';
+        tb.innerHTML = html;
+    }
+
+    // Clic sur une ligne = déplier / replier la liste des pages
+    document.addEventListener('click', function (e) {
+        var tr = e.target.closest && e.target.closest('#dailyVisitorsTableBody tr.acv-row');
+        if (!tr) return;
+        var k = tr.getAttribute('data-k');
+        st.expanded[k] = !st.expanded[k];
+        renderDetail();
+    });
+
+    window.loadDailyVisitorsDetail = function () {
+        var titleEl = document.querySelector('#dailyVisitorsDetailCard h3');
+        if (titleEl) {
+            var label = ($('dateDisplay') && $('dateDisplay').textContent || "aujourd'hui").trim();
+            titleEl.innerHTML = '<i class="fas fa-list" style="color:var(--purple, #7c3aed);"></i> Détail des visiteurs — ' + esc(label);
+        }
+        fixHeaders();
+        if (typeof firebase === 'undefined' || !firebase.database) return;
+        if (isToday()) { st.multi = null; st.loading = false; renderDetail(); return; }
+
+        var id = ++detailReq;
+        st.loading = true; st.multi = [];
+        renderDetail();
+        var keys = window.getPeriodDateKeys().slice().reverse(); // les plus récents d'abord
+        Promise.all(keys.map(function (k) {
+            return firebase.database().ref(NODE + '/daily/' + k).once('value').then(
+                function (s) { return { k: k, v: s.val() || {} }; },
+                function () { return { k: k, v: {}, err: true }; }
+            );
+        })).then(function (res) {
+            if (id !== detailReq) return;
+            var rows = [];
+            res.forEach(function (x) {
+                Object.keys(x.v).forEach(function (vid) { rows.push({ date: x.k, vid: vid, d: x.v[vid] || {}, live: null }); });
+            });
+            st.multi = rows; st.loading = false;
+            renderDetail();
+        });
+    };
+
+    // ---------- Total de visiteurs uniques sur une période (léger : on ne télécharge que les identifiants) ----------
+    function shallowKeys(date) {
+        var base = '';
+        try { base = firebase.app().options.databaseURL || ''; } catch (e) { /* ignore */ }
+        function viaSdk() {
+            return firebase.database().ref(NODE + '/daily/' + date).once('value').then(function (s) {
+                var v = s.val(); return v ? Object.keys(v) : [];
+            });
+        }
+        if (!base || typeof fetch !== 'function') return viaSdk();
+        return fetch(base.replace(/\/$/, '') + '/' + NODE + '/daily/' + date + '.json?shallow=true')
+            .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+            .then(function (j) { return j && typeof j === 'object' ? Object.keys(j) : []; })
+            .catch(viaSdk);
+    }
+
+    window.refreshPeriodVisitorCount = function () {
+        if (typeof firebase === 'undefined' || !firebase.database) return;
+        if (isToday()) { renderCounters(); return; } // "aujourd'hui" = écoute en direct
+        var id = ++periodReq;
+        var el = $('dashVisitors');
+        if (el) el.textContent = '…';
+        Promise.all(window.getPeriodDateKeys().map(shallowKeys)).then(function (lists) {
+            if (id !== periodReq) return;
+            var uniq = {};
+            lists.forEach(function (l) { l.forEach(function (vid) { uniq[vid] = 1; }); });
+            window.realPeriodVisitors = Object.keys(uniq).length;
+            renderCounters();
+        }).catch(function (err) { console.error('❌ Comptage visiteurs période:', err); });
+    };
+
+    // ---------- Écoute en direct ----------
+    function schedule() {
+        if (renderTimer) return;
+        renderTimer = setTimeout(function () {
+            renderTimer = null;
+            renderCounters();
+            renderLiveTable();
+            renderDetail();
+        }, 250);
+    }
+
+    function onErr(err) {
+        console.error('❌ Suivi visiteurs:', err && err.message ? err.message : err);
+        st.error = true;
+        schedule();
+    }
+
+    function attachToday() {
+        var key = utcKey(new Date());
+        if (todayRef) todayRef.off();
+        st.todayKey = key; st.today = {};
+        todayRef = firebase.database().ref(NODE + '/daily/' + key);
+        todayRef.on('value', function (snap) {
+            st.error = false;
+            st.today = snap.val() || {};
+            window.realTodayVisitors = Object.keys(st.today).length;
+            schedule();
+        }, onErr);
+    }
+
+    window.listenToVisitors = function () {
+        if (started) return;
+        if (typeof firebase === 'undefined' || !firebase.database) {
+            console.warn('⚠️ Firebase Realtime Database non disponible');
+            return;
+        }
+        started = true;
+        var db = firebase.database();
+        fixHeaders();
+        db.ref('.info/serverTimeOffset').on('value', function (s) { st.offset = s.val() || 0; });
+        db.ref(NODE + '/live').on('value', function (snap) {
+            st.error = false;
+            st.live = snap.val() || {};
+            schedule();
+        }, onErr);
+        attachToday();
+        window.refreshPeriodVisitorCount();
+
+        var tick = 0;
+        setInterval(function () {
+            tick++;
+            var spans = document.querySelectorAll('.acv-ago');
+            for (var i = 0; i < spans.length; i++) {
+                spans[i].textContent = ago(parseInt(spans[i].getAttribute('data-ts'), 10) || 0);
+            }
+            if (tick % 5 === 0) schedule();                                   // rafraîchit "en ligne / actifs"
+            if (tick % 30 === 0 && utcKey(new Date()) !== st.todayKey) {      // passage à minuit
+                attachToday();
+                if (!isToday()) return;
+                window.refreshPeriodVisitorCount();
+            }
+        }, 1000);
+    };
+
+    fixHeaders();
+})();
+</script>
+
 </body>
 </html>
