@@ -1522,6 +1522,22 @@ async function submitOrder() {
     const nom = fullname.value.trim(), tel = phone.value.trim(), ville = city.value.trim();
     const note = document.getElementById('deliveryNote').value.trim();
     const produit = document.getElementById('productTitle').innerText.replace(/<img[^>]*>/, '').trim();
+
+    // Anti-doublon : un même numéro ne peut pas repasser commande pour CE produit
+    try {
+        const dejaCommande = await db.collection("commandes")
+            .where("tel", "==", tel)
+            .where("produit", "==", produit)
+            .limit(1)
+            .get();
+        if (!dejaCommande.empty) {
+            showErrorModal("Une commande a déjà été enregistrée avec ce numéro pour ce produit. Vous ne pouvez pas repasser commande pour le même article avec ce numéro.");
+            return false;
+        }
+    } catch (e) {
+        // Si la vérification échoue (ex: coupure réseau), on laisse passer plutôt que de bloquer un vrai client
+    }
+
     try {
         const orderRef = await db.collection("commandes").add({
             nom, tel, ville, note, produit,
