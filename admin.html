@@ -2181,7 +2181,9 @@
                                 <tr>
                                     <th>Commande</th>
                                     <th>Client</th>
+                                    <th>Ville</th>
                                     <th>Produit</th>
+                                    <th>Note</th>
                                     <th>Total</th>
                                     <th>Statut</th>
                                     <th>Date</th>
@@ -2189,7 +2191,7 @@
                                 </tr>
                             </thead>
                             <tbody id="ordersTableBody">
-                                <tr><td colspan="7" class="empty-state"><i class="fas fa-spinner fa-spin"></i><p>Chargement...</p></td></tr>
+                                <tr><td colspan="9" class="empty-state"><i class="fas fa-spinner fa-spin"></i><p>Chargement...</p></td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -2855,6 +2857,7 @@
                         produit: d.produit || '',
                         quantite: d.quantite || 1,
                         total: d.total || 0,
+                        note: d.note || d.commentaire || d.message || d.remarque || '',
                         status: normalizeStatus(d.status),
                         date: d.date ? new Date(d.date) : new Date()
                     };
@@ -2904,7 +2907,7 @@
             document.getElementById('orderBadge').textContent = orders.filter(o => o.status === 'pending').length;
 
             if (filtered.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="7" class="empty-state"><i class="fas fa-inbox"></i><p>Aucune commande</p></td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="9" class="empty-state"><i class="fas fa-inbox"></i><p>Aucune commande</p></td></tr>`;
                 return;
             }
 
@@ -2923,7 +2926,9 @@
                             <div><strong>${order.client.nom}</strong></div>
                             <div style="font-size:12px;color:var(--ink-500);">${order.client.telephone}</div>
                         </td>
+                        <td>${order.client.adresse ? escapeHtml(order.client.adresse) : '<span style="color:var(--ink-500);">—</span>'}</td>
                         <td>${order.produit} <span style="font-size:12px;color:var(--ink-500);">×${order.quantite}</span></td>
+                        <td style="max-width:160px;font-size:13px;">${order.note ? escapeHtml(order.note) : '<span style="color:var(--ink-500);">—</span>'}</td>
                         <td><strong>${order.total.toLocaleString('fr-FR')} FCFA</strong></td>
                         <td><span class="status-badge ${s.class}"><span class="dot"></span> ${s.label}</span></td>
                         <td style="font-size:12px;color:var(--ink-500);">${date}</td>
@@ -4313,7 +4318,7 @@
                     clientMap[key] = {
                         nom: order.client.nom,
                         telephone: order.client.telephone,
-                        ville: 'Lomé',
+                        ville: order.client.adresse || 'Non renseignée',
                         commandes: 0,
                         date: order.date
                     };
