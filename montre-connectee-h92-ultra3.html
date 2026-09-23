@@ -1523,19 +1523,21 @@ async function submitOrder() {
     const note = document.getElementById('deliveryNote').value.trim();
     const produit = document.getElementById('productTitle').innerText.replace(/<img[^>]*>/, '').trim();
 
-    // Anti-doublon : un même numéro ne peut pas repasser commande pour CE produit
+    console.log("[ANTI-DOUBLON] Recherche pour tel='" + tel + "' produit='" + produit + "'");
+
     try {
         const dejaCommande = await db.collection("commandes")
             .where("tel", "==", tel)
             .where("produit", "==", produit)
             .limit(1)
             .get();
+        console.log("[ANTI-DOUBLON] Résultat:", dejaCommande.size, "document(s) trouvé(s)");
         if (!dejaCommande.empty) {
             showErrorModal("Une commande a déjà été enregistrée avec ce numéro pour ce produit. Vous ne pouvez pas repasser commande pour le même article avec ce numéro.");
             return false;
         }
     } catch (e) {
-        // Si la vérification échoue (ex: coupure réseau), on laisse passer plutôt que de bloquer un vrai client
+        console.error("[ANTI-DOUBLON] ERREUR:", e.code || e.message || e);
     }
 
     try {
