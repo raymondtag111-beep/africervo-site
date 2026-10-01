@@ -14,6 +14,8 @@
     <link rel="preconnect" href="https://www.gstatic.com">
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link rel="preconnect" href="https://firestore.googleapis.com">
+    <link rel="preconnect" href="https://res.cloudinary.com">
+    <link rel="dns-prefetch" href="https://res.cloudinary.com">
     <link rel="preload" as="script" href="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js">
     <link rel="preload" as="script" href="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js">
     <link rel="preload" as="script" href="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js">
@@ -412,7 +414,7 @@
 <div class="container">
     <div class="flex-row">
         <div class="video-box" id="heroGallery">
-            <img id="heroMainImage" class="img-shimmer" alt="Masque Collagène Medicube" loading="eager" onerror="this.src='https://placehold.co/700x700/2e7d32/white?text=Photo'">
+            <img id="heroMainImage" fetchpriority="high" class="img-shimmer" alt="Masque Collagène Medicube" loading="eager" onerror="this.src='https://placehold.co/700x700/2e7d32/white?text=Photo'">
             <div class="hero-thumbs" id="heroThumbs"></div>
         </div>
         
@@ -1201,21 +1203,35 @@ function renderProduct() {
 
     const video = document.getElementById('productVideo');
     if (p.video && video) {
+        // Vidéo Cloudinary : on utilise le fichier d'origine (sans f_auto,q_auto).
+        // La conversion à la volée n'est pas toujours prête à la 1re demande -> vidéo blanche.
+        let vsrc = p.video;
+        if (vsrc.indexOf('res.cloudinary.com') !== -1 && vsrc.indexOf('/video/upload/') !== -1) {
+            vsrc = vsrc.replace('/upload/f_auto,q_auto/', '/upload/');
+        }
         const source = video.querySelector('source');
-        if (source.getAttribute('src') !== p.video) {
-            source.setAttribute('src', p.video);
+        if (video.dataset.src !== vsrc) {
+            video.dataset.src = vsrc;
+            source.setAttribute('src', vsrc);
+            source.removeAttribute('type');
+            // Si la vidéo avait déjà démarré (ancien lien), on recharge avec le nouveau lien
+            if (video.dataset.started) {
+                video.load();
+                video.play().catch(()=>{});
+            }
         }
         if (!video.dataset.lazyBound) {
             video.dataset.lazyBound = '1';
             const io = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
+                        video.dataset.started = '1';
                         video.load();
                         video.play().catch(()=>{});
                         io.unobserve(video);
                     }
                 });
-            }, { rootMargin: '200px' });
+            }, { rootMargin: '300px' });
             io.observe(video);
         }
     }
@@ -1235,8 +1251,6 @@ function renderProduct() {
         // image que la photo principale, pour rester cohérentes automatiquement.
         const optThumb1 = document.getElementById('optionThumb1');
         const optThumb2 = document.getElementById('optionThumb2');
-        if (optThumb1) optThumb1.src = mainImageSrc;
-        if (optThumb2) optThumb2.src = mainImageSrc;
     }
     renderHeroGallery(p.heroImages && p.heroImages.length ? p.heroImages : defaultProduct.heroImages);
 
@@ -1333,8 +1347,11 @@ function renderProduct() {
 
     const img1 = p.img1 || p.images?.[0] || 'images/1.webp';
 
-    document.querySelector('#option1 img').src = img1;
-    document.querySelector('#option2 img').src = img1;
+    // Miniatures du formulaire (1 acheté / 2 achetés) = 2e image du bloc 1
+    // (si elle n'existe pas encore, on prend la 1re image du bloc 1)
+    const optThumbSrc = p.img1b || img1;
+    document.querySelector('#option1 img').src = optThumbSrc;
+    document.querySelector('#option2 img').src = optThumbSrc;
 
     // Bloc 1
     document.getElementById('block1Title').textContent = p.title1 || defaultProduct.title1;
