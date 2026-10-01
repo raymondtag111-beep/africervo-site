@@ -3,17 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Montre connectée A58 plus - Commande</title>
-    <meta name="description" content="Montre connectée A58 plus - Livraison rapide au Togo, paiement à la livraison. Commandez sur AfriCervo.">
-    <meta property="og:title" content="Montre connectée A58 plus - AfriCervo">
-    <meta property="og:description" content="Découvrez Montre connectée A58 plus avec livraison rapide et paiement à la livraison.">
-    <meta property="og:image" content="https://africervo1.netlify.app/images/A581.webp">
+    <title>Masque Collagène Medicube - Commande</title>
+    <meta name="description" content="Masque Collagène Medicube - Livraison rapide au Togo, paiement à la livraison. Commandez sur AfriCervo.">
+    <meta property="og:title" content="Masque Collagène Medicube - AfriCervo">
+    <meta property="og:description" content="Découvrez le Masque Collagène Medicube authentique avec livraison rapide et paiement à la livraison.">
+    <meta property="og:image" content="https://africervo1.netlify.app/images/medicube-1.jpg">
     <meta property="og:type" content="product">
-    <meta property="og:url" content="https://africervo1.netlify.app/montre-connectee-a58-plus">
+    <meta property="og:url" content="https://africervo1.netlify.app/masque-collagene-medicube">
 
     <link rel="preconnect" href="https://www.gstatic.com">
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link rel="preconnect" href="https://firestore.googleapis.com">
+    <link rel="preconnect" href="https://res.cloudinary.com">
+    <link rel="dns-prefetch" href="https://res.cloudinary.com">
     <link rel="preload" as="script" href="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js">
     <link rel="preload" as="script" href="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js">
     <link rel="preload" as="script" href="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js">
@@ -353,6 +355,20 @@
         @media (max-width: 768px) {
             .delivery-grid-section { display: block; }
         }
+    
+        .compare-section { max-width: 1300px; margin: 60px auto 20px; padding: 0 8px; }
+        .compare-section h2 { font-size: 32px; text-align: center; font-weight: 800; margin-bottom: 8px; color: #1a3b2a; }
+        .compare-sub { text-align: center; color: #555; font-size: 15px; margin-bottom: 28px; }
+        .compare-table { width: 100%; max-width: 820px; margin: 0 auto; border-collapse: separate; border-spacing: 0; background: #fff; border-radius: 20px; overflow: hidden; box-shadow: 0 6px 24px rgba(0,0,0,0.08); border: 1px solid #e2e8f0; }
+        .compare-table th, .compare-table td { padding: 16px 12px; text-align: center; font-size: 15px; border-bottom: 1px solid #eef1f4; }
+        .compare-table th:first-child, .compare-table td:first-child { text-align: left; font-weight: 600; padding-left: 20px; color: #222; }
+        .compare-table thead th { background: #f6f8f7; font-weight: 800; font-size: 14px; color: #333; }
+        .compare-table thead th.us { background: #2e7d32; color: #fff; }
+        .compare-table td.us { background: #f1f8f2; }
+        .compare-table tr:last-child td { border-bottom: none; }
+        .cmp-yes { color: #2e7d32; font-size: 24px; font-weight: 800; }
+        .cmp-no { color: #e63946; font-size: 24px; font-weight: 800; }
+        @media (max-width: 600px) { .compare-section h2 { font-size: 24px; } .compare-table th, .compare-table td { padding: 12px 6px; font-size: 13px; } .compare-table th:first-child, .compare-table td:first-child { padding-left: 12px; } }
     </style>
 </head>
 <body>
@@ -398,7 +414,7 @@
 <div class="container">
     <div class="flex-row">
         <div class="video-box" id="heroGallery">
-            <img id="heroMainImage" class="img-shimmer" alt="Montre connectée A58 plus" loading="eager" onerror="this.src='https://placehold.co/700x700/2e7d32/white?text=Photo'">
+            <img id="heroMainImage" fetchpriority="high" class="img-shimmer" alt="Masque Collagène Medicube" loading="eager" onerror="this.src='https://placehold.co/700x700/2e7d32/white?text=Photo'">
             <div class="hero-thumbs" id="heroThumbs"></div>
         </div>
         
@@ -406,17 +422,17 @@
             <div class="product-header-outside">
                 <div class="title-row">
                     <div class="vertical-bar"></div>
-                    <div class="product-title" id="productTitle">Montre connectée A58 plus <img src="https://flagcdn.com/tg.svg" alt="Togo" style="width:28px; height:auto; vertical-align:middle; margin-left:10px;"></div>
+                    <div class="product-title" id="productTitle">Masque Collagène Medicube <img src="https://flagcdn.com/tg.svg" alt="Togo" style="width:28px; height:auto; vertical-align:middle; margin-left:10px;"></div>
                 </div>
                 <div class="rating-row" id="ratingRow">
-                    <div class="custom-stars" id="starsDisplay">
+                    <div class="custom-stars" id="starsDisplay" style="display:none">
                         <span class="star-full">★</span>
                         <span class="star-full">★</span>
                         <span class="star-full">★</span>
                         <span class="star-full">★</span>
                         <span class="star-half">★</span>
                     </div>
-                    <span class="rating-text" id="ratingText">(4,5) basé sur 750 avis</span>
+                    <span class="rating-text" id="ratingText" style="display:none">(4,5) basé sur 750 avis</span>
                     <span class="promo-badge" id="promoBadge">🔥 PROMOTION</span>
                 </div>
             </div>
@@ -424,13 +440,13 @@
             <div class="form-box">
                 <div class="alert-message"><i class="fas fa-exclamation-triangle"></i> <span id="alertMessageText">Merci de ne remplir ce formulaire que si vous êtes prêt(e) à recevoir votre commande, pour une livraison sans souci 🙏</span></div>
 
-                <div class="option active" data-qty="1" data-price="11900" id="option1">
-                    <div class="option-left"><img id="optionThumb1" src="images/A581.webp" alt="1" loading="lazy" onerror="this.src='https://placehold.co/60x60/2e7d32/white?text=1'"><span>1 acheté</span></div>
-                    <div class="option-price" id="optionPrice1">9 900 FCFA</div>
+                <div class="option active" data-qty="1" data-price="13000" id="option1">
+                    <div class="option-left"><img id="optionThumb1" alt="1" loading="lazy" onerror="this.src='https://placehold.co/60x60/2e7d32/white?text=1'"><span>1 acheté</span></div>
+                    <div class="option-price" id="optionPrice1">13 000 FCFA</div>
                 </div>
-                <div class="option" data-qty="2" data-price="16800" id="option2">
-                    <div class="option-left"><img id="optionThumb2" src="images/A581.webp" alt="2" loading="lazy" onerror="this.src='https://placehold.co/60x60/2e7d32/white?text=2'"><span>2 achetés</span></div>
-                    <div class="option-price" id="optionPrice2">16 800 FCFA <span class="small-save">(Économie)</span></div>
+                <div class="option" data-qty="2" data-price="21000" id="option2">
+                    <div class="option-left"><img id="optionThumb2" alt="2" loading="lazy" onerror="this.src='https://placehold.co/60x60/2e7d32/white?text=2'"><span>2 achetés</span></div>
+                    <div class="option-price" id="optionPrice2">21 000 FCFA <span class="small-save">(Économie)</span></div>
                 </div>
 
                 <div class="input-group">
@@ -465,67 +481,52 @@
     <div class="row-block" id="block1">
         <div class="image-side mini-slider" id="block1Side">
             <div class="mini-track" id="block1Track">
-                <img id="block1Img" class="img-shimmer" alt="Montre connectée A58 plus" loading="lazy" onerror="this.src='https://placehold.co/700x500/2e7d32/white?text=Image+1'">
-                <img id="block1Img2" class="img-shimmer" alt="Montre connectée A58 plus" loading="lazy" onerror="this.src='https://placehold.co/700x500/2e7d32/white?text=Image+1'" style="display:none">
+                <img id="block1Img" class="img-shimmer" alt="Masque Collagène Medicube" loading="lazy" onerror="this.src='https://placehold.co/700x500/2e7d32/white?text=Image+1'">
+                <img id="block1Img2" class="img-shimmer" alt="Masque Collagène Medicube" loading="lazy" onerror="this.src='https://placehold.co/700x500/2e7d32/white?text=Image+1'" style="display:none">
             </div>
         </div>
         <div class="text-side">
-            <h3 id="block1Title">🎁 Le cadeau qui impressionne vraiment, sans se ruiner</h3>
-            <div class="central-paragraph" id="block1Desc">Anniversaire, fête, cadeau surprise — tu cherches quelque chose d'utile ET qui en jette à l'ouverture du paquet. Ce coffret complet avec accessoires assortis fait toujours son effet, pour lui comme pour elle. Le cadeau parfait qui marque les esprits, exactement ce qu'il te faut pour impressionner.</div>
-            <ul class="emoji-list" id="block1List">
-                <li><span class="emoji">🎁</span> Coffret complet prêt à offrir</li>
-                <li><span class="emoji">✨</span> Design premium doré</li>
-                <li><span class="emoji">👨‍👩‍👧</span> Convient homme ou femme</li>
-                <li><span class="emoji">📦</span> Emballage cadeau soigné</li>
-            </ul>
+            <h3 id="block1Title">😩 Boutons, taches, rides et peau terne ?</h3>
+            <div class="central-paragraph" id="block1Desc">Acné, taches, premières rides, peau fatiguée : le visage montre vite les signes du temps et du stress. Le masque au collagène Medicube prend soin de ta peau pour aider à atténuer l'aspect de l'acné et des taches, et laisser un teint plus net et plus lisse, jour après jour.</div>
+            <ul class="emoji-list" id="block1List"><li><span class="emoji">🌟</span> Atténue l'aspect de l'acné</li><li><span class="emoji">🌸</span> Atténue les taches du visage</li><li><span class="emoji">🧬</span> Action anti-âge</li><li><span class="emoji">✨</span> Peau plus nette et plus lisse</li></ul>
         </div>
     </div>
     <!-- Bloc 2 -->
     <div class="row-block" id="block2">
         <div class="image-side mini-slider" id="block2Side">
             <div class="mini-track" id="block2Track">
-                <img id="block2Img" class="img-shimmer" alt="Montre connectée A58 plus" loading="lazy" onerror="this.src='https://placehold.co/700x500/2e7d32/white?text=Image+2'">
-                <img id="block2Img2" class="img-shimmer" alt="Montre connectée A58 plus" loading="lazy" onerror="this.src='https://placehold.co/700x500/2e7d32/white?text=Image+2'" style="display:none">
+                <img id="block2Img" class="img-shimmer" alt="Masque Collagène Medicube" loading="lazy" onerror="this.src='https://placehold.co/700x500/2e7d32/white?text=Image+2'">
+                <img id="block2Img2" class="img-shimmer" alt="Masque Collagène Medicube" loading="lazy" onerror="this.src='https://placehold.co/700x500/2e7d32/white?text=Image+2'" style="display:none">
             </div>
         </div>
         <div class="text-side">
-            <h3 id="block2Title">📲 Plus qu'une montre : ton assistant au poignet</h3>
-            <div class="central-paragraph" id="block2Desc">Appels, notifications, suivi santé — tu gères tout sans sortir ton téléphone à chaque instant, même en réunion ou en pleine course. Un vrai assistant à ton poignet, prêt à simplifier chaque instant de ta journée.</div>
-            <ul class="emoji-list" id="block2List">
-                <li><span class="emoji">📞</span> Appels et notifications au poignet</li>
-                <li><span class="emoji">❤️</span> Suivi santé intégré</li>
-                <li><span class="emoji">🔋</span> Batterie longue durée</li>
-                <li><span class="emoji">📶</span> Connexion Bluetooth stable</li>
-            </ul>
+            <h3 id="block2Title">💧 Hydratation profonde, peau lisse et éclat naturel</h3>
+            <div class="central-paragraph" id="block2Desc">Grâce au collagène, la peau est hydratée en profondeur : fini la sensation de peau sèche ou déshydratée. Le masque aide à lisser le grain de peau, à atténuer l'aspect des rides et des taches, et redonne au visage un éclat naturel, avec une action anti-âge au quotidien.</div>
+            <ul class="emoji-list" id="block2List"><li><span class="emoji">💧</span> Hydratation en profondeur</li><li><span class="emoji">🧬</span> Action anti-âge et anti-rides</li><li><span class="emoji">🌸</span> Atténue les taches</li><li><span class="emoji">🌞</span> Éclat naturel de la peau</li></ul>
         </div>
     </div>
     <!-- Bloc 3 -->
     <div class="row-block" id="block3">
         <div class="image-side" id="block3Side">
             <video id="productVideo" muted loop playsinline preload="none" style="width:100%;height:100%;object-fit:cover;display:block;">
-                <source src="videos/A580.mp4" type="video/mp4">
+                <source type="video/mp4">
             </video>
         </div>
         <div class="text-side">
-            <h3 id="block3Title">✨ Un seul coffret, plusieurs styles pour toutes les occasions</h3>
-            <div class="central-paragraph" id="block3Desc">Pourquoi acheter trois accessoires séparément quand tu as tout dans un seul coffret ? Montre connectée, montre classique dorée et bijoux assortis — un style différent chaque jour. Trois accessoires, un seul prix, exactement la solution la plus maligne à offrir.</div>
-            <ul class="emoji-list" id="block3List">
-                <li><span class="emoji">⌚</span> Montre connectée incluse</li>
-                <li><span class="emoji">💍</span> Montre classique dorée incluse</li>
-                <li><span class="emoji">📿</span> Bijoux assortis inclus</li>
-                <li><span class="emoji">💰</span> Bien plus économique que séparément</li>
-            </ul>
+            <h3 id="block3Title">🧪 Composition douce et produit 100 % authentique</h3>
+            <div class="central-paragraph" id="block3Desc">Une formule à base de collagène, pensée pour prendre soin de la peau sans l'agresser. Selon les informations du fabricant, ce n'est pas un produit dépigmentant : il n'abîme pas la peau, il l'hydrate et révèle son éclat naturel. C'est le véritable Medicube, l'original, pas une imitation.</div>
+            <ul class="emoji-list" id="block3List"><li><span class="emoji">🧬</span> Collagène hydratant</li><li><span class="emoji">🌿</span> Formule douce pour la peau</li><li><span class="emoji">🚫</span> Ne dépigmente pas</li><li><span class="emoji">✅</span> Produit authentique Medicube</li></ul>
         </div>
     </div>
 </div>
 
 <!-- ===== BANNIÈRES ===== -->
-<div class="full-banner"><img id="banner1" src="images/A585.webp" alt="Commander maintenant" loading="lazy" onerror="this.src='https://placehold.co/1920x250/2e7d32/white?text=COMMANDER+MAINTENANT'"></div>
-<div class="full-banner"><img id="banner2" src="images/A585.webp" alt="Livraison offerte" loading="lazy" onerror="this.src='https://placehold.co/1920x250/2e7d32/white?text=Livraison+Offerte'"></div>
-<div class="centered-image"><img id="centeredImg" src="images/A586.webp" alt="Pack promotionnel" loading="lazy" onerror="this.src='https://placehold.co/900x400/2e7d32/white?text=Offre+Spéciale'"></div>
+<div class="full-banner"><img id="banner1" style="display:none" alt="Commander maintenant" loading="lazy" onerror="this.src='https://placehold.co/1920x250/2e7d32/white?text=COMMANDER+MAINTENANT'"></div>
+<div class="full-banner"><img id="banner2" style="display:none" alt="Livraison offerte" loading="lazy" onerror="this.src='https://placehold.co/1920x250/2e7d32/white?text=Livraison+Offerte'"></div>
+<div class="centered-image"><img id="centeredImg" style="display:none" alt="Pack promotionnel" loading="lazy" onerror="this.src='https://placehold.co/900x400/2e7d32/white?text=Offre+Spéciale'"></div>
 
 <!-- ===== AVIS ===== -->
-<div class="testimonials" id="testimonialsSection">
+<div class="testimonials" id="testimonialsSection" style="display:none">
     <h2>⭐ Ce que nos clients disent</h2>
     <div class="testimonials-grid" id="testimonialsGrid"></div>
 </div>
@@ -538,7 +539,7 @@
             <div class="carousel-dots" id="carouselDots"></div>
         </div>
         <div class="text-side">
-            <h3 id="carouselTitle">✅ Le cadeau qui a vraiment fait plaisir à nos clients</h3>
+            <h3 id="carouselTitle">✅ Une routine simple pour une peau plus nette</h3>
             <div class="central-paragraph" id="carouselDesc"></div>
             <ul class="emoji-list" id="carouselList"></ul>
         </div>
@@ -566,6 +567,16 @@
             <p>Livraison à domicile</p>
         </div>
     </div>
+</div>
+
+<!-- ===== COMPARAISON ===== -->
+<div class="compare-section" id="compareSection">
+    <h2>Pourquoi choisir Medicube ?</h2>
+    <p class="compare-sub">Tu as déjà essayé d'autres masques sans résultat ? Compare.</p>
+    <table class="compare-table">
+        <thead><tr><th>Ce que tu veux</th><th class="us">Medicube</th><th>Autres collagènes</th></tr></thead>
+        <tbody><tr><td>Aide à atténuer l'acné</td><td class="us"><span class="cmp-yes">✓</span></td><td><span class="cmp-no">✗</span></td></tr><tr><td>Atténue les rides (anti-âge)</td><td class="us"><span class="cmp-yes">✓</span></td><td><span class="cmp-no">✗</span></td></tr><tr><td>Atténue les taches</td><td class="us"><span class="cmp-yes">✓</span></td><td><span class="cmp-no">✗</span></td></tr><tr><td>Hydratation en profondeur</td><td class="us"><span class="cmp-yes">✓</span></td><td><span class="cmp-no">✗</span></td></tr><tr><td>Éclat naturel, peau lisse</td><td class="us"><span class="cmp-yes">✓</span></td><td><span class="cmp-no">✗</span></td></tr><tr><td>Produit 100 % authentique</td><td class="us"><span class="cmp-yes">✓</span></td><td><span class="cmp-no">✗</span></td></tr></tbody>
+    </table>
 </div>
 
 <!-- ===== FAQ ===== -->
@@ -618,7 +629,7 @@
 // DIFFUSEUR.HTML – Script complet (HEADER + 10 AVIS + FIREBASE)
 // ============================================================
 
-console.log('🚀 montre-connectee-a58-plus.html chargé');
+console.log('🚀 masque-collagene-medicube.html chargé');
 
 // ============================================================
 // 1. HEADER : MENU MOBILE + RECHERCHE
@@ -719,7 +730,7 @@ const productSlugs = {
     11: "patch-detox-kinoki",
     12: "ecouteur-intelligent-m6",
     13: "ceinture-anti-douleurs-menstruelles",
-    14: "mini-fer-a-repasser-portable",
+    14: "masque-collagene-medicube",
     15: "moulinex-blender-8-en-1",
     16: "creme-cindynal-reparation-intense",
     17: "ecouteur-buds3-pro",
@@ -750,7 +761,7 @@ const defaultProducts = [
     { id: 11, name: "Patch Detox Kinoki", price: 7900, oldPrice: 13000, stock: 25, category: "Sante", images: ["images/Detox.webp"], description: "Patchs detox pour pieds" },
     { id: 12, name: "Ecouteur intelligent M6", price: 10000, oldPrice: 18500, stock: 18, category: "Electronique", images: ["images/m6.webp"], description: "Ecouteurs bluetooth avec reduction de bruit" },
     { id: 13, name: "Ceinture anti-douleurs menstruelles", price: 10500, oldPrice: 18000, stock: 12, category: "Sante", images: ["images/ceint.webp"], description: "Ceinture chauffante pour soulager les douleurs" },
-    { id: 14, name: "Mini Fer a Repasser Portable", price: 9500, oldPrice: 17000, stock: 20, category: "Maison", images: ["images/fer-repasser-1.jpg"], description: "Mini fer a repasser portable et pliable" },
+    { id: 14, name: "Masque Collagène Medicube", price: 9500, oldPrice: 17000, stock: 20, category: "Maison", images: ["images/medicube-1.jpg"], description: "Mini fer a repasser portable et pliable" },
     { id: 15, name: "Moulinex blender 8 en 1", price: 35000, oldPrice: 65000, stock: 5, category: "Maison", images: ["images/moulinex.webp"], description: "Blender multifonction 8 en 1" },
     { id: 16, name: "Creme cindynal reparation intense", price: 10000, oldPrice: 18000, stock: 22, category: "Beaute", images: ["images/talon.webp"], description: "Creme reparatrice pour peaux seches" },
     { id: 17, name: "Ecouteurs Buds3 Pro", price: 13500, oldPrice: 25000, stock: 20, category: "Electronique", images: ["images/buds3pro-1.jpg"], description: "Ecouteurs sans fil avec reduction de bruit" },
@@ -792,6 +803,8 @@ async function loadProductsFromFirebase() {
                     id: data.id,
                     name: data.name || 'Sans nom',
                     price: data.price || data.price1 || 0,
+                    price2: data.price2 || defaultProduct.price2,
+                    oldPrice2: data.oldPrice2 || defaultProduct.oldPrice2,
                     oldPrice: data.oldPrice || data.price2 || 0,
                     stock: data.stock || 0,
                     category: data.category || 'Non categorise',
@@ -824,6 +837,8 @@ function listenToProductsChanges() {
                     id: data.id,
                     name: data.name || 'Sans nom',
                     price: data.price || data.price1 || 0,
+                    price2: data.price2 || defaultProduct.price2,
+                    oldPrice2: data.oldPrice2 || defaultProduct.oldPrice2,
                     oldPrice: data.oldPrice || data.price2 || 0,
                     stock: data.stock || 0,
                     category: data.category || 'Non categorise',
@@ -921,70 +936,113 @@ searchInput.addEventListener('keydown', function(e) {
 // ============================================================
 // 2. PRODUIT : DONNÉES (avec 10 avis originaux)
 // ============================================================
-const PRODUCT_ID = 3;
+const PRODUCT_ID = 14;
 
 const defaultProduct = {
-    id: 3,
-    name: "Montre connectée A58 plus",
-    price: 11900,
-    oldPrice: 22000,
-    stock: 15,
-    category: "Électronique",
-    images: ["images/A58.webp"],
-    img1: "images/A581.webp",
-    img2: "images/A582.webp",
-    img3: "images/A583.webp",
-    img4: "images/A585.webp",
-    img5: "images/A585.webp",
-    img6: "images/default.jpg",
-    imgCentered: "images/A586.webp",
-    video: "videos/A580.mp4",
-    heroImages: ["images/A581.webp", "images/A583.webp"],
-    title1: "🎁 Le cadeau qui impressionne vraiment, sans se ruiner",
-    desc1: "Anniversaire, fête, cadeau surprise — tu cherches quelque chose d'utile ET qui en jette à l'ouverture du paquet. Ce coffret complet avec accessoires assortis fait toujours son effet, pour lui comme pour elle. Le cadeau parfait qui marque les esprits, exactement ce qu'il te faut pour impressionner.",
-    list1: "🎁 Coffret complet prêt à offrir\n✨ Design premium doré\n👨‍👩‍👧 Convient homme ou femme\n📦 Emballage cadeau soigné",
-    title2: "📲 Plus qu'une montre : ton assistant au poignet",
-    desc2: "Appels, notifications, suivi santé — tu gères tout sans sortir ton téléphone à chaque instant, même en réunion ou en pleine course. Un vrai assistant à ton poignet, prêt à simplifier chaque instant de ta journée.",
-    list2: "📞 Appels et notifications au poignet\n❤️ Suivi santé intégré\n🔋 Batterie longue durée\n📶 Connexion Bluetooth stable",
-    title3: "✨ Un seul coffret, plusieurs styles pour toutes les occasions",
-    desc3: "Pourquoi acheter trois accessoires séparément quand tu as tout dans un seul coffret ? Montre connectée, montre classique dorée et bijoux assortis — un style différent chaque jour. Trois accessoires, un seul prix, exactement la solution la plus maligne à offrir.",
-    list3: "⌚ Montre connectée incluse\n💍 Montre classique dorée incluse\n📿 Bijoux assortis inclus\n💰 Bien plus économique que séparément",
-    titleCarousel: "✅ Le cadeau qui a vraiment fait plaisir à nos clients",
-    descCarousel: "Regarde les photos de nos clients qui ont offert ce coffret complet : montre connectée, montre classique dorée et bijoux assortis, un cadeau qui a marqué chaque occasion spéciale.",
-    listCarousel: "🎁 Idéal anniversaire, fêtes, surprise\n✨ Design premium doré\n💯 Satisfait ou remboursé sous 30 jours\n🚚 Livraison rapide partout au Togo",
-    carouselImages: ["images/1.webp"],
-    alertMessage: "Merci de ne remplir ce formulaire que si vous êtes prêt(e) à recevoir votre commande, pour une livraison sans souci 🙏",
-    reviews: [
-        { stars: 5, text: "Le coffret complet est bluffant. J'ai reçu montre + bijoux assortis. Très belle surprise.", author: "Koffi A., Tokoin forever" },
-        { stars: 4.5, text: "La montre connectée est très pratique. Les bracelets supplémentaires sont élégants. Idéal pour offrir.", author: "Nadia B., Kara" },
-        { stars: 5, text: "Livraison en 48h, emballage soigné. La qualité est au rendez-vous. Je l'ai déjà recommandée.", author: "Esso S., Akodessewa" },
-        { stars: 5, text: "Parfait pour les femmes qui aiment changer de style. La montre classique dorée fait son effet.", author: "Jean-Marc D., Sokodé" },
-        { stars: 4.5, text: "Rappel des appels et messages très utile. Le boîtier est léger. Bonne autonomie.", author: "Yves K., Kpalimé" },
-        { stars: 5, text: "Un cadeau parfait pour ma femme. Elle adore les bijoux assortis. Merci AfriCervo.", author: "Moussa T., Agbalepedo" },
-        { stars: 5, text: "Très bon produit, l'écran est net. Le logiciel de suivi d'activité est complet.", author: "David H., Saint Joseph" },
-        { stars: 4.5, text: "Très belle montre, juste dommage que la notice soit en plusieurs langues, mais ça va.", author: "Rachel M., Cinkassé" },
-        { stars: 5, text: "Un style unique, tout le monde me demande où je l'ai achetée. Très satisfait.", author: "Adama C., Kpalimé" },
-        { stars: 5, text: "Super service, livraison rapide. La montre tient ses promesses. Le suivi client est sérieux.", author: "Elom G., Baguida" }
+    "id": 14,
+    "name": "Masque Collagène Medicube",
+    "price": 13000,
+    "oldPrice": 18000,
+    "price2": 21000,
+    "oldPrice2": 36000,
+    "stock": 20,
+    "category": "Beauté",
+    "images": [],
+    "img1": "",
+    "img2": "",
+    "img3": "",
+    "img4": "",
+    "img5": "",
+    "img6": "",
+    "imgCentered": "",
+    "video": "",
+    "heroImages": [],
+    "title1": "😩 Boutons, taches, rides et peau terne ?",
+    "desc1": "Acné, taches, premières rides, peau fatiguée : le visage montre vite les signes du temps et du stress. Le masque au collagène Medicube prend soin de ta peau pour aider à atténuer l'aspect de l'acné et des taches, et laisser un teint plus net et plus lisse, jour après jour.",
+    "list1": "🌟 Atténue l'aspect de l'acné\n🌸 Atténue les taches du visage\n🧬 Action anti-âge\n✨ Peau plus nette et plus lisse",
+    "title2": "💧 Hydratation profonde, peau lisse et éclat naturel",
+    "desc2": "Grâce au collagène, la peau est hydratée en profondeur : fini la sensation de peau sèche ou déshydratée. Le masque aide à lisser le grain de peau, à atténuer l'aspect des rides et des taches, et redonne au visage un éclat naturel, avec une action anti-âge au quotidien.",
+    "list2": "💧 Hydratation en profondeur\n🧬 Action anti-âge et anti-rides\n🌸 Atténue les taches\n🌞 Éclat naturel de la peau",
+    "title3": "🧪 Composition douce et produit 100 % authentique",
+    "desc3": "Une formule à base de collagène, pensée pour prendre soin de la peau sans l'agresser. Selon les informations du fabricant, ce n'est pas un produit dépigmentant : il n'abîme pas la peau, il l'hydrate et révèle son éclat naturel. C'est le véritable Medicube, l'original, pas une imitation.",
+    "list3": "🧬 Collagène hydratant\n🌿 Formule douce pour la peau\n🚫 Ne dépigmente pas\n✅ Produit authentique Medicube",
+    "titleCarousel": "✅ Une routine simple pour une peau plus nette",
+    "descCarousel": "Facile à intégrer à ta routine de soins, le masque Medicube s'applique en quelques minutes. Les résultats varient selon chaque peau, mais l'hydratation et l'éclat se remarquent avec une utilisation régulière.",
+    "listCarousel": "⭐ Hydratation et éclat naturel\n🧬 Collagène authentique Medicube\n💯 Satisfait ou remboursé sous 30 jours\n🚚 Livraison rapide partout au Togo",
+    "carouselImages": [],
+    "alertMessage": "Merci de ne remplir ce formulaire que si vous êtes prêt(e) à recevoir votre commande, pour une livraison sans souci 🙏",
+    "reviews": [],
+    "faq": [
+        {
+            "q": "Livraison gratuite ?",
+            "a": "Oui, livraison 100% gratuite partout à Lomé. Vers l'intérieur du pays, les frais commencent à partir de 500 FCFA selon la localité. Pour le suivi, vous serez informé(e) de l'avancement de votre livraison directement sur WhatsApp."
+        },
+        {
+            "q": "Paiement à la livraison ?",
+            "a": "Oui, paiement à la livraison (cash, Mobile Money, carte)."
+        },
+        {
+            "q": "Le produit est-il authentique ?",
+            "a": "Oui, c'est le masque collagène Medicube original, fourni par l'entreprise. Vous le recevez et vous payez à la livraison."
+        },
+        {
+            "q": "Convient-il à tous les types de peau ?",
+            "a": "Il est conçu pour prendre soin de la peau avec une formule douce. En cas de peau très sensible, faites d'abord un test sur une petite zone."
+        },
+        {
+            "q": "Comment l'utiliser ?",
+            "a": "Suivez le mode d'emploi indiqué sur l'emballage : appliquez le masque sur le visage propre et sec, laissez poser le temps indiqué, puis retirez-le."
+        },
+        {
+            "q": "Quand voit-on les résultats ?",
+            "a": "Cela dépend de chaque peau. L'hydratation et l'éclat se remarquent assez vite, et les effets sur l'acné, les taches et les rides se constatent avec une utilisation régulière."
+        },
+        {
+            "q": "Garantie satisfait ou remboursé ?",
+            "a": "Oui, sous 30 jours si le produit n'a pas été entièrement utilisé."
+        },
+        {
+            "q": "Le produit ne correspond pas à la description ?",
+            "a": "Nous proposons un échange sous 24h. Contactez-nous immédiatement via WhatsApp avec une photo du produit reçu."
+        }
     ],
-    faq: [
-        { q: "Livraison gratuite ?", a: "Oui, livraison 100% gratuite partout à Lomé. Vers l'intérieur du pays, les frais commencent à partir de 500 FCFA selon la localité. Pour le suivi, vous serez informé(e) de l'avancement de votre livraison directement sur WhatsApp." },
-        { q: "Paiement à la livraison ?", a: "Oui Paiement à la livraison (cash, Mobile Money, carte)." },
-        { q: "Garantie satisfait ou remboursé ?", a: "Oui, sous 30 jours si produit non utilisé entièrement." },
-        { q: "Quelle est la portée Bluetooth ?", a: "Environ 10 mètres sans obstacle, largement suffisant pour un usage quotidien avec le téléphone à proximité." },
-        { q: "Quelle est l'autonomie de la batterie ?", a: "Entre 3 et 7 jours selon l'utilisation, pour une charge complète d'environ 1h30 à 2h." },
-        { q: "Est-elle étanche ?", a: "Elle résiste aux éclaboussures et à la sueur, mais évitez de la plonger complètement dans l'eau ou de la porter sous la douche." },
-        { q: "Comment utiliser la montre ?", a: "Chargez-la complètement avec le câble magnétique fourni, puis téléchargez l'application compagnon (gratuite sur Android et iOS) pour l'associer en Bluetooth en quelques secondes. Une fois connectée, vous recevez vos appels et notifications directement au poignet." },
-        { q: "Puis-je suivre ma commande ?", a: "Oui, vous serez tenu(e) informé(e) de chaque étape (confirmation, expédition, livraison) directement sur WhatsApp." },
-        { q: "Le produit ne fonctionne pas ou ne correspond pas à la description ?", a: "Nous proposons un échange sous 24h. Contactez-nous immédiatement via WhatsApp avec une photo du produit reçu." }
-    ],
-    hidden: false,
-    urgence: "🔥 Offre exclusive – stock limité, réservé aux premières commandes !"
+    "hidden": false,
+    "urgence": "🔥 Produit authentique Medicube – stock limité !"
 };
+
+
+// ===== OUTILS IMAGES (affichage instantané, comme les pages montre) =====
+// Les liens Cloudinary de l'admin contiennent f_auto,q_auto : Cloudinary doit alors
+// fabriquer une version à la volée à la 1re demande (lent). On utilise directement
+// le fichier d'origine (déjà compressé), disponible tout de suite.
+const PH_IMG = 'data:image/svg+xml;utf8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="700" height="700"><rect width="100%" height="100%" fill="#f0f0ee"/></svg>');
+function cloudFast(u) {
+    if (typeof u === 'string' && u.indexOf('res.cloudinary.com') !== -1) {
+        return u.replace('/upload/f_auto,q_auto/', '/upload/');
+    }
+    return u;
+}
+// Affiche une image avec plusieurs secours : lien rapide -> lien enregistré -> fichier local par défaut
+function smartImg(el, src, fallback) {
+    if (!el) return;
+    const cands = [];
+    [cloudFast(src), src, fallback].forEach(function(x) { if (x && cands.indexOf(x) === -1) cands.push(x); });
+    if (!cands.length) { el.style.display = 'none'; return; }
+    el.style.display = '';
+    let i = 0;
+    el.onerror = function() {
+        i++;
+        if (i < cands.length) { el.src = cands[i]; }
+        else { el.onerror = null; el.removeAttribute('src'); el.style.visibility = 'hidden'; }
+    };
+    el.style.visibility = '';
+    el.src = cands[0];
+}
 
 let productData = null;
 
 function loadProductFromCache() {
-    const cached = localStorage.getItem('ecom_product_' + PRODUCT_ID);
+    const cached = localStorage.getItem('ecom_product_medicube_v2_' + PRODUCT_ID);
     if (cached) {
         try {
             productData = JSON.parse(cached);
@@ -996,7 +1054,7 @@ function loadProductFromCache() {
 
 function saveProductToCache(product) {
     try {
-        localStorage.setItem('ecom_product_' + PRODUCT_ID, JSON.stringify(product));
+        localStorage.setItem('ecom_product_medicube_v2_' + PRODUCT_ID, JSON.stringify(product));
     } catch(e) {}
 }
 
@@ -1009,6 +1067,8 @@ async function loadProductFromFirebase() {
                 id: data.id,
                 name: data.name || defaultProduct.name,
                 price: data.price || data.price1 || defaultProduct.price,
+                price2: data.price2 || defaultProduct.price2,
+                oldPrice2: data.oldPrice2 || defaultProduct.oldPrice2,
                 oldPrice: data.oldPrice || data.price2 || defaultProduct.oldPrice,
                 stock: data.stock || defaultProduct.stock,
                 category: data.category || defaultProduct.category,
@@ -1062,6 +1122,8 @@ function listenToProductChanges() {
                     id: data.id,
                     name: data.name || defaultProduct.name,
                     price: data.price || data.price1 || defaultProduct.price,
+                    price2: data.price2 || defaultProduct.price2,
+                    oldPrice2: data.oldPrice2 || defaultProduct.oldPrice2,
                     oldPrice: data.oldPrice || data.price2 || defaultProduct.oldPrice,
                     stock: data.stock || defaultProduct.stock,
                     category: data.category || defaultProduct.category,
@@ -1116,8 +1178,8 @@ function renderProduct() {
 
     const price1 = p.price || 0;
     const oldPrice1 = p.oldPrice || 0;
-    const price2 = Math.round(price1 * 1.7);
-    const oldPrice2 = oldPrice1 > 0 ? Math.round(oldPrice1 * 1.7) : 0;
+    const price2 = p.price2 || Math.round(price1 * 1.7);
+    const oldPrice2 = p.oldPrice2 || (oldPrice1 > 0 ? Math.round(oldPrice1 * 1.7) : 0);
 
     let price1Html = price1.toLocaleString('fr-FR') + ' FCFA';
     if (oldPrice1 > 0 && oldPrice1 > price1) {
@@ -1163,21 +1225,46 @@ function renderProduct() {
 
     const video = document.getElementById('productVideo');
     if (p.video && video) {
+        // Liste des liens à essayer, dans l'ordre : si l'un échoue, on passe au suivant.
+        let candidates = [p.video];
+        if (p.video.indexOf('res.cloudinary.com') !== -1 && p.video.indexOf('/video/upload/') !== -1) {
+            const original = p.video.replace('/upload/f_auto,q_auto/', '/upload/');
+            const mp4 = original.replace('/upload/', '/upload/f_mp4,vc_h264,ac_aac,q_auto/');
+            candidates = [p.video, mp4, original];
+        }
+        const key = candidates.join('|');
         const source = video.querySelector('source');
-        if (source.getAttribute('src') !== p.video) {
-            source.setAttribute('src', p.video);
+        const startVideo = function() {
+            video.dataset.started = '1';
+            video.load();
+            video.play().catch(()=>{});
+        };
+        if (video.dataset.key !== key) {
+            video.dataset.key = key;
+            video._cands = candidates;
+            video._idx = 0;
+            source.removeAttribute('type');
+            source.setAttribute('src', candidates[0]);
+            if (video.dataset.started) startVideo();
+        }
+        if (!video.dataset.errBound) {
+            video.dataset.errBound = '1';
+            source.addEventListener('error', function() {
+                console.warn('[VIDEO] échec du lien :', source.getAttribute('src'));
+                if (video._cands && video._idx < video._cands.length - 1) {
+                    video._idx++;
+                    source.setAttribute('src', video._cands[video._idx]);
+                    startVideo();
+                }
+            });
         }
         if (!video.dataset.lazyBound) {
             video.dataset.lazyBound = '1';
             const io = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        video.load();
-                        video.play().catch(()=>{});
-                        io.unobserve(video);
-                    }
+                    if (entry.isIntersecting) { startVideo(); io.unobserve(video); }
                 });
-            }, { rootMargin: '200px' });
+            }, { rootMargin: '300px' });
             io.observe(video);
         }
     }
@@ -1190,15 +1277,13 @@ function renderProduct() {
         if (thumbsEl) { thumbsEl.style.display = 'none'; thumbsEl.innerHTML = ''; }
         if (!main) return;
         const list = (images || []).filter(Boolean);
-        const mainImageSrc = list.length ? list[0] : img1;
-        main.src = mainImageSrc;
+        const mainImageSrc = list.length ? list[0] : ((p.images && p.images[0]) || p.img1 || '');
+        smartImg(main, mainImageSrc, (p.images && p.images[0]) || '');
         main.classList.remove('img-shimmer');
         // Les petites photos à côté de "1 acheté" / "2 achetés" montrent la même
         // image que la photo principale, pour rester cohérentes automatiquement.
         const optThumb1 = document.getElementById('optionThumb1');
         const optThumb2 = document.getElementById('optionThumb2');
-        if (optThumb1) optThumb1.src = mainImageSrc;
-        if (optThumb2) optThumb2.src = mainImageSrc;
     }
     renderHeroGallery(p.heroImages && p.heroImages.length ? p.heroImages : defaultProduct.heroImages);
 
@@ -1228,10 +1313,10 @@ function renderProduct() {
         const side = document.getElementById(`block${n}Side`);
         const img1 = document.getElementById(`block${n}Img`);
         const img2 = document.getElementById(`block${n}Img2`);
-        img1.src = mainSrc;
+        smartImg(img1, mainSrc, defaultProduct['img' + n]);
         img1.classList.remove('img-shimmer');
         if (secondSrc) {
-            img2.src = secondSrc;
+            smartImg(img2, secondSrc, '');
             img2.classList.remove('img-shimmer');
             img2.style.display = '';
             side.classList.add('two-images');
@@ -1249,7 +1334,7 @@ function renderProduct() {
             if (blockEl) blockEl.closest('.content-block').style.display = 'none';
             return;
         }
-        track.innerHTML = images.map((src, i) => `<img src="${src}" data-i="${i}" loading="lazy" alt="" onerror="this.style.display='none'">`).join('');
+        track.innerHTML = images.map((src, i) => `<img src="${cloudFast(src)}" data-i="${i}" loading="lazy" alt="" onerror="if(!this.dataset.t){this.dataset.t=1;this.src='${src}'}else{this.style.display='none'}">`).join('');
         blockEl.classList.toggle('single-image', images.length === 1);
 
         if (images.length > 1) {
@@ -1257,6 +1342,7 @@ function renderProduct() {
             const dotEls = dots.querySelectorAll('.dot');
             const imgEls = track.querySelectorAll('img');
 
+            // Points synchronisés avec la position réelle du défilement
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting && entry.intersectionRatio > 0.6) {
@@ -1267,11 +1353,13 @@ function renderProduct() {
             }, { root: track, threshold: [0.6] });
             imgEls.forEach(img => observer.observe(img));
 
+            // Clic sur un point -> défile jusqu'à l'image correspondante
             dotEls.forEach((d, i) => d.style.pointerEvents = 'auto');
             dotEls.forEach((d, i) => d.addEventListener('click', () => {
                 imgEls[i].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
             }));
 
+            // Glisser à la souris (PC) en plus du swipe tactile natif (mobile)
             let isDown = false, startX = 0, scrollStart = 0;
             track.addEventListener('mousedown', e => {
                 isDown = true;
@@ -1289,10 +1377,14 @@ function renderProduct() {
             dots.innerHTML = '';
         }
     }
-    const img1 = p.img1 || p.images?.[0] || 'images/A581.webp';
 
-    document.querySelector('#option1 img').src = img1;
-    document.querySelector('#option2 img').src = img1;
+    const img1 = p.img1 || p.images?.[0] || 'images/1.webp';
+
+    // Miniatures du formulaire (1 acheté / 2 achetés) = 2e image du bloc 1
+    // (si elle n'existe pas encore, on prend la 1re image du bloc 1)
+    const optThumbSrc = p.img1b || img1;
+    smartImg(document.querySelector('#option1 img'), optThumbSrc, defaultProduct.img1);
+    smartImg(document.querySelector('#option2 img'), optThumbSrc, defaultProduct.img1);
 
     // Bloc 1
     document.getElementById('block1Title').textContent = p.title1 || defaultProduct.title1;
@@ -1369,12 +1461,13 @@ function renderProduct() {
         }
     }
 
-    if (p.img4) document.getElementById('banner1').src = p.img4;
-    if (p.img5) document.getElementById('banner2').src = p.img5;
-    if (p.imgCentered) document.getElementById('centeredImg').src = p.imgCentered;
+    if (p.img4) smartImg(document.getElementById('banner1'), p.img4, defaultProduct.img4);
+    if (p.img5) smartImg(document.getElementById('banner2'), p.img5, defaultProduct.img5);
+    if (p.imgCentered) smartImg(document.getElementById('centeredImg'), p.imgCentered, defaultProduct.imgCentered);
 
     const testimonialsGrid = document.getElementById('testimonialsGrid');
     if (p.reviews && p.reviews.length > 0) {
+        document.getElementById('testimonialsSection').style.display='';
         testimonialsGrid.innerHTML = p.reviews.slice(0, 6).map(r => {
             const stars = '★'.repeat(Math.floor(r.stars)) + (r.stars % 1 >= 0.5 ? '½' : '');
             return '<div class="testimonial-card"><div class="stars">' + stars.padEnd(5, '☆') + '</div><p>' + r.text + '</p><div class="author">– ' + r.author + '</div></div>';
@@ -1404,13 +1497,13 @@ function renderProduct() {
 // 3. FORMULAIRE
 // ============================================================
 const options = document.querySelectorAll('.option');
-let selectedPrice = 11900, selectedQty = 1;
+let selectedPrice = 13000, selectedQty = 1;
 
 function updateSelection(selected) {
     options.forEach(o => o.classList.remove('active'));
     if (selected) selected.classList.add('active');
     const activeOpt = document.querySelector('.option.active') || document.getElementById('option1');
-    selectedPrice = parseInt(activeOpt.getAttribute('data-price')) || 11900;
+    selectedPrice = parseInt(activeOpt.getAttribute('data-price')) || 7900;
     selectedQty = parseInt(activeOpt.getAttribute('data-qty')) || 1;
 }
 options.forEach(opt => opt.addEventListener('click', () => updateSelection(opt)));
@@ -1548,7 +1641,7 @@ async function submitOrder() {
         const capiEventId = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : ('evt_' + Date.now() + '_' + Math.random().toString(36).slice(2));
         if (typeof fbq !== 'undefined') {
             fbq('track', 'Purchase', {
-                content_ids: ['montre-connectee-a58-plus'],
+                content_ids: ['masque-collagene-medicube'],
                 content_name: produit,
                 content_type: 'product',
                 quantity: selectedQty,
@@ -1568,7 +1661,7 @@ async function submitOrder() {
                 value: selectedPrice,
                 currency: 'XAF',
                 contentName: produit,
-                contentIds: ['montre-connectee-a58-plus'],
+                contentIds: ['masque-collagene-medicube'],
                 phone: tel,
                 firstName: nom,
                 city: ville,
@@ -1653,7 +1746,21 @@ loadProductsFromFirebase().then((ok) => {
 });
 listenToProductsChanges();
 
-console.log('✅ montre-connectee-a58-plus.html prêt (10 avis)');
+
+// Outil de diagnostic vidéo : taper  diagVideo()  dans la Console (F12)
+window.diagVideo = async function() {
+    const v = document.getElementById('productVideo');
+    const url = (v.querySelector('source') || {}).src || '';
+    console.log('Lien enregistré dans Firebase (productData.video) :', productData && productData.video);
+    console.log('Lien actuellement utilisé :', url);
+    console.log('Erreur du lecteur :', v.error ? v.error.code + ' ' + (v.error.message || '') : 'aucune', '| networkState:', v.networkState, '| readyState:', v.readyState);
+    try {
+        const r = await fetch(url, { method: 'HEAD' });
+        console.log('Réponse du serveur :', r.status, r.statusText, '| type :', r.headers.get('content-type'), '| taille :', r.headers.get('content-length'));
+    } catch (e) { console.log('Le serveur ne répond pas ou bloque la demande :', e.message); }
+};
+
+console.log('✅ masque-collagene-medicube.html prêt (5 avis)');
 </script>
 
 <a class="whatsapp" href="https://wa.me/22896730066?text=Bonjour%20!%20%F0%9F%91%8B%20Je%20viens%20de%20visiter%20votre%20boutique%20en%20ligne%20et%20j%E2%80%99aimerais%20passer%20une%20commande%20s%E2%80%99il%20vous%20pla%C3%AEt.%20%F0%9F%9B%8D%EF%B8%8F" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
