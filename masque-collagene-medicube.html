@@ -441,11 +441,11 @@
                 <div class="alert-message"><i class="fas fa-exclamation-triangle"></i> <span id="alertMessageText">Merci de ne remplir ce formulaire que si vous êtes prêt(e) à recevoir votre commande, pour une livraison sans souci 🙏</span></div>
 
                 <div class="option active" data-qty="1" data-price="13000" id="option1">
-                    <div class="option-left"><img id="optionThumb1" src="images/1.webp" alt="1" loading="lazy" onerror="this.src='https://placehold.co/60x60/2e7d32/white?text=1'"><span>1 acheté</span></div>
+                    <div class="option-left"><img id="optionThumb1" alt="1" loading="lazy" onerror="this.src='https://placehold.co/60x60/2e7d32/white?text=1'"><span>1 acheté</span></div>
                     <div class="option-price" id="optionPrice1">13 000 FCFA</div>
                 </div>
                 <div class="option" data-qty="2" data-price="21000" id="option2">
-                    <div class="option-left"><img id="optionThumb2" src="images/1.webp" alt="2" loading="lazy" onerror="this.src='https://placehold.co/60x60/2e7d32/white?text=2'"><span>2 achetés</span></div>
+                    <div class="option-left"><img id="optionThumb2" alt="2" loading="lazy" onerror="this.src='https://placehold.co/60x60/2e7d32/white?text=2'"><span>2 achetés</span></div>
                     <div class="option-price" id="optionPrice2">21 000 FCFA <span class="small-save">(Économie)</span></div>
                 </div>
 
@@ -509,7 +509,7 @@
     <div class="row-block" id="block3">
         <div class="image-side" id="block3Side">
             <video id="productVideo" muted loop playsinline preload="none" style="width:100%;height:100%;object-fit:cover;display:block;">
-                <source src="videos/medicube.mp4" type="video/mp4">
+                <source type="video/mp4">
             </video>
         </div>
         <div class="text-side">
@@ -521,9 +521,9 @@
 </div>
 
 <!-- ===== BANNIÈRES ===== -->
-<div class="full-banner"><img id="banner1" src="images/medicube-4.jpg" alt="Commander maintenant" loading="lazy" onerror="this.src='https://placehold.co/1920x250/2e7d32/white?text=COMMANDER+MAINTENANT'"></div>
-<div class="full-banner"><img id="banner2" src="images/medicube-5.jpg" alt="Livraison offerte" loading="lazy" onerror="this.src='https://placehold.co/1920x250/2e7d32/white?text=Livraison+Offerte'"></div>
-<div class="centered-image"><img id="centeredImg" src="images/medicube-6.jpg" alt="Pack promotionnel" loading="lazy" onerror="this.src='https://placehold.co/900x400/2e7d32/white?text=Offre+Spéciale'"></div>
+<div class="full-banner"><img id="banner1" style="display:none" alt="Commander maintenant" loading="lazy" onerror="this.src='https://placehold.co/1920x250/2e7d32/white?text=COMMANDER+MAINTENANT'"></div>
+<div class="full-banner"><img id="banner2" style="display:none" alt="Livraison offerte" loading="lazy" onerror="this.src='https://placehold.co/1920x250/2e7d32/white?text=Livraison+Offerte'"></div>
+<div class="centered-image"><img id="centeredImg" style="display:none" alt="Pack promotionnel" loading="lazy" onerror="this.src='https://placehold.co/900x400/2e7d32/white?text=Offre+Spéciale'"></div>
 
 <!-- ===== AVIS ===== -->
 <div class="testimonials" id="testimonialsSection" style="display:none">
@@ -947,21 +947,16 @@ const defaultProduct = {
     "oldPrice2": 36000,
     "stock": 20,
     "category": "Beauté",
-    "images": [
-        "images/medicube-1.jpg"
-    ],
-    "img1": "images/medicube-1.jpg",
-    "img2": "images/medicube-2.jpg",
-    "img3": "images/medicube-3.jpg",
-    "img4": "images/medicube-4.jpg",
-    "img5": "images/medicube-5.jpg",
-    "img6": "images/medicube-6.jpg",
-    "imgCentered": "images/medicube-6.jpg",
-    "video": "videos/medicube.mp4",
-    "heroImages": [
-        "images/medicube-1.jpg",
-        "images/medicube-3.jpg"
-    ],
+    "images": [],
+    "img1": "",
+    "img2": "",
+    "img3": "",
+    "img4": "",
+    "img5": "",
+    "img6": "",
+    "imgCentered": "",
+    "video": "",
+    "heroImages": [],
     "title1": "😩 Boutons, taches, rides et peau terne ?",
     "desc1": "Acné, taches, premières rides, peau fatiguée : le visage montre vite les signes du temps et du stress. Le masque au collagène Medicube prend soin de ta peau pour aider à atténuer l'aspect de l'acné et des taches, et laisser un teint plus net et plus lisse, jour après jour.",
     "list1": "🌟 Atténue l'aspect de l'acné\n🌸 Atténue les taches du visage\n🧬 Action anti-âge\n✨ Peau plus nette et plus lisse",
@@ -974,9 +969,7 @@ const defaultProduct = {
     "titleCarousel": "✅ Une routine simple pour une peau plus nette",
     "descCarousel": "Facile à intégrer à ta routine de soins, le masque Medicube s'applique en quelques minutes. Les résultats varient selon chaque peau, mais l'hydratation et l'éclat se remarquent avec une utilisation régulière.",
     "listCarousel": "⭐ Hydratation et éclat naturel\n🧬 Collagène authentique Medicube\n💯 Satisfait ou remboursé sous 30 jours\n🚚 Livraison rapide partout au Togo",
-    "carouselImages": [
-        "images/medicube-1.jpg"
-    ],
+    "carouselImages": [],
     "alertMessage": "Merci de ne remplir ce formulaire que si vous êtes prêt(e) à recevoir votre commande, pour une livraison sans souci 🙏",
     "reviews": [],
     "faq": [
@@ -1016,6 +1009,35 @@ const defaultProduct = {
     "hidden": false,
     "urgence": "🔥 Produit authentique Medicube – stock limité !"
 };
+
+
+// ===== OUTILS IMAGES (affichage instantané, comme les pages montre) =====
+// Les liens Cloudinary de l'admin contiennent f_auto,q_auto : Cloudinary doit alors
+// fabriquer une version à la volée à la 1re demande (lent). On utilise directement
+// le fichier d'origine (déjà compressé), disponible tout de suite.
+const PH_IMG = 'data:image/svg+xml;utf8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="700" height="700"><rect width="100%" height="100%" fill="#f0f0ee"/></svg>');
+function cloudFast(u) {
+    if (typeof u === 'string' && u.indexOf('res.cloudinary.com') !== -1) {
+        return u.replace('/upload/f_auto,q_auto/', '/upload/');
+    }
+    return u;
+}
+// Affiche une image avec plusieurs secours : lien rapide -> lien enregistré -> fichier local par défaut
+function smartImg(el, src, fallback) {
+    if (!el) return;
+    const cands = [];
+    [cloudFast(src), src, fallback].forEach(function(x) { if (x && cands.indexOf(x) === -1) cands.push(x); });
+    if (!cands.length) { el.style.display = 'none'; return; }
+    el.style.display = '';
+    let i = 0;
+    el.onerror = function() {
+        i++;
+        if (i < cands.length) { el.src = cands[i]; }
+        else { el.onerror = null; el.removeAttribute('src'); el.style.visibility = 'hidden'; }
+    };
+    el.style.visibility = '';
+    el.src = cands[0];
+}
 
 let productData = null;
 
@@ -1203,33 +1225,44 @@ function renderProduct() {
 
     const video = document.getElementById('productVideo');
     if (p.video && video) {
-        // Vidéo Cloudinary : on utilise le fichier d'origine (sans f_auto,q_auto).
-        // La conversion à la volée n'est pas toujours prête à la 1re demande -> vidéo blanche.
-        let vsrc = p.video;
-        if (vsrc.indexOf('res.cloudinary.com') !== -1 && vsrc.indexOf('/video/upload/') !== -1) {
-            vsrc = vsrc.replace('/upload/f_auto,q_auto/', '/upload/');
+        // Liste des liens à essayer, dans l'ordre : si l'un échoue, on passe au suivant.
+        let candidates = [p.video];
+        if (p.video.indexOf('res.cloudinary.com') !== -1 && p.video.indexOf('/video/upload/') !== -1) {
+            const original = p.video.replace('/upload/f_auto,q_auto/', '/upload/');
+            const mp4 = original.replace('/upload/', '/upload/f_mp4,vc_h264,ac_aac,q_auto/');
+            candidates = [p.video, mp4, original];
         }
+        const key = candidates.join('|');
         const source = video.querySelector('source');
-        if (video.dataset.src !== vsrc) {
-            video.dataset.src = vsrc;
-            source.setAttribute('src', vsrc);
+        const startVideo = function() {
+            video.dataset.started = '1';
+            video.load();
+            video.play().catch(()=>{});
+        };
+        if (video.dataset.key !== key) {
+            video.dataset.key = key;
+            video._cands = candidates;
+            video._idx = 0;
             source.removeAttribute('type');
-            // Si la vidéo avait déjà démarré (ancien lien), on recharge avec le nouveau lien
-            if (video.dataset.started) {
-                video.load();
-                video.play().catch(()=>{});
-            }
+            source.setAttribute('src', candidates[0]);
+            if (video.dataset.started) startVideo();
+        }
+        if (!video.dataset.errBound) {
+            video.dataset.errBound = '1';
+            source.addEventListener('error', function() {
+                console.warn('[VIDEO] échec du lien :', source.getAttribute('src'));
+                if (video._cands && video._idx < video._cands.length - 1) {
+                    video._idx++;
+                    source.setAttribute('src', video._cands[video._idx]);
+                    startVideo();
+                }
+            });
         }
         if (!video.dataset.lazyBound) {
             video.dataset.lazyBound = '1';
             const io = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        video.dataset.started = '1';
-                        video.load();
-                        video.play().catch(()=>{});
-                        io.unobserve(video);
-                    }
+                    if (entry.isIntersecting) { startVideo(); io.unobserve(video); }
                 });
             }, { rootMargin: '300px' });
             io.observe(video);
@@ -1244,8 +1277,8 @@ function renderProduct() {
         if (thumbsEl) { thumbsEl.style.display = 'none'; thumbsEl.innerHTML = ''; }
         if (!main) return;
         const list = (images || []).filter(Boolean);
-        const mainImageSrc = list.length ? list[0] : img1;
-        main.src = mainImageSrc;
+        const mainImageSrc = list.length ? list[0] : ((p.images && p.images[0]) || p.img1 || '');
+        smartImg(main, mainImageSrc, (p.images && p.images[0]) || '');
         main.classList.remove('img-shimmer');
         // Les petites photos à côté de "1 acheté" / "2 achetés" montrent la même
         // image que la photo principale, pour rester cohérentes automatiquement.
@@ -1280,10 +1313,10 @@ function renderProduct() {
         const side = document.getElementById(`block${n}Side`);
         const img1 = document.getElementById(`block${n}Img`);
         const img2 = document.getElementById(`block${n}Img2`);
-        img1.src = mainSrc;
+        smartImg(img1, mainSrc, defaultProduct['img' + n]);
         img1.classList.remove('img-shimmer');
         if (secondSrc) {
-            img2.src = secondSrc;
+            smartImg(img2, secondSrc, '');
             img2.classList.remove('img-shimmer');
             img2.style.display = '';
             side.classList.add('two-images');
@@ -1301,7 +1334,7 @@ function renderProduct() {
             if (blockEl) blockEl.closest('.content-block').style.display = 'none';
             return;
         }
-        track.innerHTML = images.map((src, i) => `<img src="${src}" data-i="${i}" loading="lazy" alt="" onerror="this.style.display='none'">`).join('');
+        track.innerHTML = images.map((src, i) => `<img src="${cloudFast(src)}" data-i="${i}" loading="lazy" alt="" onerror="if(!this.dataset.t){this.dataset.t=1;this.src='${src}'}else{this.style.display='none'}">`).join('');
         blockEl.classList.toggle('single-image', images.length === 1);
 
         if (images.length > 1) {
@@ -1350,8 +1383,8 @@ function renderProduct() {
     // Miniatures du formulaire (1 acheté / 2 achetés) = 2e image du bloc 1
     // (si elle n'existe pas encore, on prend la 1re image du bloc 1)
     const optThumbSrc = p.img1b || img1;
-    document.querySelector('#option1 img').src = optThumbSrc;
-    document.querySelector('#option2 img').src = optThumbSrc;
+    smartImg(document.querySelector('#option1 img'), optThumbSrc, defaultProduct.img1);
+    smartImg(document.querySelector('#option2 img'), optThumbSrc, defaultProduct.img1);
 
     // Bloc 1
     document.getElementById('block1Title').textContent = p.title1 || defaultProduct.title1;
@@ -1428,9 +1461,9 @@ function renderProduct() {
         }
     }
 
-    if (p.img4) document.getElementById('banner1').src = p.img4;
-    if (p.img5) document.getElementById('banner2').src = p.img5;
-    if (p.imgCentered) document.getElementById('centeredImg').src = p.imgCentered;
+    if (p.img4) smartImg(document.getElementById('banner1'), p.img4, defaultProduct.img4);
+    if (p.img5) smartImg(document.getElementById('banner2'), p.img5, defaultProduct.img5);
+    if (p.imgCentered) smartImg(document.getElementById('centeredImg'), p.imgCentered, defaultProduct.imgCentered);
 
     const testimonialsGrid = document.getElementById('testimonialsGrid');
     if (p.reviews && p.reviews.length > 0) {
@@ -1712,6 +1745,20 @@ loadProductsFromFirebase().then((ok) => {
     if (!ok) { allProducts = defaultProducts; }
 });
 listenToProductsChanges();
+
+
+// Outil de diagnostic vidéo : taper  diagVideo()  dans la Console (F12)
+window.diagVideo = async function() {
+    const v = document.getElementById('productVideo');
+    const url = (v.querySelector('source') || {}).src || '';
+    console.log('Lien enregistré dans Firebase (productData.video) :', productData && productData.video);
+    console.log('Lien actuellement utilisé :', url);
+    console.log('Erreur du lecteur :', v.error ? v.error.code + ' ' + (v.error.message || '') : 'aucune', '| networkState:', v.networkState, '| readyState:', v.readyState);
+    try {
+        const r = await fetch(url, { method: 'HEAD' });
+        console.log('Réponse du serveur :', r.status, r.statusText, '| type :', r.headers.get('content-type'), '| taille :', r.headers.get('content-length'));
+    } catch (e) { console.log('Le serveur ne répond pas ou bloque la demande :', e.message); }
+};
 
 console.log('✅ masque-collagene-medicube.html prêt (5 avis)');
 </script>
