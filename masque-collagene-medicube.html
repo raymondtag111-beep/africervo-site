@@ -1018,7 +1018,7 @@ const defaultProduct = {
 let productData = null;
 
 function loadProductFromCache() {
-    const cached = localStorage.getItem('ecom_product_medicube_' + PRODUCT_ID);
+    const cached = localStorage.getItem('ecom_product_medicube_v2_' + PRODUCT_ID);
     if (cached) {
         try {
             productData = JSON.parse(cached);
@@ -1030,7 +1030,7 @@ function loadProductFromCache() {
 
 function saveProductToCache(product) {
     try {
-        localStorage.setItem('ecom_product_medicube_' + PRODUCT_ID, JSON.stringify(product));
+        localStorage.setItem('ecom_product_medicube_v2_' + PRODUCT_ID, JSON.stringify(product));
     } catch(e) {}
 }
 
