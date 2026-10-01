@@ -377,96 +377,77 @@
   },
   "14": {
     "id": 14,
-    "name": "Mini Fer à Repasser Portable",
-    "price": 9500,
-    "oldPrice": 17000,
+    "name": "Masque Collagène Medicube",
+    "price": 13000,
+    "oldPrice": 18000,
+    "price2": 21000,
+    "oldPrice2": 36000,
     "stock": 20,
-    "category": "Maison",
+    "category": "Beauté",
     "images": [
-      "images/fer-repasser-1.jpg"
+      "images/medicube-1.jpg"
     ],
-    "video": "videos/fer-repasser.mp4",
-    "description": "",
-    "title1": "👔 Marre des vêtements froissés avant de sortir ?",
-    "desc1": "Chemise froissée à la dernière minute, pli tenace sur une robe avant un rendez-vous... Ce mini fer à repasser portable chauffe rapidement et lisse tes vêtements en quelques minutes, à la maison comme en déplacement.",
-    "list1": "🔥 Chauffe rapide\n👕 Lisse efficacement les plis\n🧳 Format compact pour le sac\n🏠 Idéal maison et voyage",
-    "title2": "🪭 Une poignée pliable pour un rangement facile",
-    "desc2": "Sa poignée pliable réduit son encombrement pour le glisser facilement dans une valise, un sac de voyage ou un tiroir. Léger et simple à manier, il permet un repassage rapide sans sortir la planche à repasser.",
-    "list2": "🪭 Poignée pliable et compacte\n🧺 Repassage rapide sans planche\n🎒 Léger, idéal pour le voyage\n🧑‍💼 Pratique pour les retouches de dernière minute",
-    "title3": "✨ Des vêtements nets, en toute simplicité",
-    "desc3": "Convient à la plupart des tissus courants (coton, polyester...) pour un résultat net rapidement. Pratique au quotidien pour les petites retouches, les chemises de bureau ou les vêtements des enfants.",
-    "list3": "🧵 Convient à la plupart des tissus courants\n👨‍👩‍👧 Pratique pour toute la famille\n⚡ Faible consommation électrique\n💼 Parfait pour le bureau et les voyages",
-    "img1": "images/fer-repasser-1.jpg",
-    "img1b": "",
-    "img2": "images/fer-repasser-2.jpg",
-    "img2b": "",
-    "img3": "images/fer-repasser-3.jpg",
-    "img3b": "",
-    "img4": "images/fer-repasser-4.jpg",
-    "img5": "images/fer-repasser-5.jpg",
-    "img6": "images/fer-repasser-6.jpg",
-    "imgCentered": "images/fer-repasser-6.jpg",
-    "titleCarousel": "✅ Ils l'utilisent déjà à la maison et en voyage",
-    "descCarousel": "Découvre les retours de nos clients togolais qui utilisent déjà leur mini fer à repasser portable.",
-    "listCarousel": "⭐ Vêtements nets en quelques minutes\n💯 Satisfait ou remboursé sous 30 jours\n🚚 Livraison rapide partout au Togo",
+    "img1": "images/medicube-1.jpg",
+    "img2": "images/medicube-2.jpg",
+    "img3": "images/medicube-3.jpg",
+    "img4": "images/medicube-4.jpg",
+    "img5": "images/medicube-5.jpg",
+    "img6": "images/medicube-6.jpg",
+    "imgCentered": "images/medicube-6.jpg",
+    "video": "videos/medicube.mp4",
+    "title1": "😩 Boutons, taches, rides et peau terne ?",
+    "desc1": "Acné, taches, premières rides, peau fatiguée : le visage montre vite les signes du temps et du stress. Le masque au collagène Medicube prend soin de ta peau pour aider à atténuer l'aspect de l'acné et des taches, et laisser un teint plus net et plus lisse, jour après jour.",
+    "list1": "🌟 Atténue l'aspect de l'acné\n🌸 Atténue les taches du visage\n🧬 Action anti-âge\n✨ Peau plus nette et plus lisse",
+    "title2": "💧 Hydratation profonde, peau lisse et éclat naturel",
+    "desc2": "Grâce au collagène, la peau est hydratée en profondeur : fini la sensation de peau sèche ou déshydratée. Le masque aide à lisser le grain de peau, à atténuer l'aspect des rides et des taches, et redonne au visage un éclat naturel, avec une action anti-âge au quotidien.",
+    "list2": "💧 Hydratation en profondeur\n🧬 Action anti-âge et anti-rides\n🌸 Atténue les taches\n🌞 Éclat naturel de la peau",
+    "title3": "🧪 Composition douce et produit 100 % authentique",
+    "desc3": "Une formule à base de collagène, pensée pour prendre soin de la peau sans l'agresser. Selon les informations du fabricant, ce n'est pas un produit dépigmentant : il n'abîme pas la peau, il l'hydrate et révèle son éclat naturel. C'est le véritable Medicube, l'original, pas une imitation.",
+    "list3": "🧬 Collagène hydratant\n🌿 Formule douce pour la peau\n🚫 Ne dépigmente pas\n✅ Produit authentique Medicube",
+    "titleCarousel": "✅ Une routine simple pour une peau plus nette",
+    "descCarousel": "Facile à intégrer à ta routine de soins, le masque Medicube s'applique en quelques minutes. Les résultats varient selon chaque peau, mais l'hydratation et l'éclat se remarquent avec une utilisation régulière.",
+    "listCarousel": "⭐ Hydratation et éclat naturel\n🧬 Collagène authentique Medicube\n💯 Satisfait ou remboursé sous 30 jours\n🚚 Livraison rapide partout au Togo",
     "carouselImages": [
-      "images/fer-repasser-1.jpg"
+      "images/medicube-1.jpg"
     ],
     "alertMessage": "Merci de ne remplir ce formulaire que si vous êtes prêt(e) à recevoir votre commande, pour une livraison sans souci 🙏",
-    "reviews": [
-      {
-        "stars": 5,
-        "text": "Très pratique, je l'utilise avant de partir au bureau.",
-        "author": "Koffi A., Lomé"
-      },
-      {
-        "stars": 4.5,
-        "text": "Compact et léger, je le prends en voyage.",
-        "author": "Nadia B., Adidogomé"
-      },
-      {
-        "stars": 5,
-        "text": "Chauffe vite, parfait pour une retouche rapide.",
-        "author": "Esso S., Kara"
-      },
-      {
-        "stars": 4.5,
-        "text": "Bon rapport qualité prix pour un usage occasionnel.",
-        "author": "Jean-Marc D., Agoè"
-      },
-      {
-        "stars": 5,
-        "text": "Simple à utiliser, il se range facilement.",
-        "author": "Yves K., Sokodé"
-      }
-    ],
+    "reviews": [],
     "faq": [
       {
         "q": "Livraison gratuite ?",
-        "a": "Oui, livraison 100% gratuite partout à Lomé. Vers l'intérieur du pays, les frais commencent à partir de 500 FCFA selon la localité."
+        "a": "Oui, livraison 100% gratuite partout à Lomé. Vers l'intérieur du pays, les frais commencent à partir de 500 FCFA selon la localité. Pour le suivi, vous serez informé(e) de l'avancement de votre livraison directement sur WhatsApp."
       },
       {
         "q": "Paiement à la livraison ?",
         "a": "Oui, paiement à la livraison (cash, Mobile Money, carte)."
       },
       {
+        "q": "Le produit est-il authentique ?",
+        "a": "Oui, c'est le masque collagène Medicube original, fourni par l'entreprise. Vous le recevez et vous payez à la livraison."
+      },
+      {
+        "q": "Convient-il à tous les types de peau ?",
+        "a": "Il est conçu pour prendre soin de la peau avec une formule douce. En cas de peau très sensible, faites d'abord un test sur une petite zone."
+      },
+      {
+        "q": "Comment l'utiliser ?",
+        "a": "Suivez le mode d'emploi indiqué sur l'emballage : appliquez le masque sur le visage propre et sec, laissez poser le temps indiqué, puis retirez-le."
+      },
+      {
+        "q": "Quand voit-on les résultats ?",
+        "a": "Cela dépend de chaque peau. L'hydratation et l'éclat se remarquent assez vite, et les effets sur l'acné, les taches et les rides se constatent avec une utilisation régulière."
+      },
+      {
         "q": "Garantie satisfait ou remboursé ?",
         "a": "Oui, sous 30 jours si le produit n'a pas été entièrement utilisé."
       },
       {
-        "q": "Convient-il à tous les tissus ?",
-        "a": "Il convient à la plupart des tissus courants comme le coton et le polyester. Pour les tissus délicats, testez d'abord sur une petite zone."
-      },
-      {
-        "q": "Est-il facile à utiliser ?",
-        "a": "Oui, il chauffe rapidement et se manie facilement grâce à sa poignée pliable, sans réglages compliqués."
-      },
-      {
-        "q": "Le produit ne fonctionne pas ou ne correspond pas à la description ?",
+        "q": "Le produit ne correspond pas à la description ?",
         "a": "Nous proposons un échange sous 24h. Contactez-nous immédiatement via WhatsApp avec une photo du produit reçu."
       }
     ],
-    "urgence": "🔥 Idéal pour la rentrée et les voyages – stock limité !",
-    "hidden": false
+    "hidden": false,
+    "urgence": "🔥 Produit authentique Medicube – stock limité !",
+    "description": ""
   }
 }
