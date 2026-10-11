@@ -2145,7 +2145,11 @@
                     </div>
                     <div class="stat-card" style="padding:12px 16px;border-left:3px solid var(--ink-500);">
                         <div class="stat-number" style="font-size:18px;" id="orderPendingBadge">0</div>
-                        <div class="stat-label" style="font-size:12px;">En attente</div>
+                        <div class="stat-label" style="font-size:12px;">À confirmer</div>
+                    </div>
+                    <div class="stat-card" style="padding:12px 16px;border-left:3px solid var(--gold-500);">
+                        <div class="stat-number" style="font-size:18px;" id="orderConfirmedBadge">0</div>
+                        <div class="stat-label" style="font-size:12px;">Confirmées</div>
                     </div>
                     <div class="stat-card" style="padding:12px 16px;border-left:3px solid var(--success);">
                         <div class="stat-number" style="font-size:18px;" id="orderDeliveredBadge">0</div>
@@ -2163,8 +2167,9 @@
                         <div class="card-actions">
                             <select id="orderFilter" style="padding:6px 12px;border-radius:var(--radius-sm);border:1px solid var(--border);font-family:'Inter',sans-serif;font-size:13px;background:var(--surface);color:var(--ink-900);">
                                 <option value="all">Tous les statuts</option>
-                                <option value="pending">⏳ En attente</option>
-                                <option value="delivered">✅ Livrée</option>
+                                <option value="pending">📞 À confirmer</option>
+                                <option value="confirmed">✅ Confirmée</option>
+                                <option value="delivered">🚚 Livrée</option>
                                 <option value="cancelled">❌ Annulée</option>
                             </select>
                             <button class="btn btn-primary btn-sm" onclick="loadOrders()">
@@ -2172,6 +2177,9 @@
                             </button>
                             <button class="btn btn-outline btn-sm" onclick="exportOrders()">
                                 <i class="fas fa-file-export"></i> Exporter
+                            </button>
+                            <button class="btn btn-outline btn-sm" onclick="openBlacklistModal()" style="color:var(--danger, #e11d48);border-color:var(--danger, #e11d48);">
+                                <i class="fas fa-ban"></i> Liste noire <span id="blacklistCountBadge">0</span>
                             </button>
                         </div>
                     </div>
@@ -2553,6 +2561,18 @@
     <!-- ========================================
     MODAL PRODUIT
     ======================================== -->
+    <div class="modal-overlay" id="blacklistModal" onclick="if(event.target===this)closeBlacklistModal()">
+        <div class="modal" style="max-width:560px;">
+            <div class="modal-header">
+                <h2><i class="fas fa-ban" style="color:var(--danger, #e11d48);"></i> Liste noire</h2>
+                <button class="close-btn" onclick="closeBlacklistModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="blacklistModalBody" style="overflow-y:auto;"></div>
+        </div>
+    </div>
+
     <div class="modal-overlay" id="productModal">
         <div class="modal" id="productModalContent">
             <div class="modal-header">
@@ -2834,7 +2854,8 @@
         }
 
         function normalizeStatus(raw) {
-            if (raw === 'pending' || raw === 'delivered' || raw === 'cancelled') return raw;
+            if (raw === 'pending' || raw === 'confirmed' || raw === 'delivered' || raw === 'cancelled') return raw;
+            if (raw === 'confirmee' || raw === 'confirmée') return 'confirmed';
             if (raw === 'livree' || raw === 'livrée') return 'delivered';
             if (raw === 'annulee' || raw === 'annulée') return 'cancelled';
             return 'pending'; // couvre "non livre" (valeur par défaut écrite par les pages produits)
@@ -2842,6 +2863,7 @@
 
         function listenToOrders() {
             if (typeof firebase === 'undefined') return;
+            startBlacklistListeners();
             const db = firebase.firestore();
             if (ordersUnsubscribe) ordersUnsubscribe();
             ordersUnsubscribe = db.collection('commandes').orderBy('date', 'desc').onSnapshot((snapshot) => {
@@ -2859,6 +2881,8 @@
                         total: d.total || 0,
                         note: d.note || d.commentaire || d.message || d.remarque || '',
                         status: normalizeStatus(d.status),
+                        telNorm: d.telNorm || '',
+                        metaSent: d.metaSent === true,
                         date: d.date ? new Date(d.date) : new Date()
                     };
                 });
@@ -2895,13 +2919,15 @@
             }
 
             const statusMap = {
-                'pending': { class: 'danger', label: '⏳ En attente' },
-                'delivered': { class: 'success', label: '✅ Livrée' },
+                'pending': { class: 'danger', label: '📞 À confirmer' },
+                'confirmed': { class: 'info', label: '✅ Confirmée' },
+                'delivered': { class: 'success', label: '🚚 Livrée' },
                 'cancelled': { class: 'danger', label: '❌ Annulée' }
             };
 
             document.getElementById('orderTotalBadge').textContent = orders.length;
             document.getElementById('orderPendingBadge').textContent = orders.filter(o => o.status === 'pending').length;
+            document.getElementById('orderConfirmedBadge').textContent = orders.filter(o => o.status === 'confirmed').length;
             document.getElementById('orderDeliveredBadge').textContent = orders.filter(o => o.status === 'delivered').length;
             document.getElementById('orderCancelledBadge').textContent = orders.filter(o => o.status === 'cancelled').length;
             document.getElementById('orderBadge').textContent = orders.filter(o => o.status === 'pending').length;
@@ -2930,13 +2956,16 @@
                         <td>${order.produit} <span style="font-size:12px;color:var(--ink-500);">×${order.quantite}</span></td>
                         <td style="max-width:160px;font-size:13px;">${order.note ? escapeHtml(order.note) : '<span style="color:var(--ink-500);">—</span>'}</td>
                         <td><strong>${order.total.toLocaleString('fr-FR')} FCFA</strong></td>
-                        <td><span class="status-badge ${s.class}"><span class="dot"></span> ${s.label}</span></td>
+                        <td><span class="status-badge ${s.class}"><span class="dot"></span> ${s.label}</span>${order.metaSent ? '<div style="font-size:10.5px;color:var(--success);margin-top:3px;">Meta ✓ envoyé</div>' : ''}</td>
                         <td style="font-size:12px;color:var(--ink-500);">${date}</td>
                         <td>
                             <div style="display:flex;gap:6px;align-items:center;">
                                 <select onchange="updateOrderStatus('${order.id}', this.value)" style="padding:3px 6px;border-radius:4px;border:1px solid var(--border);font-size:11px;font-family:'Inter',sans-serif;background:var(--surface);color:var(--ink-900);">
                                     ${statusOptions}
                                 </select>
+                                <button class="btn btn-outline btn-sm" title="Ajouter à la liste noire" onclick="blacklistFromOrder('${order.id}')" style="padding:4px 8px;color:var(--ink-700, #444);">
+                                    <i class="fas fa-ban"></i>
+                                </button>
                                 <button class="btn btn-outline btn-sm" title="Supprimer la commande" onclick="deleteOrder('${order.id}')" style="padding:4px 8px;color:var(--danger, #e11d48);border-color:var(--danger, #e11d48);">
                                     <i class="fas fa-trash"></i>
                                 </button>
@@ -2965,7 +2994,61 @@
             }
         }
 
+        // ---- Clé admin (saisie une fois par appareil, jamais écrite dans le code) ----
+        function getAdminKey(forcePrompt) {
+            let key = '';
+            try { key = localStorage.getItem('africervoAdminApiKey') || ''; } catch (e) {}
+            if (!key || forcePrompt) {
+                key = (prompt('Clé admin (ADMIN_API_KEY de Netlify) :') || '').trim();
+                if (key) { try { localStorage.setItem('africervoAdminApiKey', key); } catch (e) {} }
+            }
+            return key;
+        }
+
+        async function adminAction(payload) {
+            let key = getAdminKey(false);
+            if (!key) return { ok: false, error: 'Clé admin requise.' };
+            for (let attempt = 0; attempt < 2; attempt++) {
+                let res, data = {};
+                try {
+                    res = await fetch('/.netlify/functions/admin-actions', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', 'x-admin-key': key },
+                        body: JSON.stringify(payload)
+                    });
+                    data = await res.json().catch(() => ({}));
+                } catch (e) {
+                    return { ok: false, error: 'Connexion impossible.' };
+                }
+                if (res.status === 401 && attempt === 0) {
+                    try { localStorage.removeItem('africervoAdminApiKey'); } catch (e) {}
+                    key = getAdminKey(true);
+                    if (!key) return { ok: false, error: 'Clé admin requise.' };
+                    continue;
+                }
+                return data.ok ? data : { ok: false, error: data.error || ('Erreur ' + res.status) };
+            }
+            return { ok: false, error: 'Clé admin invalide.' };
+        }
+
+        async function confirmOrderWithMeta(orderId) {
+            const order = orders.find(o => o.id === orderId);
+            const label = order ? (order.client.nom + ' — ' + order.produit) : orderId;
+            if (!confirm('Confirmer cette commande ?\n' + label + '\n\nMeta recevra un achat. Cette action ne peut pas être annulée côté Meta.')) {
+                loadOrders(); // remet le sélecteur sur l'ancien statut
+                return;
+            }
+            const r = await adminAction({ action: 'confirm', orderId });
+            if (r.ok) {
+                showToast('success', 'Commande confirmée', r.already ? 'Déjà envoyée à Meta, rien de renvoyé.' : 'Achat envoyé à Meta.');
+            } else {
+                showToast('error', 'Confirmation impossible', r.error);
+                loadOrders();
+            }
+        }
+
         function updateOrderStatus(orderId, status) {
+            if (status === 'confirmed') { confirmOrderWithMeta(orderId); return; }
             const db = firebase.firestore();
             db.collection('commandes').doc(orderId).update({ status: status })
                 .then(() => {
@@ -2976,6 +3059,84 @@
                     console.warn('Erreur de mise à jour du statut:', error);
                     showToast('error', 'Erreur', 'Impossible de mettre à jour le statut');
                 });
+        }
+
+        async function blacklistFromOrder(orderId) {
+            const order = orders.find(o => o.id === orderId);
+            if (!order) return;
+            if (!confirm('Ajouter ' + order.client.nom + ' (' + order.client.telephone + ') à la liste noire ?\nCe numéro ne pourra plus jamais commander sur aucune page de la boutique.')) return;
+            const r = await adminAction({ action: 'blacklist_add', tel: order.client.telephone, nom: order.client.nom, orderId });
+            if (r.ok) showToast('success', 'Liste noire', 'Numéro ajouté : ' + r.telNorm);
+            else showToast('error', 'Liste noire', r.error);
+        }
+
+        let blacklistItems = [], blockedItems = [], blacklistUnsub = null, blockedUnsub = null;
+
+        function startBlacklistListeners() {
+            if (typeof firebase === 'undefined' || blacklistUnsub) return;
+            const db = firebase.firestore();
+            blacklistUnsub = db.collection('blacklist').onSnapshot((snap) => {
+                blacklistItems = snap.docs.map(d => Object.assign({ id: d.id }, d.data()))
+                    .sort((a, b) => String(b.addedAt || '').localeCompare(String(a.addedAt || '')));
+                const badge = document.getElementById('blacklistCountBadge');
+                if (badge) badge.textContent = blacklistItems.length;
+                renderBlacklistModal();
+            }, (e) => console.warn('Liste noire:', e));
+            blockedUnsub = db.collection('blocked_attempts').orderBy('date', 'desc').limit(50).onSnapshot((snap) => {
+                blockedItems = snap.docs.map(d => d.data());
+                renderBlacklistModal();
+            }, (e) => console.warn('Tentatives bloquées:', e));
+        }
+
+        function openBlacklistModal() {
+            startBlacklistListeners();
+            document.getElementById('blacklistModal').classList.add('show');
+            renderBlacklistModal();
+        }
+        function closeBlacklistModal() {
+            document.getElementById('blacklistModal').classList.remove('show');
+        }
+
+        function renderBlacklistModal() {
+            const box = document.getElementById('blacklistModalBody');
+            if (!box || !document.getElementById('blacklistModal').classList.contains('show')) return;
+            const fmt = (iso) => iso ? new Date(iso).toLocaleString('fr-FR') : '';
+            const reasonLabel = { blacklist: '🚫 Liste noire', duplicate: '🔁 Doublon' };
+            let html = '<div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;">' +
+                '<input id="blacklistNewTel" type="tel" placeholder="Ajouter un numéro (ex : 90123456)" style="flex:1;min-width:180px;padding:9px 12px;border:1px solid var(--border);border-radius:8px;font-size:14px;">' +
+                '<button class="btn btn-primary btn-sm" onclick="addBlacklistManual()"><i class="fas fa-plus"></i> Ajouter</button></div>';
+            html += '<h4 style="margin:6px 0 8px;">Numéros bloqués (' + blacklistItems.length + ')</h4>';
+            if (!blacklistItems.length) html += '<p style="color:var(--ink-500);font-size:13px;">Aucun numéro.</p>';
+            blacklistItems.forEach(b => {
+                html += '<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);">' +
+                    '<div><strong>' + escapeHtml(b.telNorm || b.id) + '</strong> <span style="color:var(--ink-500);font-size:12.5px;">' + escapeHtml(b.nom || '') + '</span>' +
+                    '<div style="font-size:11.5px;color:var(--ink-500);">' + escapeHtml(fmt(b.addedAt)) + '</div></div>' +
+                    '<button class="btn btn-outline btn-sm" onclick="removeFromBlacklist(\'' + escapeHtml(b.id) + '\')">Retirer</button></div>';
+            });
+            html += '<h4 style="margin:18px 0 8px;">Dernières tentatives bloquées (' + blockedItems.length + ')</h4>';
+            if (!blockedItems.length) html += '<p style="color:var(--ink-500);font-size:13px;">Aucune tentative.</p>';
+            blockedItems.forEach(a => {
+                html += '<div style="padding:7px 0;border-bottom:1px solid var(--border);font-size:13px;">' +
+                    (reasonLabel[a.reason] || escapeHtml(a.reason || '')) + ' — <strong>' + escapeHtml(a.telNorm || '') + '</strong> ' + escapeHtml(a.nom || '') +
+                    '<div style="font-size:11.5px;color:var(--ink-500);">' + escapeHtml(a.produit || '') + ' · ' + escapeHtml(fmt(a.date)) + '</div></div>';
+            });
+            box.innerHTML = html;
+        }
+
+        async function addBlacklistManual() {
+            const input = document.getElementById('blacklistNewTel');
+            const tel = input ? input.value.trim() : '';
+            if (!tel) return;
+            const r = await adminAction({ action: 'blacklist_add', tel });
+            if (r.ok) { showToast('success', 'Liste noire', 'Numéro ajouté : ' + r.telNorm); if (input) input.value = ''; }
+            else showToast('error', 'Liste noire', r.error);
+        }
+
+        async function removeFromBlacklist(telNorm) {
+            if (!confirm('Retirer ' + telNorm + ' de la liste noire ?')) return;
+            const r = await adminAction({ action: 'blacklist_remove', telNorm });
+            if (r.ok) showToast('success', 'Liste noire', 'Numéro retiré.');
+            else showToast('error', 'Liste noire', r.error);
         }
 
         function deleteOrder(orderId) {

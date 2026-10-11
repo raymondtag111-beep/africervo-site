@@ -1515,72 +1515,85 @@ function getCookie(name) {
     return match ? match.pop() : '';
 }
 
+const PRODUCT_SLUG = 'ecouteur-buds3-pro';
+let orderSubmitting = false;
+
+function showOrderNotice(icon, title, message) {
+    const existing = document.querySelector('.error-modal-overlay');
+    if (existing) existing.remove();
+    const ov = document.createElement('div');
+    ov.className = 'error-modal-overlay show';
+    ov.innerHTML = `
+        <div class="error-modal-box">
+            <div class="error-logo">🌿 AfriCervo</div>
+            <div class="error-icon">${icon}</div>
+            <div class="error-title">${title}</div>
+            <div class="error-message">${message}</div>
+            <button class="error-btn" id="orderNoticeBtn">OK</button>
+        </div>`;
+    document.body.appendChild(ov);
+    document.getElementById('orderNoticeBtn').addEventListener('click', () => ov.remove());
+    ov.addEventListener('click', e => { if (e.target === ov) ov.remove(); });
+}
+
+// L'enregistrement de la commande passe par le serveur (numéro normalisé,
+// liste noire, anti-doublon 72 h). RIEN n'est envoyé à Meta ici : l'achat
+// part seulement quand la commande est « Confirmée » dans l'admin.
 async function submitOrder() {
-    if (!validateForm()) { return false; }
+    if (orderSubmitting) return false;
+    if (!validateForm()) return false;
     const nom = fullname.value.trim(), tel = phone.value.trim(), ville = city.value.trim();
     const note = document.getElementById('deliveryNote').value.trim();
     const produit = document.getElementById('productTitle').innerText.replace(/<img[^>]*>/, '').trim();
+    orderSubmitting = true;
     try {
-        const orderRef = await db.collection("commandes").add({
-            nom, tel, ville, note, produit,
-            quantite: selectedQty,
-            total: selectedPrice,
-            date: new Date().toISOString(),
-            status: "non livre"
+        const res = await fetch('/.netlify/functions/submit-order', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                nom, tel, ville, note, produit,
+                produitId: PRODUCT_SLUG,
+                quantite: selectedQty,
+                total: selectedPrice,
+                fbp: getCookie('_fbp'),
+                fbc: getCookie('_fbc'),
+                sourceUrl: window.location.href
+            })
         });
+        let data = {};
+        try { data = await res.json(); } catch (e) {}
 
-        // Declenche la notification push vers l'admin (n'empeche pas la commande si ca echoue)
-        const productImagePath = (productData && productData.images && productData.images[0]) || (typeof defaultProduct !== 'undefined' ? defaultProduct.images[0] : '');
-        const productImageUrl = productImagePath ? new URL(productImagePath, window.location.href).href : '';
+        if (!data.ok) {
+            if (data.reason === 'blacklist') {
+                showOrderNotice('🚫', 'Commande impossible', "Désolé, vous n'êtes pas éligible pour passer commande sur cette boutique.");
+            } else if (data.reason === 'duplicate') {
+                showOrderNotice('✅', 'Commande déjà enregistrée', 'Vous avez déjà commandé ce produit. Votre commande est bien enregistrée et nous vous appellerons très bientôt. Merci de patienter.');
+            } else if (data.reason === 'invalid_phone') {
+                showOrderNotice('⚠️', 'Numéro invalide', 'Merci de saisir un numéro de téléphone valide (8 chiffres).');
+            } else {
+                throw new Error('server');
+            }
+            return false;
+        }
+
+        // Notification push vers l'admin (n'empêche pas la commande si elle échoue)
+        const imgPath = (typeof productData !== 'undefined' && productData && productData.images && productData.images[0])
+            || (typeof defaultProduct !== 'undefined' && defaultProduct && defaultProduct.images ? defaultProduct.images[0] : '') || '';
+        const imageUrl = imgPath ? new URL(imgPath, window.location.href).href : '';
         fetch('/.netlify/functions/send-notification', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                orderId: orderRef.id,
-                clientName: nom,
-                total: selectedPrice,
-                produit: produit,
-                imageUrl: productImageUrl
-            })
-        }).catch(function() {});
-        const capiEventId = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : ('evt_' + Date.now() + '_' + Math.random().toString(36).slice(2));
-        if (typeof fbq !== 'undefined') {
-            fbq('track', 'Purchase', {
-                content_ids: ['ecouteur-buds3-pro'],
-                content_name: produit,
-                content_type: 'product',
-                quantity: selectedQty,
-                value: selectedPrice,
-                currency: 'XAF'
-            }, { eventID: capiEventId });
-        }
-        // Envoi côté serveur (Conversions API) en complément du Pixel navigateur,
-        // avec le même eventID pour que Meta déduplique les deux automatiquement.
-        fetch('/.netlify/functions/send-conversion', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                eventName: 'Purchase',
-                eventId: capiEventId,
-                eventSourceUrl: window.location.href,
-                value: selectedPrice,
-                currency: 'XAF',
-                contentName: produit,
-                contentIds: ['ecouteur-buds3-pro'],
-                phone: tel,
-                firstName: nom,
-                city: ville,
-                orderId: orderRef.id,
-                fbp: getCookie('_fbp'),
-                fbc: getCookie('_fbc')
-            })
-        }).catch(function() {});
+            body: JSON.stringify({ orderId: data.orderId, clientName: nom, total: selectedPrice, produit, imageUrl })
+        }).catch(() => {});
+
         showCustomNotification(nom, tel, ville, note, produit, selectedQty, selectedPrice);
         fullname.value = ''; phone.value = ''; city.value = ''; document.getElementById('deliveryNote').value = '';
         return true;
-    } catch(e) {
+    } catch (e) {
         alert("❌ Une erreur s'est produite. Vérifiez votre connexion Internet.");
         return false;
+    } finally {
+        orderSubmitting = false;
     }
 }
 
